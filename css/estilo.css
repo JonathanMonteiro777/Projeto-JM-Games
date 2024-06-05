@@ -1,0 +1,109 @@
+
+/*cabeçalho*/
+header img {
+    height: 70px;
+    width: 70px;
+}
+
+/*Conteudo principal*/
+
+
+/*banner*/
+
+#section-banners img {
+    height: 500px;
+}
+
+/*Produtos vendidos*/
+
+#section-vendidos {
+    text-align: center;
+}
+
+#section-vendidos h2 {
+    font-weight: bold;
+    padding: 20px;
+}
+
+#section-vendidos img {
+    height: 300px;
+    border-radius: 10px;
+}
+
+#section-vendidos .card {
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+#section-vendidos .preco {
+    color: #f00;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+
+/* Sobre o Desenvolvimento */
+#section-linguagens .list-group{
+     border: 1px solid #fff;
+     border-radius: 5px;
+     padding: 10px;
+}
+
+#section-linguagens .list-group-item {
+    border-bottom: #fff;  
+    padding: 10px;
+}
+
+#section-linguagens .list-group-item:last-child{
+    border-bottom: none; /* remove a borda inferior do ultimo item da lista */
+}
+
+/*Rodapé*/
+
+footer {
+    position: relative;
+    text-align: center;
+}
+
+footer p {
+    font-weight: bold;
+    padding: 10px;
+}
+
+/*Botão Voltar topo*/
+
+#voltar-topo {
+    position:fixed;
+    bottom: 5px;
+    right: 50px;
+}
+
+/* página de login  */
+
+#section-login {
+    margin-top: 100px;
+}
+
+#section-login h1 {
+    text-align: center;
+}
+
+#section-login input {
+    width: 100%;
+}
+
+/* Formulário de cadastro*/
+
+#section-cadastro {
+    padding: 50px;
+    text-align: center;
+    background-color: #fff;
+}
+
+#form-cadastrar {
+    padding: 50px;
+    display: none;
+}
+
