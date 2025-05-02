@@ -6,12 +6,17 @@ header img {
 }
 
 /*Conteudo principal*/
-
+.main-container {
+    max-width: 1500px;
+    margin: 0 auto;
+}
 
 /*banner*/
 
 #section-banners img {
     height: 500px;
+    max-width: 1500px;
+    
 }
 
 /*Produtos vendidos*/
