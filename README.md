@@ -8,7 +8,8 @@ O projeto simula um ambiente de e-commerce, com funcionalidades básicas como ba
 
 ## Funcionalidades
 
-**Página Home**
+### Página Home
+
 - **Banner Rotativo:** Exibe imagens e textos alternativos em um carrossel.
 - **Menu de Navegação:** Permite navegar pelas seções "Promoções", "Console", "Jogos" e "Login".
 - **Produtos Mais Vendidos:** Apresenta cards de produtos com imagem, descrição, preço e botão "Comprar".
@@ -16,6 +17,7 @@ O projeto simula um ambiente de e-commerce, com funcionalidades básicas como ba
 - **Seção "Sobre o Desenvolvimento":** Explica as tecnologias utilizadas no desenvolvimento da página inicial.
 
 **Página de Login**  
+
 - **Formulário de Login:** Permite que os usuários insiram seu nome de usuário e senha.
 - **Validação de Login:** Verifica se as credenciais de login estão corretas (implementada de forma simplificada).
 - **Botão "Cadastrar":** Exibe o formulário de cadastro.
@@ -23,6 +25,13 @@ O projeto simula um ambiente de e-commerce, com funcionalidades básicas como ba
 - **Botão "Cadastrar":** Simula o cadastro com alerta de sucesso e redirecionamento para a página Home.
 - **Botão "Voltar ao Topo":** Facilita a navegação rápida para o topo da página.
 - **Seção "Sobre o Desenvolvimento":** Explica as tecnologias utilizadas no desenvolvimento da página de login.
+
+### Novidades Recentes
+
+- **Melhorias no design:** A interface foi aprimorada com a adição de novas seções, incluindo a apresentação do site e mais informações sobre os produtos mais vendidos.
+- **Responsividade:** A responsividade foi otimizada para oferecer uma experiência mais fluída em dispositivos móveis e desktops.
+
+- **Integração do Carrossel Interativo:** O carrossel foi reformulado para proporcionar uma navegação mais intuitiva pelas promoções e novidades da loja.
 
 ## Linguagens Utilizadas
 
@@ -38,3 +47,4 @@ O projeto simula um ambiente de e-commerce, com funcionalidades básicas como ba
 
 - As funcionalidades de login e cadastro são apenas simulações e não estão conectadas a um banco de dados.
 - O projeto está em constante desenvolvimento e pode ser aprimorado com novas funcionalidades.
+- Novas seções de apresentação e melhorias no design da página Home foram implementadas recentemente.

@@ -9,18 +9,43 @@ function topo(){
 
 //Validação de Login
 function login(){
-    var logado = 0;
-    var usuario = document.getElementById("usuario").value;
-    usuario = usuario.toLowerCase();
-    var senha = document.getElementById("senha").value;
-    senha = senha.toLowerCase();
+    var usuario = document.getElementById("usuario-login").value;
+    var senha = document.getElementById("senha-login").value;
 
-    if( usuario == "lucas"  && senha == "123456"){
-        window.location = "index.html";
-        logado = 1;
-    }
- //Ativar alert no botão cadastrar
-    if(logado == 0){
+    let usuarios = JSON.parse(localStorage.getItem("usuarios") || "[]");
+    let logado = usuarios.find(u => u.usuario === usuario && u.senha === senha);
+
+    if(logado){
+        // Armazenar o nome do usuario logado no sessionStorage
+        sessionStorage.setItem("usuarioLogado", usuario);
+
+        window.location = "index.html"; // redirecionar para o index apos o login
+    } else {
         alert("Usuário ou senha incorretos");
     }
+}
+
+function cadastro(){
+    var usuario = document.getElementById("usuario-cadastro").value;
+    var email = document.getElementById("email").value;
+    var senha = document.getElementById("senha-cadastro").value;
+
+    if(usuario && email && senha){
+        let usuarios = JSON.parse(localStorage.getItem("usuarios") || "[]");
+
+        // Evita cadastros duplicados
+        if (usuarios.find(u => u.usuario === usuario)) {
+            alert("Usuário já existe!");
+            return;
+        }
+
+        usuarios.push({ usuario, email, senha });
+        localStorage.setItem("usuarios", JSON.stringify(usuarios));
+        alert("Cadastro realizado com sucesso!");
+        window.location = "index.html";
+    } else {
+        alert("Preencha todos os campos!");
+    }
+
+
 }
