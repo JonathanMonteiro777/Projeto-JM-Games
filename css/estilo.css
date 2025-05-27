@@ -1,114 +1,154 @@
 
-/*cabeçalho*/
+/* Variáveis Globais */
+:root {
+    /* Cores */
+    --cor-fundo: #ffffff;
+    --cor-texto: #1a1a1a;
+    --cor-primaria: #007bff;     
+    --cor-sucesso: #28a745;      
+    --cor-erro: #dc3545;         
+    --cor-borda: #e0e0e0;
+
+    /* Tipografia */
+    --fonte-principal: Arial, Helvetica, sans-serif;
+    --fonte-secundaria: 'Times New Roman', serif;
+
+    /* Tamanhos padrão */
+    --espacamento: 1rem;
+    --raio-borda: 0.5rem;
+    --sombra-leve: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* Tipografia e base */
+body {
+    font-family: var(--fonte-principal);
+    color: var(--cor-texto);
+    background-color: var(--cor-fundo);
+}
+
+h1, h2, h3 {
+    font-family: var(--fonte-secundaria);
+}
+
+
+/* cabeçalho */
 header img {
     height: 70px;
     width: 70px;
 }
 
-/*Conteudo principal*/
+/* Conteudo principal */
 .main-container {
-    max-width: 1500px;
-    margin: 0 auto;
+    max-width: 1440px;
+    margin: 20px auto;
 }
 
-/*banner*/
-
+/* banner */
 #section-banners img {
     height: 500px;
-    max-width: 1500px;
-    
+    max-width: 1440px;
+    width: 100%;
 }
 
-/*Produtos vendidos*/
+/* Apresentação */
+#section-apresentacao h2, 
+#section-apresentacao h3 {
+    font-weight: bold;
+    padding: var(--espacamento);
+}
 
+/* Produtos vendidos */
 #section-vendidos {
     text-align: center;
 }
 
 #section-vendidos h2 {
     font-weight: bold;
-    padding: 20px;
+    padding: var(--espacamento);
 }
 
 #section-vendidos img {
     height: 300px;
-    border-radius: 10px;
+    border-radius: var(--raio-borda);
 }
 
 #section-vendidos .card {
     margin: 5px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio-borda);
 }
 
 #section-vendidos .preco {
-    color: #f00;
+    color: var(--cor-erro);
     font-size: 18px;
     font-weight: bold;
 }
 
-
-
 /* Sobre o Desenvolvimento */
-#section-linguagens .list-group{
-     border: 1px solid #fff;
-     border-radius: 5px;
-     padding: 10px;
+#section-linguagens {
+    padding: 50px;
+    background-color: #f8f9fa;
 }
 
-#section-linguagens .list-group-item {
-    border-bottom: #fff;  
+#section-linguagens .list-group {
+    border: 1px solid var(--cor-fundo);
+    border-radius: var(--raio-borda);
     padding: 10px;
 }
 
-#section-linguagens .list-group-item:last-child{
-    border-bottom: none; /* remove a borda inferior do ultimo item da lista */
+#section-linguagens .list-group-item {
+    border-bottom: var(--cor-fundo);
+    padding: 10px;
+    font-size: 1em;
 }
 
-/*Rodapé*/
+#section-linguagens .list-group-item:last-child {
+    border-bottom: none;
+}
 
+/* Rodapé */
 footer {
     position: relative;
     text-align: center;
+    margin-top: 20px;
 }
 
 footer p {
     font-weight: bold;
-    padding: 10px;
+    padding: var(--espacamento);
 }
 
-/*Botão Voltar topo*/
-
+/* Botão Voltar topo */
 #voltar-topo {
-    position:fixed;
+    position: fixed;
     bottom: 5px;
-    right: 50px;
+    right: 20px;
 }
 
-/* página de login  */
-
+/* Página de login */
 #section-login {
     margin-top: 100px;
 }
 
 #section-login h1 {
     text-align: center;
+    font-weight: bold;
+    padding: var(--espacamento);
+    margin-bottom: 50px;
 }
 
 #section-login input {
     width: 100%;
 }
 
-/* Formulário de cadastro*/
-
+/* Formulário de cadastro */
 #section-cadastro {
     padding: 50px;
     text-align: center;
-    background-color: #fff;
+    background-color: var(--cor-fundo);
 }
 
 #form-cadastrar {
     padding: 50px;
     display: none;
 }
-
