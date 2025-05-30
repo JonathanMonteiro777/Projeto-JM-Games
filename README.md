@@ -36,8 +36,8 @@ O projeto simula um ambiente de e-commerce, com funcionalidades básicas como ba
 ## Linguagens Utilizadas
 
 - **HTML:** Estruturação do conteúdo do site, das páginas Home e Login, e de todos os elementos como formulários, menus, banners, cards, etc.
-- **CSS:** Estilização da interface do site utilizando o framework Bootstrap para responsividade e design moderno. 
-- **JavaScript/JQuery:** Interatividade do site, como o carrossel de banners, botão "Voltar ao Topo", validações dos formulários, e efeitos de mostrar/esconder elementos. 
+- **CSS:** Estilização da interface do site utilizando o framework Bootstrap para responsividade e design moderno
+- **JavaScript/JQuery:** Interatividade do site, como o carrossel de banners, botão "Voltar ao Topo", validações dos formulários, e efeitos de mostrar/esconder elementos
 
 ## Autor
 

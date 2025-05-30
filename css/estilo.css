@@ -2,7 +2,7 @@
 /* Variáveis Globais */
 :root {
     /* Cores */
-    --cor-fundo: #ffffff;
+    --cor-fundo: #f0f0f0;
     --cor-texto: #1a1a1a;
     --cor-primaria: #007bff;     
     --cor-sucesso: #28a745;      
@@ -122,7 +122,7 @@ footer p {
 #voltar-topo {
     position: fixed;
     bottom: 5px;
-    right: 20px;
+    right: 50px;
 }
 
 /* Página de login */
