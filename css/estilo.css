@@ -1,154 +1,200 @@
-
-/* Variáveis Globais */
 :root {
     /* Cores */
-    --cor-fundo: #f0f0f0;
-    --cor-texto: #1a1a1a;
-    --cor-primaria: #007bff;     
-    --cor-sucesso: #28a745;      
-    --cor-erro: #dc3545;         
-    --cor-borda: #e0e0e0;
+    --bs-primary: #1a73e8;
+    --bs-primary-rgb: 26, 115, 232;
+    --bs-secondary: #f4b400;
+    --bs-secondary-rgb: 244, 180, 0;
+    --bs-success: #28a745;
+    --bs-danger: #dc3545;
+    --bs-warning: #ffc107;
+    --bs-info: #0dcaf0;
+    --bs-light: #f8f9fa;
+    /* backgorund geral claro */
+    --bs-dark: #212529;
+    /* cor principal do texto */
+    --bs-body-color: var(--bs-dark);
+    --bs-body-bg: var(--bs-light);
 
     /* Tipografia */
-    --fonte-principal: Arial, Helvetica, sans-serif;
-    --fonte-secundaria: 'Times New Roman', serif;
-
-    /* Tamanhos padrão */
-    --espacamento: 1rem;
-    --raio-borda: 0.5rem;
-    --sombra-leve: 0 2px 5px rgba(0, 0, 0, 0.05);
+    --bs-font-sans-serif: 'Open Sans', sans-serif;
+    --bs-body-font-family: var(--bs-font-sans-serif);
+    --bs-heading-font-family: 'Montserrat', sans-serif;
 }
 
 /* Tipografia e base */
 body {
-    font-family: var(--fonte-principal);
-    color: var(--cor-texto);
-    background-color: var(--cor-fundo);
+    font-family: var(--bs-body-font-family);
+    line-height: 1.6;
 }
 
-h1, h2, h3 {
-    font-family: var(--fonte-secundaria);
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--bs-heading-font-family);
 }
+
+.lead {
+    font-size: 1.1rem;
+}
+
 
 
 /* cabeçalho */
-header img {
+header .navbar-brand img {
     height: 70px;
-    width: 70px;
-}
-
-/* Conteudo principal */
-.main-container {
-    max-width: 1440px;
-    margin: 20px auto;
+    width: auto;
+    max-width: 100%;
 }
 
 /* banner */
 #section-banners img {
-    height: 500px;
-    max-width: 1440px;
+    max-height: 500px;
+    object-fit: cover;
     width: 100%;
 }
 
-/* Apresentação */
-#section-apresentacao h2, 
-#section-apresentacao h3 {
-    font-weight: bold;
-    padding: var(--espacamento);
-}
-
-/* Produtos vendidos */
-#section-vendidos {
-    text-align: center;
-}
-
-#section-vendidos h2 {
-    font-weight: bold;
-    padding: var(--espacamento);
-}
-
+/*  Seção de Produtos (Novidades e Vendidos) */
+#section-novidades img,
 #section-vendidos img {
-    height: 300px;
-    border-radius: var(--raio-borda);
-}
-
-#section-vendidos .card {
-    margin: 5px;
-    border: 1px solid var(--cor-borda);
-    border-radius: var(--raio-borda);
+    max-height: 220px;
+    object-fit: cover;
+    width: 100%;
 }
 
 #section-vendidos .preco {
-    color: var(--cor-erro);
-    font-size: 18px;
+    font-size: 1.1rem;
     font-weight: bold;
-}
-
-/* Sobre o Desenvolvimento */
-#section-linguagens {
-    padding: 50px;
-    background-color: #f8f9fa;
-}
-
-#section-linguagens .list-group {
-    border: 1px solid var(--cor-fundo);
-    border-radius: var(--raio-borda);
-    padding: 10px;
-}
-
-#section-linguagens .list-group-item {
-    border-bottom: var(--cor-fundo);
-    padding: 10px;
-    font-size: 1em;
-}
-
-#section-linguagens .list-group-item:last-child {
-    border-bottom: none;
-}
-
-/* Rodapé */
-footer {
-    position: relative;
-    text-align: center;
-    margin-top: 20px;
-}
-
-footer p {
-    font-weight: bold;
-    padding: var(--espacamento);
 }
 
 /* Botão Voltar topo */
 #voltar-topo {
     position: fixed;
-    bottom: 5px;
-    right: 50px;
-}
-
-/* Página de login */
-#section-login {
-    margin-top: 100px;
-}
-
-#section-login h1 {
-    text-align: center;
-    font-weight: bold;
-    padding: var(--espacamento);
-    margin-bottom: 50px;
-}
-
-#section-login input {
-    width: 100%;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1030;
 }
 
 /* Formulário de cadastro */
-#section-cadastro {
-    padding: 50px;
-    text-align: center;
-    background-color: var(--cor-fundo);
-}
 
 #form-cadastrar {
-    padding: 50px;
     display: none;
+}
+
+/* Media queries para tablets e celulares */
+
+@media (max-width: 768px) {
+    #section-banners img {
+        max-height: 350px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.3rem;
+    }
+
+    h4 {
+        font-size: 1.1rem;
+    }
+
+    h5 {
+        font-size: 1rem;
+    }
+
+    #section-novidades img,
+    #section-vendidos img {
+        max-height: 180px;
+    }
+
+    .accordion-button,
+    .accordion-body {
+        font-size: 1rem;
+    }
+
+    footer {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    header .navbar-brand img {
+        height: 50px;
+    }
+
+    #section-banners img {
+        max-height: 250px;
+    }
+
+    .lead {
+        font-size: 0.8rem;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    h3 {
+        font-size: 1.1rem;
+    }
+
+    h4 {
+        font-size: 1rem;
+    }
+
+    h5 {
+        font-size: 0.9rem;
+    }
+
+    p {
+        font-size: 0.850rem;
+    }
+
+    #section-novidades img,
+    #section-vendidos img {
+        max-height: 160px;
+    }
+
+    .accordion-button,
+    .accordion-body {
+        font-size: 0.9rem;
+    }
+
+    footer {
+        padding: 10px;
+    }
+
+    #voltar-topo {
+        bottom: 8px;
+        right: 10px;
+        font-size: 0.6rem;
+        padding: 0.5rem 0.8rem;
+    }
+
+    /* secão beneficios para membros */
+     #beneficios-membro {
+        font-size: 0.9rem;
+    }
+
+    #botao-cadastrar button {
+        font-size: 0.9rem;
+    }
+
+    /* seção segurança e privacidade */
+    #seguranca-privacidade span {
+        font-size: 1rem;
+    }
+
 }
