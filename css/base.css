@@ -1,0 +1,61 @@
+/* ============================================================================
+   base.css - Estilos Base e Utilitários
+   Define estilos para o corpo do documento, tipografia global e classes
+   utilitárias para espaçamento, transições, sombras e texto.
+============================================================================ */
+
+/* Estilos Base */
+body {
+    font-family: var(--bs-body-font-family);
+    line-height: 1.6;
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--bs-heading-font-family);
+}
+
+.lead {
+    font-size: 1.1rem;
+}
+
+/* Classes Utilitárias */
+
+/* Espaçamento */
+.spacing-sm { margin-bottom: 0.5rem; }
+.spacing-md { margin-bottom: 1rem; }
+.spacing-lg { margin-bottom: 2rem; }
+.spacing-xl { margin-bottom: 3rem; }
+
+.p-sm { padding: 0.5rem; }
+.p-md { padding: 1rem; }
+.p-lg { padding: 1.5rem; }
+.p-xl { padding: 2rem; }
+
+/* Transições */
+.transition-fast { transition: all 0.2s ease; }
+.transition-normal { transition: all 0.3s ease; }
+.transition-slow { transition: all 0.5s ease; }
+
+/* Sombras */
+.shadow-light { box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+.shadow-medium { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); }
+.shadow-strong { box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); }
+
+/* Texto */
+.text-sm { font-size: 0.875rem; }
+.text-lg { font-size: 1.125rem; }
+.text-price {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+/* Fundos com Gradiente */
+.bg-gradient-light {
+    background: var(--gradient-light);
+}
+
+.bg-gradient-primary {
+    background: var(--gradient-primary);
+}

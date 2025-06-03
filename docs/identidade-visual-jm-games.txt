@@ -2,7 +2,7 @@
 🎮 IDENTIDADE VISUAL COMPLETA - JM GAMES
 ================================================================================
 Desenvolvido por: Jonathan Monteiro
-Data: Janeiro 2025
+Data: Junho 2025
 Versão: 1.0
 Framework Base: Bootstrap 5.2.2
 ================================================================================

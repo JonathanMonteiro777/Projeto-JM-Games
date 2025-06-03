@@ -7,7 +7,7 @@ Você é Cody, assistente de código da Sourcegraph. Estou trabalhando no projet
 📋 CONTEXTO DO PROJETO:
 - Nome: JM Games - Loja Virtual de Games
 - Objetivo: Projeto de portfólio para demonstrar habilidades front-end
-- Tecnologias: HTML5, CSS3, Bootstrap 5, JavaScript vanilla, jQuery
+- Tecnologias: HTML5, CSS3, Bootstrap 5, JavaScript , jQuery
 - Foco: Funcionalidades práticas que impressionem recrutadores
 
 🎨 IDENTIDADE VISUAL DEFINIDA:
@@ -17,7 +17,20 @@ Você é Cody, assistente de código da Sourcegraph. Estou trabalhando no projet
 - Estilo: Moderno, limpo, profissional, inspirado em grandes lojas
 
 📁 ESTRUTURA DE ARQUIVOS:
-jm-games/ |__index.html |__login.html |__css/ |__estilo.css(com variáveis CSS e responsividade completa) |__js/ |__script.js |__jquery-script.js |__img/ |__README.md
+jm-games/
+├── index.html
+├── login.html
+├── css/
+│   ├── _variables.css
+│   ├── base.css
+│   ├── components.css
+│   ├── layout.css
+│   ├── main.css (com responsividade completa e estilos principais)
+├── js/
+│   ├── script.js
+│   ├── jquery-script.js
+├── img/
+└── README.md
 
 
 ✅ FUNCIONALIDADES JÁ IMPLEMENTADAS NO CSS:

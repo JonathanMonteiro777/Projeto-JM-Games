@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,19 +11,25 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap"
     rel="stylesheet">
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="css/estilo.css">
+
+  <link rel="stylesheet" href="css/_variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
   <!-- cabeçalho -->
   <header>
-    <!-- ✅ MANTIDO: Bootstrap navbar + adicionada classe utilitária shadow-light -->
+    <!-- Bootstrap navbar + adicionada classe utilitária shadow-light -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-light">
       <div class="container-fluid">
-        <!-- ✅ MANTIDO: Logo responsivo já funciona com nossas variáveis CSS -->
+        <!-- Logo responsivo já funciona com nossas variáveis CSS -->
         <a class="navbar-brand" href="index.html">
           <img src="img/logo.png" alt="logo" class="transition-fast">
         </a>
@@ -46,9 +53,10 @@
             </li>
           </ul>
           <form class="d-flex" role="search">
-            <!-- ✅ MELHORADO: Adicionada transição suave no input -->
-            <input class="form-control me-2 transition-fast" type="search" placeholder="O que deseja buscar" aria-label="Search">
-            <!-- ✅ MELHORADO: Botão com classe gamer personalizada -->
+            <!--  MELHORADO: Adicionada transição suave no input -->
+            <input class="form-control me-2 transition-fast" type="search" placeholder="O que deseja buscar"
+              aria-label="Search">
+            <!--  MELHORADO: Botão com classe gamer personalizada -->
             <button class="btn btn-gamer" type="submit">Buscar</button>
           </form>
         </div>
@@ -58,7 +66,7 @@
 
   <main>
     <!-- section-banners -->
-    <!-- ✅ MANTIDO: Bootstrap carousel + adicionada sombra -->
+    <!--  MANTIDO: Bootstrap carousel + adicionada sombra -->
     <section id="section-banners" class="container-fluid shadow-medium">
       <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -69,22 +77,22 @@
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <!-- ✅ MELHORADO: Imagem com classe utilitária img-banner -->
-            <img src="img/banner1.PNG" class="d-block w-100 img-banner" alt="Venha comprar na nossa Loja">
+            <!-- MELHORADO: Imagem com classe utilitária img-banner -->
+            <img src="img/banner-1.jpg" class="d-block w-100 img-banner" alt="Venha comprar na nossa Loja">
             <div class="carousel-caption d-none d-md-block">
               <h5>Novidades Incríveis Chegando!</h5>
               <p class="text-lg">Fique por dentro dos últimos lançamentos e garanta os melhores jogos.</p>
             </div>
           </div>
           <div class="carousel-item">
-            <img src="img/banner2.PNG" class="d-block w-100 img-banner" alt="Promoção de produtos">
+            <img src="img/banner-2.jpg" class="d-block w-100 img-banner" alt="Promoção de produtos">
             <div class="carousel-caption d-none d-md-block">
               <h5>Promoções Que Você Não Pode Perder!</h5>
               <p class="text-lg">Descontos exclusivos em títulos selecionados. Corra e aproveite!</p>
             </div>
           </div>
           <div class="carousel-item">
-            <img src="img/banner3.PNG" class="d-block w-100 img-banner" alt="Várias novidades de produtos">
+            <img src="img/banner-3.jpg" class="d-block w-100 img-banner" alt="Várias novidades de produtos">
             <div class="carousel-caption d-none d-md-block">
               <h5>Sua Aventura Começa Aqui!</h5>
               <p class="text-lg">Os maiores sucessos e os futuros clássicos estão te esperando na JM Games.</p>
@@ -103,7 +111,7 @@
     </section>
 
     <!-- section-apresentacao -->
-    <!-- ✅ MELHORADO: Adicionado espaçamento com classes utilitárias -->
+    <!--  MELHORADO: Adicionado espaçamento com classes utilitárias -->
     <section id="section-apresentacao" class="container p-xl">
       <div class="row align-items-center">
         <div class="text-center">
@@ -113,28 +121,29 @@
       <div class="row spacing-lg">
         <div class="col-md-12 text-center">
           <h4>Descontos imperdíveis em jogos selecionados! Aproveite enquanto durarem os estoques!</h4>
-          <!-- ✅ MELHORADO: Botão com estilo gamer -->
+          <!--  MELHORADO: Botão com estilo gamer -->
           <a href="#section-vendidos" class="btn btn-gamer spacing-md">Ver Promoções</a>
         </div>
       </div>
     </section>
 
     <!-- section-novidades -->
-    <!-- ✅ MANTIDO: Bootstrap grid + melhorado com classes utilitárias -->
-    <section id="section-novidades" class="container-fluid py-5 bg-light">
+    <!--  MANTIDO: Bootstrap grid + melhorado com classes utilitárias -->
+    <section id="section-novidades" class="container-fluid py-5 bg-dark">
       <div class="container">
         <h2 class="text-center fw-bold mb-4">🆕 NOVIDADES EM JOGOS 🆕</h2>
         <p class="text-center mb-5 lead">Descubra os lançamentos mais esperados do mundo gamer!</p>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
           <div class="col">
-            <!-- ✅ MELHORADO: Card com classes utilitárias para hover e sombra -->
+            <!-- MELHORADO: Card com classes utilitárias para hover e sombra -->
             <div class="card product-card shadow-medium border border-primary product-hover transition-normal">
-              <!-- ✅ MELHORADO: Imagem com classe utilitária -->
+              <!-- MELHORADO: Imagem com classe utilitária -->
               <img src="img/elden-ring-shadows.jpg" class="card-img-top img-produto" alt="Elden Ring Shadows">
               <div class="card-body text-center d-flex flex-column">
                 <h5 class="card-title fw-bold">Elden Ring: Shadows</h5>
-                <p class="card-text flex-grow-1">Explore reinos sombrios e enfrente chefes épicos nesse novo capítulo aguardado por milhares de jogadores.</p>
-                <!-- ✅ MELHORADO: Botão com estilo gamer -->
+                <p class="card-text flex-grow-1">Explore reinos sombrios e enfrente chefes épicos nesse novo capítulo
+                  aguardado por milhares de jogadores.</p>
+                <!-- MELHORADO: Botão com estilo gamer -->
                 <a href="#" class="btn btn-gamer mt-auto">Ver Mais</a>
               </div>
             </div>
@@ -144,7 +153,8 @@
               <img src="img/cyberpunk-2077.jpg" class="card-img-top img-produto" alt="cyberpunk 2077">
               <div class="card-body text-center d-flex flex-column">
                 <h5 class="card-title fw-bold">Cyberpunk 2077</h5>
-                <p class="card-text flex-grow-1">Explore Night City com total liberdade e mergulhe no universo cyberpunk com atualizações incríveis.</p>
+                <p class="card-text flex-grow-1">Explore Night City com total liberdade e mergulhe no universo cyberpunk
+                  com atualizações incríveis.</p>
                 <a href="#" class="btn btn-gamer mt-auto">Ver Mais</a>
               </div>
             </div>
@@ -154,26 +164,28 @@
               <img src="img/final-fantasy-xvi.jpg" class="card-img-top img-produto" alt="Final Fantasy XVI">
               <div class="card-body text-center d-flex flex-column">
                 <h5 class="card-title fw-bold">Final Fantasy XVI</h5>
-                <p class="card-text flex-grow-1">Mergulhe em uma jornada épica com gráficos de última geração e uma narrativa envolvente.</p>
+                <p class="card-text flex-grow-1">Mergulhe em uma jornada épica com gráficos de última geração e uma
+                  narrativa envolvente.</p>
                 <a href="#" class="btn btn-gamer mt-auto">Ver Mais</a>
               </div>
             </div>
           </div>
         </div>
         <div class="text-center spacing-lg">
-          <a href="#section-catalogo" class="btn btn-gamer btn-lg">Ver Todos os Lançamentos</a>
+          <a href="#section-catalogo" class="btn btn-gamer btn-lg mt-4">Ver Todos os Lançamentos</a>
         </div>
       </div>
     </section>
 
     <!-- section-ranking -->
-    <!-- ✅ MANTIDO: Bootstrap list-group + melhorado com espaçamentos -->
+    <!-- MANTIDO: Bootstrap list-group + melhorado com espaçamentos -->
     <section id="section-ranking" class="container p-xl">
       <h2 class="text-center fw-bold mb-4">🏆 TOP 5 MAIS JOGADOS 🏆</h2>
-      <p class="text-center mb-5">Estes são os títulos que estão dominando os servidores e conquistando os corações dos gamers:</p>
+      <p class="text-center mb-5">Estes são os títulos que estão dominando os servidores e conquistando os corações dos
+        gamers:</p>
       <div class="row">
         <div class="col-md-6 mx-auto">
-          <!-- ✅ MELHORADO: Lista com sombra sutil -->
+          <!-- MELHORADO: Lista com sombra sutil -->
           <ul class="list-group shadow-light">
             <li class="list-group-item d-flex justify-content-between align-items-center transition-fast">
               <strong>1º - Call of Duty: Warzone</strong>
@@ -199,30 +211,32 @@
         </div>
       </div>
       <div class="text-center spacing-lg">
-        <a href="#section-catalogo" class="btn btn-gamer btn-lg">Ver Catálogo Completo</a>
+        <a href="#section-catalogo" class="btn btn-gamer btn-lg mt-4">Ver Catálogo Completo</a>
       </div>
     </section>
 
     <!-- section-vendidos -->
-    <!-- ✅ MANTIDO: Bootstrap grid + melhorado com classes utilitárias -->
-    <section id="section-vendidos" class="container-fluid py-5 bg-light">
+    <!-- MANTIDO: Bootstrap grid + melhorado com classes utilitárias -->
+    <section id="section-vendidos" class="container-fluid py-5 bg-dark">
       <div class="container">
         <h2 class="text-center fw-bold mb-4">🔥 OS MAIS VENDIDOS 🔥</h2>
         <p class="text-center mb-5">
-          Confira os jogos que estão fazendo história! Títulos imperdíveis que combinam qualidade, desafio e muita diversão para todas as plataformas.
+          Confira os jogos que estão fazendo história! Títulos imperdíveis que combinam qualidade, desafio e muita
+          diversão para todas as plataformas.
         </p>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           <div class="col">
-            <!-- ✅ MELHORADO: Card de produto otimizado -->
+            <!-- MELHORADO: Card de produto otimizado -->
             <div class="card product-card shadow-medium border border-primary product-hover transition-normal">
               <img src="img/the-last-of-us-part-ii.jpg" alt="The Last of Us Part II" class="card-img-top img-produto">
               <div class="card-body text-center d-flex flex-column">
                 <h5 class="card-title fw-bold">The Last of Us Part II</h5>
-                <p class="card-text flex-grow-1">Um dos jogos mais aclamados da geração com enredo emocionante e jogabilidade refinada.</p>
-                <!-- ✅ MELHORADO: Preço com classe utilitária -->
+                <p class="card-text flex-grow-1">Um dos jogos mais aclamados da geração com enredo emocionante e
+                  jogabilidade refinada.</p>
+                <!-- MELHORADO: Preço com classe utilitária -->
                 <p class="text-price text-success">R$ 98,00</p>
                 <p class="text-warning text-sm">⭐⭐⭐⭐☆ (4.5/5)</p>
-                                <a href="#" class="btn btn-gamer mt-auto">Comprar</a>
+                <a href="#" class="btn btn-gamer mt-auto">Comprar</a>
               </div>
             </div>
           </div>
@@ -231,7 +245,8 @@
               <img src="img/god-of-war-ragnarok.jpg" alt="God of War: Ragnarok" class="card-img-top img-produto">
               <div class="card-body text-center d-flex flex-column">
                 <h5 class="card-title fw-bold">God of War: Ragnarok</h5>
-                <p class="card-text flex-grow-1">A jornada de Kratos e Atreus continua em uma saga épica e cinematográfica.</p>
+                <p class="card-text flex-grow-1">A jornada de Kratos e Atreus continua em uma saga épica e
+                  cinematográfica.</p>
                 <p class="text-price text-success">R$ 149,90</p>
                 <p class="text-warning text-sm">⭐⭐⭐⭐⭐ (5/5)</p>
                 <a href="#" class="btn btn-gamer mt-auto">Comprar</a>
@@ -243,7 +258,8 @@
               <img src="img/spider-man-2.jpg" alt="Spider-man 2" class="card-img-top img-produto">
               <div class="card-body text-center d-flex flex-column">
                 <h5 class="card-title fw-bold">Spider-Man 2</h5>
-                <p class="card-text flex-grow-1">Aventure-se por Nova York com novos vilões, combates aprimorados e jogabilidade cinematográfica.</p>
+                <p class="card-text flex-grow-1">Aventure-se por Nova York com novos vilões, combates aprimorados e
+                  jogabilidade cinematográfica.</p>
                 <p class="text-price text-success">R$ 89,90</p>
                 <p class="text-warning text-sm">⭐⭐⭐⭐☆ (4.2/5)</p>
                 <a href="#" class="btn btn-gamer mt-auto">Comprar</a>
@@ -255,15 +271,15 @@
     </section>
 
     <!-- FAQ Section -->
-    <!-- ✅ MANTIDO: Bootstrap accordion + melhorado com espaçamentos -->
+    <!--  MANTIDO: Bootstrap accordion + melhorado com espaçamentos -->
     <section id="faq" class="container p-xl">
       <h2 class="text-center mb-4">Perguntas Frequentes</h2>
-      <!-- ✅ MELHORADO: Accordion com sombra -->
+      <!--  MELHORADO: Accordion com sombra -->
       <div class="accordion shadow-light" id="faqAccordion">
         <div class="accordion-item">
           <h2 class="accordion-header" id="faqHeading1">
-            <button class="accordion-button transition-fast" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1"
-              aria-expanded="true" aria-controls="faqCollapse1">
+            <button class="accordion-button transition-fast" type="button" data-bs-toggle="collapse"
+              data-bs-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1">
               Como posso comprar um jogo digital?
             </button>
           </h2>
@@ -338,19 +354,19 @@
   </main>
 
   <!-- botão voltar ao topo -->
-  <!-- ✅ MANTIDO: Funcionalidade original + melhorado visualmente -->
+  <!-- MANTIDO: Funcionalidade original + melhorado visualmente -->
   <button id="voltar-topo" type="button" class="btn btn-primary shadow-medium" onclick="topo()" title="Voltar ao topo">
     <i class="bi bi-arrow-up-circle-fill"></i>
   </button>
 
   <!-- rodapé -->
-  <!-- ✅ MANTIDO: Bootstrap footer + melhorado com transições -->
+  <!-- MANTIDO: Bootstrap footer + melhorado com transições -->
   <footer class="bg-dark text-white text-center py-3 mt-5">
     <div class="container">
       <p class="fw-bold mb-0">Desenvolvido por Jonathan Monteiro &copy; 2025</p>
       <p class="fw-bold mb-0">Todos os direitos reservados à JM Games.</p>
       <div class="social-icons mt-2">
-        <!-- ✅ MELHORADO: Ícones com transições suaves -->
+        <!-- MELHORADO: Ícones com transições suaves -->
         <a href="#" class="text-white mx-2 transition-fast"><i class="bi bi-instagram fs-4"></i></a>
         <a href="#" class="text-white mx-2 transition-fast"><i class="bi bi-linkedin fs-4"></i></a>
         <a href="#" class="text-white mx-2 transition-fast"><i class="bi bi-whatsapp fs-4"></i></a>
@@ -359,8 +375,8 @@
   </footer>
 </body>
 
-<script src="js/script.js"></script>
+<script type="module" src="js/main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-</html>
 
+</html>

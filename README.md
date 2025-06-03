@@ -47,6 +47,18 @@ Com o objetivo de aprimorar este projeto para o meu portfólio, realizei diversa
 - **Refatoração CSS:** Organização do código CSS com variáveis e agrupamento de media queries para maior manutenibilidade e padronização.
 - **Interatividade com jQuery:** Melhoria no controle do carrossel e feedback visual dos formulários para uma interação mais dinâmica e intuitiva.
 
+## ✅ **FUNCIONALIDADES JÁ IMPLEMENTADAS:**
+
+- Sistema de cores com variáveis CSS
+- Tipografia responsiva
+- Layout responsivo (768px e 576px breakpoints)
+- Componentes visuais: cards, botões, formulários
+- Hover effects e transições
+- **Modularização completa do JavaScript (utilizando ES6 Modules)**
+- **Sistema de Login e Cadastro funcional (com validação e persistência básica no localStorage)**
+- Funcionalidade de "Voltar ao Topo"
+- Notificações Toast para feedback ao usuário
+
 ## 🛠️ Tecnologias Utilizadas
 
 - **HTML5:** Estruturação semântica de todo o conteúdo do site.

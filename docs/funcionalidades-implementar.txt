@@ -87,6 +87,15 @@ Tecnologias: HTML5, CSS3, Bootstrap 5, JavaScript, jQuery
    - Atenção aos detalhes
    - UX avançada
 
+
+🚀 FUNCIONALIDADES PARA IMPLEMENTAR (PRIORIDADE):
+1. ✅ Carrinho funcional (localStorage)
+2. ✅ Sistema de favoritos (localStorage)
+3. ✅ Busca com filtros funcionais
+4. ✅ Validação de formulários (Concluído com a modularização do JS de Auth)
+5. ✅ Notificações toast (Implementado no domUtils.js)
+6. ⭐ Responsividade perfeita
+
 ================================================================================
 📱 CHECKLIST DE RESPONSIVIDADE (OBRIGATÓRIO)
 ================================================================================
