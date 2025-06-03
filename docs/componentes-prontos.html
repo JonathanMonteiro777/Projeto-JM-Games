@@ -1,0 +1,848 @@
+<!-- ============================================================================ -->
+<!-- 🧩 COMPONENTES PRONTOS PARA COPIAR - JM GAMES -->
+<!-- ============================================================================ -->
+
+<!-- 🛒 COMPONENTE: CARRINHO LATERAL (OFFCANVAS) -->
+<!-- Copie este código no final do body, antes dos scripts -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="carrinhoOffcanvas">
+    <div class="offcanvas-header bg-primary text-white">
+        <h5 class="offcanvas-title">
+            <i class="bi bi-cart3 me-2"></i>Meu Carrinho
+            <span class="badge bg-secondary ms-2" id="carrinho-contador">0</span>
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div id="carrinho-itens">
+            <!-- Itens serão inseridos aqui via JavaScript -->
+        </div>
+        <hr>
+        <div class="d-flex justify-content-between fw-bold fs-5">
+            <span>Total:</span>
+            <span id="carrinho-total" class="text-success">R$ 0,00</span>
+        </div>
+        <div class="d-grid gap-2 mt-3">
+            <button class="btn btn-gamer btn-lg">
+                <i class="bi bi-credit-card me-2"></i>Finalizar Compra
+            </button>
+            <button class="btn btn-outline-secondary" data-bs-dismiss="offcanvas">
+                Continuar Comprando
+            </button>
+            <button class="btn btn-outline-danger btn-sm" onclick="carrinho.limpar()">
+                <i class="bi bi-trash me-2"></i>Limpar Carrinho
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- 🔔 COMPONENTE: TOAST DE NOTIFICAÇÃO -->
+<!-- Copie este código no final do body -->
+<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1055;">
+    <div id="liveToast" class="toast" role="alert">
+        <div class="toast-header">
+            <i class="bi bi-controller text-primary me-2"></i>
+            <strong class="me-auto">JM Games</strong>
+            <small class="text-muted">agora</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Fechar"></button>
+        </div>
+        <div class="toast-body" id="toast-message">
+            Mensagem aqui
+        </div>
+    </div>
+</div>
+
+<!-- 🔍 COMPONENTE: BUSCA AVANÇADA -->
+<!-- Substitua a busca atual por este código -->
+<div class="col-md-6">
+    <div class="position-relative">
+        <div class="input-group">
+            <input class="form-control form-input" type="search" placeholder="Buscar jogos, consoles..." 
+                   id="busca-input" autocomplete="off">
+            <label for="categoria-filtro" class="visually-hidden">Filtrar por categoria</label>
+            <select class="form-select" id="categoria-filtro" style="max-width: 150px;" title="Filtrar por categoria">
+                <option value="todos">Todas</option>
+                <option value="jogos">Jogos</option>
+                <option value="consoles">Consoles</option>
+                <option value="acessorios">Acessórios</option>
+            </select>
+            <button class="btn btn-gamer" type="button" onclick="buscarProdutos()" title="Buscar">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+        <!-- Sugestões de busca -->
+        <div id="busca-sugestoes" class="position-absolute w-100 bg-white border rounded-bottom shadow-lg" 
+             style="top: 100%; z-index: 1000; display: none;">
+        </div>
+    </div>
+</div>
+
+<!-- 🎮 COMPONENTE: CARD DE PRODUTO COMPLETO -->
+<!-- Use este template para todos os produtos -->
+<div class="col-md-4 col-sm-6 mb-4">
+    <div class="card product-card shadow-medium border border-primary product-hover transition-normal h-100">
+        <div class="position-relative">
+            <img src="img/produtos/produto1.jpg" class="card-img-top img-produto" alt="Nome do Produto">
+            
+            <!-- Badge de desconto -->
+            <span class="badge bg-danger position-absolute top-0 end-0 m-2">-20%</span>
+            
+            <!-- Botão de favorito -->
+            <button class="btn btn-outline-light position-absolute top-0 start-0 m-2 btn-favorito" 
+                    onclick="favoritos.toggle({id: 1, nome: 'Produto', preco: 99.90, imagem: 'img/produto.jpg'})"
+                    data-produto-id="1"
+                    title="Adicionar aos favoritos">
+                <i class="bi bi-heart"></i>
+            </button>
+        </div>
+        
+        <div class="card-body text-center d-flex flex-column">
+            <h5 class="card-title fw-bold">Nome do Produto</h5>
+            <p class="card-text flex-grow-1 text-muted">Descrição do produto aqui...</p>
+            
+            <!-- Preços -->
+            <div class="pricing mb-3">
+                <span class="text-decoration-line-through text-muted">R$ 199,90</span>
+                <span class="text-price text-success ms-2 fs-5 fw-bold">R$ 159,90</span>
+            </div>
+            
+            <!-- Avaliação -->
+            <div class="mb-3">
+                <span class="text-warning">★★★★★</span>
+                <small class="text-muted">(128 avaliações)</small>
+            </div>
+            
+            <!-- Botões -->
+            <div class="d-grid gap-2">
+                <button class="btn btn-gamer" 
+                        onclick="carrinho.adicionar({id: 1, nome: 'Produto', preco: 159.90, imagem: 'img/produto.jpg'})">
+                    <i class="bi bi-cart-plus me-2"></i>Adicionar ao Carrinho
+                </button>
+                <button class="btn btn-outline-primary btn-sm" onclick="verDetalhes(1)">
+                    <i class="bi bi-eye me-2"></i>Ver Detalhes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 📱 COMPONENTE: MENU MOBILE FIXO -->
+<!-- Adicione no final do body -->
+<div class="mobile-bottom-nav d-lg-none">
+    <div class="container-fluid bg-primary text-white py-2 fixed-bottom">
+        <div class="row text-center">
+            <div class="col-3">
+                <a href="#" class="text-white text-decoration-none">
+                    <i class="bi bi-house-door fs-5 d-block"></i>
+                    <small>Início</small>
+                </a>
+            </div>
+            <div class="col-3">
+                <a href="#" class="text-white text-decoration-none" onclick="focarBusca()">
+                    <i class="bi bi-search fs-5 d-block"></i>
+                    <small>Buscar</small>
+                </a>
+            </div>
+            <div class="col-3">
+                <a href="#" class="text-white text-decoration-none position-relative" 
+                   data-bs-toggle="offcanvas" data-bs-target="#carrinhoOffcanvas">
+                    <i class="bi bi-cart3 fs-5 d-block"></i>
+                    <small>Carrinho</small>
+                    <span class="badge bg-danger position-absolute top-0 start-50 translate-middle" 
+                          id="mobile-carrinho-contador">0</span>
+                </a>
+            </div>
+            <div class="col-3">
+                <a href="login.html" class="text-white text-decoration-none">
+                    <i class="bi bi-person fs-5 d-block"></i>
+                    <small>Login</small>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 📝 COMPONENTE: FORMULÁRIO COM VALIDAÇÃO -->
+<!-- Use este template para login/cadastro -->
+<form id="form-login" class="needs-validation" novalidate>
+    <div class="form-group mb-3">
+        <label for="email" class="form-label fw-semibold">
+            <i class="bi bi-envelope-fill me-2 text-primary"></i>Email:
+        </label>
+        <input type="email" class="form-control form-input transition-fast" id="email" 
+               placeholder="seu@email.com" required>
+        <div class="invalid-feedback">
+            Por favor, insira um email válido.
+        </div>
+        <div class="valid-feedback">
+            Email válido!
+        </div>
+    </div>
+    
+    <div class="form-group mb-3">
+        <label for="senha" class="form-label fw-semibold">
+            <i class="bi bi-lock-fill me-2 text-primary"></i>Senha:
+        </label>
+        <div class="input-group">
+            <input type="password" class="form-control form-input transition-fast" id="senha" 
+                   placeholder="Sua senha" minlength="6" required>
+            <button class="btn btn-outline-secondary" type="button" onclick="toggleSenha()" title="Mostrar ou ocultar senha">
+                <i class="bi bi-eye" id="senha-icon"></i>
+            </button>
+        </div>
+        <div class="invalid-feedback">
+            A senha deve ter pelo menos 6 caracteres.
+        </div>
+        <div class="valid-feedback">
+            Senha válida!
+        </div>
+    </div>
+    
+    <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" id="lembrar">
+        <label class="form-check-label" for="lembrar">
+            Lembrar-me
+        </label>
+    </div>
+    
+    <div class="d-grid">
+        <button class="btn btn-gamer btn-lg" type="submit">
+            <i class="bi bi-box-arrow-in-right me-2"></i>Entrar
+        </button>
+    </div>
+</form>
+
+<!-- 🎯 COMPONENTE: SEÇÃO DE PRODUTOS VAZIA (QUANDO NÃO HÁ RESULTADOS) -->
+<div id="sem-resultados" class="text-center py-5" style="display: none;">
+    <i class="bi bi-search text-muted" style="font-size: 4rem;"></i>
+    <h3 class="text-muted mt-3">Nenhum produto encontrado</h3>
+    <p class="text-muted">Tente buscar por outros termos ou verifique a categoria selecionada.</p>
+    <button class="btn btn-outline-primary" onclick="limparBusca()">
+        <i class="bi bi-arrow-clockwise me-2"></i>Limpar Busca
+    </button>
+</div>
+
+<!-- 💫 COMPONENTE: LOADING SPINNER -->
+<div id="loading-spinner" class="text-center py-5" style="display: none;">
+    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+        <span class="visually-hidden">Carregando...</span>
+    </div>
+    <p class="text-muted mt-3">Carregando produtos...</p>
+</div>
+
+<!-- ============================================================================ -->
+<!-- 🎨 CSS ADICIONAL PARA OS COMPONENTES -->
+<!-- Adicione no seu estilo.css -->
+<!-- ============================================================================ -->
+
+<style>
+/* Carrinho */
+.carrinho-item-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Botão favorito */
+.btn-favorito {
+    opacity: 0;
+    transition: all 0.3s ease;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.product-card:hover .btn-favorito {
+    opacity: 1;
+}
+
+.btn-favorito:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: scale(1.1);
+}
+
+/* Busca com sugestões */
+#busca-sugestoes {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.busca-item {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.busca-item:hover {
+    background-color: #f8f9fa;
+}
+
+.busca-item:last-child {
+    border-bottom: none;
+}
+
+/* Menu mobile fixo */
+.mobile-bottom-nav {
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-bottom-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.25rem;
+}
+
+/* Formulários com validação */
+.form-input:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.2rem rgba(26, 115, 232, 0.25);
+    transform: translateY(-1px);
+}
+
+.form-input.is-valid {
+    border-color: var(--bs-success);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2328a745' d='m2.3 6.73.4.4 3.4-3.4-.4-.4L2.7 6.33l-.4-.4-.4.4z'/%3e%3c/svg%3e");
+}
+
+.form-input.is-invalid {
+    border-color: var(--bs-danger);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath d='m5.8 4.6 2.4 2.4M8.2 4.6l-2.4 2.4'/%3e%3c/svg%3e");
+}
+
+/* Preços */
+.text-price {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+/* Transições suaves */
+.transition-fast { transition: all 0.2s ease; }
+.transition-normal { transition: all 0.3s ease; }
+.transition-slow { transition: all 0.5s ease; }
+
+/* Hover effects */
+.product-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsividade para mobile */
+@media (max-width: 576px) {
+    .mobile-bottom-nav {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+    
+    body {
+        padding-bottom: 80px; /* Espaço para o menu fixo */
+    }
+    
+    .btn-gamer {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+    
+    .text-price {
+        font-size: 1.1rem;
+    }
+}
+</style>
+
+<!-- ============================================================================ -->
+<!-- 🚀 JAVASCRIPT FUNCIONAL PARA OS COMPONENTES -->
+<!-- Adicione no seu script.js -->
+<!-- ============================================================================ -->
+
+<script>
+// ============================================================================
+// 🛒 SISTEMA DE CARRINHO FUNCIONAL
+// ============================================================================
+
+class CarrinhoManager {
+    constructor() {
+        this.itens = JSON.parse(localStorage.getItem('jm-carrinho')) || [];
+        this.atualizarUI();
+    }
+
+    adicionar(produto) {
+        const itemExistente = this.itens.find(item => item.id === produto.id);
+        
+        if (itemExistente) {
+            itemExistente.quantidade += 1;
+        } else {
+            this.itens.push({
+                id: produto.id,
+                nome: produto.nome,
+                preco: produto.preco,
+                imagem: produto.imagem,
+                quantidade: 1
+            });
+        }
+        
+        this.salvar();
+        this.atualizarUI();
+        this.mostrarToast(`${produto.nome} adicionado ao carrinho!`, 'success');
+    }
+
+    remover(produtoId) {
+        this.itens = this.itens.filter(item => item.id !== produtoId);
+        this.salvar();
+        this.atualizarUI();
+        this.mostrarToast('Item removido do carrinho!', 'info');
+    }
+
+    alterarQuantidade(produtoId, novaQuantidade) {
+        const item = this.itens.find(item => item.id === produtoId);
+        if (item) {
+            if (novaQuantidade <= 0) {
+                this.remover(produtoId);
+            } else {
+                item.quantidade = novaQuantidade;
+                this.salvar();
+                this.atualizarUI();
+            }
+        }
+    }
+
+    limpar() {
+        this.itens = [];
+        this.salvar();
+        this.atualizarUI();
+        this.mostrarToast('Carrinho limpo!', 'info');
+    }
+
+    calcularTotal() {
+        return this.itens.reduce((total, item) => total + (item.preco * item.quantidade), 0);
+    }
+
+    obterQuantidadeTotal() {
+        return this.itens.reduce((total, item) => total + item.quantidade, 0);
+    }
+
+    salvar() {
+        localStorage.setItem('jm-carrinho', JSON.stringify(this.itens));
+    }
+
+    atualizarUI() {
+        // Atualizar contadores
+        const contadores = document.querySelectorAll('#carrinho-contador, #mobile-carrinho-contador');
+        const quantidade = this.obterQuantidadeTotal();
+        
+        contadores.forEach(contador => {
+            contador.textContent = quantidade;
+            contador.style.display = quantidade > 0 ? 'inline' : 'none';
+        });
+
+        // Atualizar total
+        const totalElement = document.getElementById('carrinho-total');
+        if (totalElement) {
+            totalElement.textContent = `R$ ${this.calcularTotal().toFixed(2)}`;
+        }
+
+        // Renderizar itens
+        this.renderizarItens();
+    }
+
+    renderizarItens() {
+        const container = document.getElementById('carrinho-itens');
+        if (!container) return;
+
+        if (this.itens.length === 0) {
+            container.innerHTML = `
+                <div class="text-center py-4">
+                    <i class="bi bi-cart-x fs-1 text-muted"></i>
+                    <p class="text-muted mt-2">Seu carrinho está vazio</p>
+                    <small class="text-muted">Adicione produtos para começar suas compras!</small>
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = this.itens.map(item => `
+            <div class="d-flex align-items-center mb-3 p-2 border rounded">
+                <img src="${item.imagem}" alt="${item.nome}" class="carrinho-item-img me-3">
+                <div class="flex-grow-1">
+                    <h6 class="mb-1">${item.nome}</h6>
+                    <div class="d-flex align-items-center">
+                        <button class="btn btn-sm btn-outline-secondary" onclick="carrinho.alterarQuantidade(${item.id}, ${item.quantidade - 1})">
+                            <i class="bi bi-dash"></i>
+                        </button>
+                        <span class="mx-3 fw-bold">${item.quantidade}</span>
+                        <button class="btn btn-sm btn-outline-secondary" onclick="carrinho.alterarQuantidade(${item.id}, ${item.quantidade + 1})">
+                            <i class="bi bi-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="text-end">
+                    <div class="fw-bold text-success">R$ ${(item.preco * item.quantidade).toFixed(2)}</div>
+                    <button class="btn btn-sm btn-outline-danger mt-1" onclick="carrinho.remover(${item.id})">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    mostrarToast(mensagem, tipo = 'success') {
+        const toastElement = document.getElementById('liveToast');
+        const messageElement = document.getElementById('toast-message');
+        
+        if (toastElement && messageElement) {
+            messageElement.textContent = mensagem;
+            
+            // Mudar cor baseado no tipo
+            const header = toastElement.querySelector('.toast-header');
+            header.className = `toast-header bg-${tipo} text-white`;
+            
+            const toast = new bootstrap.Toast(toastElement);
+            toast.show();
+        }
+    }
+}
+
+// ============================================================================
+// ❤️ SISTEMA DE FAVORITOS FUNCIONAL
+// ============================================================================
+
+class FavoritosManager {
+    constructor() {
+        this.favoritos = JSON.parse(localStorage.getItem('jm-favoritos')) || [];
+        this.atualizarUI();
+    }
+
+    toggle(produto) {
+        const index = this.favoritos.findIndex(fav => fav.id === produto.id);
+        
+        if (index > -1) {
+            this.favoritos.splice(index, 1);
+            carrinho.mostrarToast(`${produto.nome} removido dos favoritos!`, 'info');
+        } else {
+            this.favoritos.push(produto);
+            carrinho.mostrarToast(`${produto.nome} adicionado aos favoritos!`, 'success');
+        }
+        
+        this.salvar();
+        this.atualizarUI();
+    }
+
+    isFavorito(produtoId) {
+        return this.favoritos.some(fav => fav.id === produtoId);
+    }
+
+    salvar() {
+        localStorage.setItem('jm-favoritos', JSON.stringify(this.favoritos));
+    }
+
+    atualizarUI() {
+        document.querySelectorAll('.btn-favorito').forEach(btn => {
+            const produtoId = parseInt(btn.dataset.produtoId);
+            const icon = btn.querySelector('i');
+            
+            if (this.isFavorito(produtoId)) {
+                icon.className = 'bi bi-heart-fill text-danger';
+                btn.classList.add('text-danger');
+            } else {
+                icon.className = 'bi bi-heart';
+                btn.classList.remove('text-danger');
+            }
+        });
+    }
+}
+
+// ============================================================================
+// 🔍 SISTEMA DE BUSCA FUNCIONAL
+// ============================================================================
+
+class BuscaManager {
+    constructor() {
+        this.produtos = this.carregarProdutos();
+        this.configurarEventos();
+    }
+
+    carregarProdutos() {
+        // Simular produtos (substitua por dados reais)
+        return [
+            {id: 1, nome: "The Last of Us Part II", categoria: "jogos", preco: 199.90, imagem: "img/produtos/tlou2.jpg"},
+            {id: 2, nome: "PlayStation 5", categoria: "consoles", preco: 4999.90, imagem: "img/produtos/ps5.jpg"},
+            {id: 3, nome: "DualSense Controller", categoria: "acessorios", preco: 399.90, imagem: "img/produtos/dualsense.jpg"},
+            {id: 4, nome: "God of War Ragnarök", categoria: "jogos", preco: 249.90, imagem: "img/produtos/gow.jpg"},
+            {id: 5, nome: "Xbox Series X", categoria: "consoles", preco: 4699.90, imagem: "img/produtos/xbox.jpg"},
+            {id: 6, nome: "Headset Gamer", categoria: "acessorios", preco: 299.90, imagem: "img/produtos/headset.jpg"}
+        ];
+    }
+
+    configurarEventos() {
+        const inputBusca = document.getElementById('busca-input');
+        const filtroCategoria = document.getElementById('categoria-filtro');
+
+        if (inputBusca) {
+            inputBusca.addEventListener('input', () => this.buscar());
+            inputBusca.addEventListener('focus', () => this.mostrarSugestoes());
+            inputBusca.addEventListener('blur', () => {
+                setTimeout(() => this.ocultarSugestoes(), 200);
+            });
+        }
+
+        if (filtroCategoria) {
+            filtroCategoria.addEventListener('change', () => this.buscar());
+        }
+    }
+
+    buscar() {
+        const termo = document.getElementById('busca-input')?.value.toLowerCase() || '';
+        const categoria = document.getElementById('categoria-filtro')?.value || 'todos';
+
+        let resultados = this.produtos;
+
+        // Filtrar por termo
+        if (termo) {
+            resultados = resultados.filter(produto => 
+                produto.nome.toLowerCase().includes(termo)
+            );
+        }
+
+        // Filtrar por categoria
+        if (categoria !== 'todos') {
+            resultados = resultados.filter(produto => produto.categoria === categoria);
+        }
+
+        this.exibirResultados(resultados);
+        this.atualizarSugestoes(termo);
+    }
+
+    exibirResultados(produtos) {
+        const container = document.querySelector('#section-novidades .row') || 
+                         document.querySelector('#section-vendidos .row');
+        
+        if (!container) return;
+
+        if (produtos.length === 0) {
+            document.getElementById('sem-resultados').style.display = 'block';
+            container.style.display = 'none';
+        } else {
+            document.getElementById('sem-resultados').style.display = 'none';
+            container.style.display = 'flex';
+            
+            // Renderizar produtos (simplificado)
+            container.innerHTML = produtos.map(produto => this.criarCardProduto(produto)).join('');
+        }
+    }
+
+    criarCardProduto(produto) {
+        return `
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card product-card shadow-medium border border-primary product-hover transition-normal h-100">
+                    <div class="position-relative">
+                        <img src="${produto.imagem}" class="card-img-top img-produto" alt="${produto.nome}">
+                        <button class="btn btn-outline-light position-absolute top-0 start-0 m-2 btn-favorito" 
+                                onclick="favoritos.toggle({id: ${produto.id}, nome: '${produto.nome}', preco: ${produto.preco}, imagem: '${produto.imagem}'})"
+                                data-produto-id="${produto.id}">
+                            <i class="bi bi-heart"></i>
+                        </button>
+                    </div>
+                    <div class="card-body text-center d-flex flex-column">
+                        <h5 class="card-title fw-bold">${produto.nome}</h5>
+                        <div class="pricing mb-3">
+                            <span class="text-price text-success fs-5 fw-bold">R$ ${produto.preco.toFixed(2)}</span>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-gamer" 
+                                    onclick="carrinho.adicionar({id: ${produto.id}, nome: '${produto.nome}', preco: ${produto.preco}, imagem: '${produto.imagem}'})">
+                                <i class="bi bi-cart-plus me-2"></i>Adicionar ao Carrinho
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    atualizarSugestoes(termo) {
+        const sugestoesContainer = document.getElementById('busca-sugestoes');
+        if (!sugestoesContainer || !termo) return;
+
+        const sugestoes = this.produtos
+            .filter(produto => produto.nome.toLowerCase().includes(termo.toLowerCase()))
+            .slice(0, 5);
+
+        if (sugestoes.length > 0) {
+            sugestoesContainer.innerHTML = sugestoes.map(produto => `
+                <div class="busca-item" onclick="selecionarSugestao('${produto.nome}')">
+                    <div class="d-flex align-items-center">
+                        <img src="${produto.imagem}" alt="${produto.nome}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;" class="me-3">
+                        <div>
+                            <div class="fw-bold">${produto.nome}</div>
+                            <small class="text-success">R$ ${produto.preco.toFixed(2)}</small>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            this.mostrarSugestoes();
+        } else {
+            this.ocultarSugestoes();
+        }
+    }
+
+    mostrarSugestoes() {
+        const sugestoes = document.getElementById('busca-sugestoes');
+        if (sugestoes) sugestoes.style.display = 'block';
+    }
+
+    ocultarSugestoes() {
+        const sugestoes = document.getElementById('busca-sugestoes');
+        if (sugestoes) sugestoes.style.display = 'none';
+    }
+}
+
+// ============================================================================
+// 📝 VALIDAÇÃO DE FORMULÁRIOS
+// ============================================================================
+
+function configurarValidacao() {
+    const forms = document.querySelectorAll('.needs-validation');
+    
+    forms.forEach(form => {
+        form.addEventListener('submit', function(event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+                
+                // Focar no primeiro campo inválido
+                const firstInvalid = form.querySelector(':invalid');
+                if (firstInvalid) {
+                    firstInvalid.focus();
+                }
+            } else {
+                event.preventDefault();
+                // Simular login bem-sucedido
+                carrinho.mostrarToast('Login realizado com sucesso!', 'success');
+            }
+            
+            form.classList.add('was-validated');
+        });
+
+        // Validação em tempo real
+        const inputs = form.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                if (this.checkValidity()) {
+                    this.classList.remove('is-invalid');
+                    this.classList.add('is-valid');
+                } else {
+                    this.classList.remove('is-valid');
+                    this.classList.add('is-invalid');
+                }
+            });
+
+            input.addEventListener('input', function() {
+                if (this.classList.contains('was-validated')) {
+                    if (this.checkValidity()) {
+                        this.classList.remove('is-invalid');
+                        this.classList.add('is-valid');
+                    } else {
+                        this.classList.remove('is-valid');
+                        this.classList.add('is-invalid');
+                    }
+                }
+            });
+        });
+    });
+}
+
+// ============================================================================
+// 🔧 FUNÇÕES UTILITÁRIAS
+// ============================================================================
+
+function toggleSenha() {
+    const senhaInput = document.getElementById('senha');
+    const senhaIcon = document.getElementById('senha-icon');
+    
+    if (senhaInput.type === 'password') {
+        senhaInput.type = 'text';
+        senhaIcon.className = 'bi bi-eye-slash';
+    } else {
+        senhaInput.type = 'password';
+        senhaIcon.className = 'bi bi-eye';
+    }
+}
+
+function selecionarSugestao(nome) {
+    const input = document.getElementById('busca-input');
+    if (input) {
+        input.value = nome;
+        busca.buscar();
+        busca.ocultarSugestoes();
+    }
+}
+
+function buscarProdutos() {
+    busca.buscar();
+}
+
+function limparBusca() {
+    const input = document.getElementById('busca-input');
+    const filtro = document.getElementById('categoria-filtro');
+    
+    if (input) input.value = '';
+    if (filtro) filtro.value = 'todos';
+    
+    busca.buscar();
+}
+
+function focarBusca() {
+    const input = document.getElementById('busca-input');
+    if (input) {
+        input.focus();
+        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+}
+
+function verDetalhes(produtoId) {
+    carrinho.mostrarToast('Página de detalhes em desenvolvimento!', 'info');
+    // Aqui você implementaria a navegação para página de detalhes
+}
+
+function mostrarLoading() {
+    document.getElementById('loading-spinner').style.display = 'block';
+}
+
+function ocultarLoading() {
+    document.getElementById('loading-spinner').style.display = 'none';
+}
+
+// ============================================================================
+// 🚀 INICIALIZAÇÃO
+// ============================================================================
+
+let carrinho, favoritos, busca;
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar sistemas
+    carrinho = new CarrinhoManager();
+    favoritos = new FavoritosManager();
+    busca = new BuscaManager();
+    
+    // Configurar validação de formulários
+    configurarValidacao();
+    
+    // Configurar botão voltar ao topo
+    const voltarTopo = document.getElementById('voltar-topo');
+    if (voltarTopo) {
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                voltarTopo.style.display = 'block';
+                setTimeout(() => voltarTopo.style.opacity = '1', 10);
+            } else {
+                voltarTopo.style.opacity = '0';
+                setTimeout(() => voltarTopo.style.display = 'none', 300);
+            }
+        });
+    }
+    
+    console.log('🎮 JM Games inicializado com sucesso!');
+    console.log('✅ Carrinho funcional');
+    console.log('✅ Favoritos funcionais');
+    console.log('✅ Busca funcional');
+    console.log('✅ Validação de formulários');
+});
+</script>

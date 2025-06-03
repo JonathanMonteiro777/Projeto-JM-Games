@@ -19,6 +19,12 @@
     --bs-font-sans-serif: 'Open Sans', sans-serif;
     --bs-body-font-family: var(--bs-font-sans-serif);
     --bs-heading-font-family: 'Montserrat', sans-serif;
+
+    /* ✅ ADICIONADO: Variáveis para formulários */
+    --form-border-radius: 8px;
+    --form-focus-color: var(--bs-primary);
+    --form-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --form-shadow-focus: 0 0 0 3px rgba(26, 115, 232, 0.25);
 }
 
 /* Tipografia e base */
@@ -27,12 +33,7 @@ body {
     line-height: 1.6;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
     font-family: var(--bs-heading-font-family);
 }
 
@@ -40,7 +41,147 @@ h6 {
     font-size: 1.1rem;
 }
 
+/* ✅ ADICIONADO: Classes utilitárias de espaçamento */
+.spacing-sm { margin-bottom: 0.5rem; }
+.spacing-md { margin-bottom: 1rem; }
+.spacing-lg { margin-bottom: 2rem; }
+.spacing-xl { margin-bottom: 3rem; }
 
+.p-sm { padding: 0.5rem; }
+.p-md { padding: 1rem; }
+.p-lg { padding: 1.5rem; }
+.p-xl { padding: 2rem; }
+
+/* ✅ ADICIONADO: Classes de transição */
+.transition-fast { transition: all 0.2s ease; }
+.transition-normal { transition: all 0.3s ease; }
+.transition-slow { transition: all 0.5s ease; }
+
+/* ✅ ADICIONADO: Classes de sombra */
+.shadow-light { box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+.shadow-medium { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); }
+.shadow-strong { box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); }
+
+/* ✅ ADICIONADO: Classes de texto */
+.text-sm { font-size: 0.875rem; }
+.text-lg { font-size: 1.125rem; }
+.text-price { 
+    font-size: 1.25rem; 
+    font-weight: 700; 
+}
+
+/* ✅ ADICIONADO: Botão gamer personalizado */
+.btn-gamer {
+    background: linear-gradient(135deg, var(--bs-primary), var(--bs-secondary));
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--form-border-radius);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-gamer:hover {
+    background: linear-gradient(135deg, #1557b0, #d49c00);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(26, 115, 232, 0.3);
+    color: white;
+}
+
+.btn-gamer:active {
+    transform: translateY(0);
+}
+
+/* ✅ ADICIONADO: Classes para produtos */
+.product-card {
+    height: 100%;
+    border-radius: var(--form-border-radius);
+    transition: all 0.3s ease;
+}
+
+.product-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.img-produto {
+    height: 220px;
+    object-fit: cover;
+    border-radius: var(--form-border-radius) var(--form-border-radius) 0 0;
+}
+
+.img-banner {
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: var(--form-border-radius);
+}
+
+/* ✅ ADICIONADO: Classes para formulários */
+.form-container {
+    background: white;
+    border-radius: var(--form-border-radius);
+    transition: all 0.3s ease;
+}
+
+.form-container:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-input {
+    border-radius: var(--form-border-radius);
+    border: 2px solid #e9ecef;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    border-color: var(--form-focus-color);
+    box-shadow: var(--form-shadow-focus);
+    transform: translateY(-1px);
+}
+
+.form-label {
+    color: var(--bs-dark);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+/* ✅ ADICIONADO: Cards de benefícios */
+.benefit-card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.benefit-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(26, 115, 232, 0.15);
+}
+
+/* ✅ ADICIONADO: Cards de segurança */
+.security-card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.security-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* ✅ ADICIONADO: Gradientes */
+.bg-gradient-light {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(135deg, var(--bs-primary), var(--bs-secondary));
+}
 
 /* cabeçalho */
 header .navbar-brand img {
@@ -74,41 +215,72 @@ header .navbar-brand img {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    z-index: 1030;
+    z-index: 1000;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: none;
+    opacity: 0;
+    transition: all 0.3s ease;
 }
 
-/* Formulário de cadastro */
+#voltar-topo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
-#form-cadastrar {
-    display: none;
+/* ✅ ADICIONADO: Melhorias específicas para formulários de login */
+#section-login,
+#section-cadastro {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.toggle-password {
+    border-left: none;
+}
+
+.toggle-password:hover {
+    background-color: var(--bs-light);
+    border-color: var(--bs-primary);
+}
+
+/* ✅ ADICIONADO: Animações para feedback visual */
+.form-input.is-valid {
+    border-color: var(--bs-success);
+    animation: pulse-success 0.5s ease;
+}
+
+.form-input.is-invalid {
+    border-color: var(--bs-danger);
+    animation: shake 0.5s ease;
+}
+
+@keyframes pulse-success {
+    0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
 }
 
 /* Media queries para tablets e celulares */
-
 @media (max-width: 768px) {
     #section-banners img {
         max-height: 350px;
     }
 
-    h1 {
-        font-size: 2rem;
-    }
-
-    h2 {
-        font-size: 1.5rem;
-    }
-
-    h3 {
-        font-size: 1.3rem;
-    }
-
-    h4 {
-        font-size: 1.1rem;
-    }
-
-    h5 {
-        font-size: 1rem;
-    }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.3rem; }
+    h4 { font-size: 1.1rem; }
+    h5 { font-size: 1rem; }
 
     #section-novidades img,
     #section-vendidos img {
@@ -123,6 +295,15 @@ header .navbar-brand img {
     footer {
         padding: 15px;
     }
+
+    /* ✅ ADICIONADO: Responsividade para formulários */
+    .form-container {
+        margin: 0 1rem;
+    }
+
+    .p-xl {
+        padding: 1.5rem;
+    }
 }
 
 @media (max-width: 576px) {
@@ -134,33 +315,13 @@ header .navbar-brand img {
         max-height: 250px;
     }
 
-    .lead {
-        font-size: 0.8rem;
-    }
-
-    h1 {
-        font-size: 1.8rem;
-    }
-
-    h2 {
-        font-size: 1.3rem;
-    }
-
-    h3 {
-        font-size: 1.1rem;
-    }
-
-    h4 {
-        font-size: 1rem;
-    }
-
-    h5 {
-        font-size: 0.9rem;
-    }
-
-    p {
-        font-size: 0.850rem;
-    }
+    .lead { font-size: 0.8rem; }
+    h1 { font-size: 1.8rem; }
+    h2 { font-size: 1.3rem; }
+    h3 { font-size: 1.1rem; }
+    h4 { font-size: 1rem; }
+    h5 { font-size: 0.9rem; }
+    p { font-size: 0.850rem; }
 
     #section-novidades img,
     #section-vendidos img {
@@ -175,16 +336,8 @@ header .navbar-brand img {
     footer {
         padding: 10px;
     }
-
-    #voltar-topo {
-        bottom: 8px;
-        right: 10px;
-        font-size: 0.6rem;
-        padding: 0.5rem 0.8rem;
-    }
-
-    /* secão beneficios para membros */
-     #beneficios-membro {
+    /* seção beneficios para membros */
+    #beneficios-membro {
         font-size: 0.9rem;
     }
 
@@ -197,4 +350,143 @@ header .navbar-brand img {
         font-size: 1rem;
     }
 
+    /* ✅ ADICIONADO: Responsividade específica para mobile */
+    .p-xl {
+        padding: 1rem;
+    }
+
+    .spacing-lg {
+        margin-bottom: 1.5rem;
+    }
+
+    .spacing-xl {
+        margin-bottom: 2rem;
+    }
+
+    .form-container {
+        padding: 1.5rem !important;
+        margin: 0 0.5rem;
+    }
+
+    .btn-gamer {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    .benefit-card,
+    .security-card {
+        padding: 1.5rem !important;
+    }
+
+    .benefit-card i,
+    .security-card i {
+        font-size: 2rem !important;
+    }
+
+    /* Formulários em mobile */
+    .form-input {
+        padding: 0.6rem 0.8rem;
+        font-size: 1rem; /* Evita zoom no iOS */
+    }
+
+    .form-label {
+        font-size: 0.9rem;
+    }
+}
+
+/* ✅ ADICIONADO: Melhorias específicas para acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+    .transition-fast,
+    .transition-normal,
+    .transition-slow,
+    .product-hover,
+    .benefit-card,
+    .security-card,
+    .form-container,
+    .btn-gamer {
+        transition: none;
+    }
+
+    .product-hover:hover,
+    .benefit-card:hover,
+    .security-card:hover {
+        transform: none;
+    }
+}
+
+/* ✅ ADICIONADO: Estados de foco para acessibilidade */
+.btn-gamer:focus,
+.form-input:focus,
+.toggle-password:focus {
+    outline: 2px solid var(--bs-primary);
+    outline-offset: 2px;
+}
+
+/* ✅ ADICIONADO: Melhorias para impressão */
+@media print {
+    .shadow-light,
+    .shadow-medium,
+    .shadow-strong {
+        box-shadow: none !important;
+    }
+
+    .btn-gamer {
+        background: var(--bs-primary) !important;
+        color: white !important;
+    }
+
+    #voltar-topo {
+        display: none !important;
+    }
+}
+
+/* ✅ ADICIONADO: Estados de loading para formulários */
+.form-loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.form-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid var(--bs-primary);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ✅ ADICIONADO: Melhorias para dark mode (futuro) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bs-body-bg: #1a1a1a;
+        --bs-body-color: #ffffff;
+        --bs-light: #2d2d2d;
+        --bs-dark: #ffffff;
+    }
+
+    .form-container {
+        background: #2d2d2d !important;
+        color: white;
+    }
+
+    .form-input {
+        background: #3d3d3d;
+        border-color: #4d4d4d;
+        color: white;
+    }
+
+    .form-input:focus {
+        background: #3d3d3d;
+        color: white;
+    }
 }

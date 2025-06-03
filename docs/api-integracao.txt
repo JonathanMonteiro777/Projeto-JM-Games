@@ -1,0 +1,124 @@
+================================================================================
+🔌 DOCUMENTAÇÃO DE API E INTEGRAÇÕES - JM GAMES
+================================================================================
+
+📋 APIS RECOMENDADAS PARA INTEGRAÇÃO
+================================================================================
+
+💳 PAGAMENTOS:
+□ Mercado Pago API
+  - Cartão de crédito/débito
+  - PIX instantâneo
+  - Boleto bancário
+  - Parcelamento automático
+
+□ PagSeguro API
+  - Alternativa ao Mercado Pago
+  - Boa para pequenos negócios
+
+□ Stripe (Internacional)
+  - Para expansão global
+
+📦 LOGÍSTICA:
+□ Correios API
+  - Cálculo de frete
+  - Rastreamento de encomendas
+  - CEP para endereço
+
+□ Melhor Envio API
+  - Múltiplas transportadoras
+  - Melhores preços
+  - Gestão unificada
+
+📧 COMUNICAÇÃO:
+□ SendGrid API
+  - Emails transacionais
+  - Templates profissionais
+  - Analytics de email
+
+□ Twilio API
+  - SMS de confirmação
+  - WhatsApp Business
+
+🎮 DADOS DE JOGOS:
+□ RAWG Video Games Database API
+  - Informações de jogos
+  - Screenshots e trailers
+  - Reviews e ratings
+
+□ IGDB API
+  - Base de dados completa
+  - Metadados de jogos
+
+================================================================================
+🛠️ ESTRUTURA DE API PRÓPRIA (FUTURO)
+================================================================================
+
+BASE URL: https://api.jmgames.com.br/v1
+
+ENDPOINTS PRINCIPAIS:
+
+🔐 AUTENTICAÇÃO:
+POST /auth/login
+POST /auth/register
+POST /auth/refresh
+POST /auth/logout
+POST /auth/forgot-password
+
+👤 USUÁRIOS:
+GET /users/profile
+PUT /users/profile
+GET /users/orders
+GET /users/favorites
+POST /users/favorites/{id}
+DELETE /users/favorites/{id}
+
+🛍️ PRODUTOS:
+GET /products
+GET /products/{id}
+GET /products/search?q={termo}
+GET /products/categories
+GET /products/featured
+GET /products/bestsellers
+
+🛒 CARRINHO:
+GET /cart
+POST /cart/items
+PUT /cart/items/{id}
+DELETE /cart/items/{id}
+DELETE /cart
+
+💳 PEDIDOS:
+POST /orders
+GET /orders/{id}
+GET /orders/{id}/status
+POST /orders/{id}/cancel
+
+📊 ANALYTICS:
+GET /analytics/products/views
+GET /analytics/sales
+GET /analytics/users
+
+================================================================================
+🔧 CONFIGURAÇÕES DE INTEGRAÇÃO
+================================================================================
+
+MERCADO PAGO:
+```javascript
+// Configuração básica
+const mp = new MercadoPago('PUBLIC_KEY');
+
+// Criar preferência de pagamento
+const preference = {
+    items: [{
+        title: produto.nome,
+        unit_price: produto.preco,
+        quantity: 1,
+    }],
+    back_urls: {
+        success: "https://jmgames.com.br/success",
+        failure: "https://jmgames.com.br/failure",
+        pending: "https://jmgames.com.br/pending"
+    },
+    auto_return: "approved"
+};

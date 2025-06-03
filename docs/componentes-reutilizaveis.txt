@@ -1,0 +1,200 @@
+================================================================================
+🧩 BIBLIOTECA DE COMPONENTES - JM GAMES
+================================================================================
+Componentes prontos para reutilização em todo o projeto
+================================================================================
+
+🛒 COMPONENTE: CARD DE PRODUTO
+================================================================================
+
+HTML:
+<div class="product-card-component">
+    <div class="card product-card shadow-medium border border-primary product-hover transition-normal">
+        <div class="position-relative">
+            <img src="{IMAGEM}" class="card-img-top img-produto" alt="{ALT}">
+            <span class="badge bg-danger position-absolute top-0 end-0 m-2">{DESCONTO}</span>
+            <button class="btn btn-outline-light position-absolute top-0 start-0 m-2 btn-favorito">
+                <i class="bi bi-heart"></i>
+            </button>
+        </div>
+        <div class="card-body text-center d-flex flex-column">
+            <h5 class="card-title fw-bold">{TITULO}</h5>
+            <p class="card-text flex-grow-1 text-muted">{DESCRICAO}</p>
+            <div class="pricing mb-3">
+                <span class="text-decoration-line-through text-muted">{PRECO_ANTIGO}</span>
+                <span class="text-price text-success ms-2">{PRECO_ATUAL}</span>
+            </div>
+            <div class="d-grid gap-2">
+                <button class="btn btn-gamer" onclick="adicionarCarrinho({ID})">
+                    <i class="bi bi-cart-plus me-2"></i>Comprar
+                </button>
+                <button class="btn btn-outline-primary btn-sm" onclick="verDetalhes({ID})">
+                    Ver Detalhes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+CSS Adicional:
+.btn-favorito {
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+.product-card:hover .btn-favorito {
+    opacity: 1;
+}
+.pricing {
+    font-size: 1.1rem;
+}
+
+================================================================================
+🔔 COMPONENTE: TOAST DE NOTIFICAÇÃO
+================================================================================
+
+HTML:
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="gameToast" class="toast" role="alert">
+        <div class="toast-header bg-primary text-white">
+            <i class="bi bi-controller me-2"></i>
+            <strong class="me-auto">JM Games</strong>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body">
+            {MENSAGEM}
+        </div>
+    </div>
+</div>
+
+JavaScript:
+function mostrarToast(mensagem, tipo = 'success') {
+    const toastEl = document.getElementById('gameToast');
+    const toastBody = toastEl.querySelector('.toast-body');
+    const toastHeader = toastEl.querySelector('.toast-header');
+    
+    toastBody.textContent = mensagem;
+    toastHeader.className = `toast-header bg-${tipo} text-white`;
+    
+    const toast = new bootstrap.Toast(toastEl);
+    toast.show();
+}
+
+================================================================================
+🛒 COMPONENTE: CARRINHO LATERAL
+================================================================================
+
+HTML:
+<div class="offcanvas offcanvas-end" tabindex="-1" id="carrinhoOffcanvas">
+    <div class="offcanvas-header bg-primary text-white">
+        <h5 class="offcanvas-title">
+            <i class="bi bi-cart3 me-2"></i>Meu Carrinho
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div id="itens-carrinho">
+            <!-- Itens serão inseridos aqui via JavaScript -->
+        </div>
+        <hr>
+        <div class="d-flex justify-content-between fw-bold">
+            <span>Total:</span>
+            <span id="total-carrinho">R$ 0,00</span>
+        </div>
+        <div class="d-grid gap-2 mt-3">
+            <button class="btn btn-gamer">
+                <i class="bi bi-credit-card me-2"></i>Finalizar Compra
+            </button>
+            <button class="btn btn-outline-secondary" data-bs-dismiss="offcanvas">
+                Continuar Comprando
+            </button>
+        </div>
+    </div>
+</div>
+
+================================================================================
+🔍 COMPONENTE: BARRA DE BUSCA AVANÇADA
+================================================================================
+
+HTML:
+<div class="search-advanced">
+    <div class="input-group">
+        <input class="form-control form-input" type="search" placeholder="Buscar jogos, consoles..." id="searchInput">
+        <div class="dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                Categoria
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#" data-categoria="todos">Todos</a></li>
+                <li><a class="dropdown-item" href="#" data-categoria="jogos">Jogos</a></li>
+                <li><a class="dropdown-item" href="#" data-categoria="consoles">Consoles</a></li>
+                <li><a class="dropdown-item" href="#" data-categoria="acessorios">Acessórios</a></li>
+            </ul>
+        </div>
+        <button class="btn btn-gamer" type="button" onclick="buscarProdutos()">
+            <i class="bi bi-search"></i>
+        </button>
+    </div>
+    <div id="search-suggestions" class="search-suggestions"></div>
+</div>
+
+CSS:
+.search-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+    display: none;
+}
+
+================================================================================
+📱 COMPONENTE: MENU MOBILE
+================================================================================
+
+HTML:
+<div class="mobile-menu d-lg-none">
+    <div class="container-fluid bg-primary text-white py-2">
+        <div class="row text-center">
+            <div class="col-3">
+                <a href="#" class="text-white text-decoration-none">
+                    <i class="bi bi-house-door fs-4 d-block"></i>
+                    <small>Início</small>
+                </a>
+            </div>
+            <div class="col-3">
+                <a href="#" class="text-white text-decoration-none">
+                    <i class="bi bi-search fs-4 d-block"></i>
+                    <small>Buscar</small>
+                </a>
+            </div>
+            <div class="col-3">
+                <a href="#" class="text-white text-decoration-none position-relative">
+                    <i class="bi bi-cart3 fs-4 d-block"></i>
+                    <small>Carrinho</small>
+                    <span class="badge bg-danger position-absolute top-0 start-50">3</span>
+                </a>
+            </div>
+            <div class="col-3">
+                <a href="#" class="text-white text-decoration-none">
+                    <i class="bi bi-person fs-4 d-block"></i>
+                    <small>Perfil</small>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+CSS:
+.mobile-menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+}

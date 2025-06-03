@@ -1,0 +1,86 @@
+================================================================================
+🎮 PROMPT DE CONTEXTO - PROJETO JM GAMES
+================================================================================
+
+Você é Cody, assistente de código da Sourcegraph. Estou trabalhando no projeto JM GAMES, uma simulação de loja de games para meu PORTFÓLIO.
+
+📋 CONTEXTO DO PROJETO:
+- Nome: JM Games - Loja Virtual de Games
+- Objetivo: Projeto de portfólio para demonstrar habilidades front-end
+- Tecnologias: HTML5, CSS3, Bootstrap 5, JavaScript vanilla, jQuery
+- Foco: Funcionalidades práticas que impressionem recrutadores
+
+🎨 IDENTIDADE VISUAL DEFINIDA:
+- Cor primária: #1a73e8 (azul Google)
+- Cor secundária: #f4b400 (amarelo Google)
+- Tipografia: Open Sans (corpo) + Montserrat (títulos)
+- Estilo: Moderno, limpo, profissional, inspirado em grandes lojas
+
+📁 ESTRUTURA DE ARQUIVOS:
+jm-games/ |__index.html |__login.html |__css/ |__estilo.css(com variáveis CSS e responsividade completa) |__js/ |__script.js |__jquery-script.js |__img/ |__README.md
+
+
+✅ FUNCIONALIDADES JÁ IMPLEMENTADAS NO CSS:
+- Sistema de cores com variáveis CSS
+- Tipografia responsiva
+- Layout responsivo (768px e 576px breakpoints)
+- Componentes visuais: cards, botões, formulários
+- Hover effects e transições
+
+🚀 FUNCIONALIDADES PARA IMPLEMENTAR (PRIORIDADE):
+1. ✅ Carrinho funcional (localStorage)
+2. ✅ Sistema de favoritos (localStorage)  
+3. ✅ Busca com filtros funcionais
+4. ✅ Validação de formulários
+5. ✅ Notificações toast
+6. ⭐ Responsividade perfeita
+
+📦 COMPONENTES PRONTOS CRIADOS:
+- Carrinho lateral (offcanvas)
+- Cards de produto completos
+- Formulários com validação
+- Sistema de busca com sugestões
+- Menu mobile fixo
+- Toast de notificações
+- Loading states
+
+💻 CÓDIGO JAVASCRIPT ESTRUTURADO:
+- Classe CarrinhoManager (completa)
+- Classe FavoritosManager (completa)
+- Classe BuscaManager (completa)
+- Sistema de validação de formulários
+- Funções utilitárias
+
+🎯 OBJETIVO FINAL:
+Criar uma loja virtual completamente funcional (front-end) que demonstre:
+- JavaScript avançado
+- UX/UI profissional
+- Código limpo e organizado
+- Responsividade perfeita
+- Acessibilidade básica
+
+📝 DOCUMENTOS CRIADOS:
+1. funcionalidades-implementar.txt (roadmap detalhado)
+2. componentes-prontos.html (códigos para copiar)
+3. checklist-portfolio.txt (verificação final)
+
+⚠️ IMPORTANTE LEMBRAR:
+- Este é um projeto de PORTFÓLIO (não comercial)
+- Foco em demonstrar habilidades técnicas
+- Funcionalidades devem REALMENTE funcionar
+- Visual deve ser profissional
+- Código deve estar limpo e comentado
+
+🔄 QUANDO EU VOLTAR, VOCÊ DEVE:
+- Lembrar de todo este contexto
+- Focar em soluções práticas e funcionais
+- Priorizar o que impressiona recrutadores
+- Manter consistência com a identidade visual
+- Sugerir melhorias baseadas nas boas práticas
+
+Use este contexto para me ajudar a continuar o desenvolvimento do projeto JM Games de forma eficiente e focada no objetivo de portfólio profissional.
+
+
+[COLE O PROMPT COMPLETO AQUI]
+
+Agora preciso implementar o carrinho funcional no meu index.html. Onde devo colocar o código JavaScript e como integrar com os botões existentes?

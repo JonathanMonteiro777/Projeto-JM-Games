@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JM Games</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -16,18 +14,18 @@
     integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="css/estilo.css">
-
-
-
-
 </head>
 
 <body>
   <!-- cabeçalho -->
   <header>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <!-- ✅ MANTIDO: Bootstrap navbar + adicionada classe utilitária shadow-light -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="index.html"><img src="img/logo.png" alt="logo"></a>
+        <!-- ✅ MANTIDO: Logo responsivo já funciona com nossas variáveis CSS -->
+        <a class="navbar-brand" href="index.html">
+          <img src="img/logo.png" alt="logo" class="transition-fast">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -48,8 +46,10 @@
             </li>
           </ul>
           <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="O que deseja buscar" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit"> Buscar</button>
+            <!-- ✅ MELHORADO: Adicionada transição suave no input -->
+            <input class="form-control me-2 transition-fast" type="search" placeholder="O que deseja buscar" aria-label="Search">
+            <!-- ✅ MELHORADO: Botão com classe gamer personalizada -->
+            <button class="btn btn-gamer" type="submit">Buscar</button>
           </form>
         </div>
       </div>
@@ -58,7 +58,8 @@
 
   <main>
     <!-- section-banners -->
-    <section id="section-banners" class="container-fluid">
+    <!-- ✅ MANTIDO: Bootstrap carousel + adicionada sombra -->
+    <section id="section-banners" class="container-fluid shadow-medium">
       <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active"
@@ -68,24 +69,25 @@
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="img/banner1.PNG" class="d-block w-100" alt="Venha comprar na nossa Loja">
+            <!-- ✅ MELHORADO: Imagem com classe utilitária img-banner -->
+            <img src="img/banner1.PNG" class="d-block w-100 img-banner" alt="Venha comprar na nossa Loja">
             <div class="carousel-caption d-none d-md-block">
               <h5>Novidades Incríveis Chegando!</h5>
-              <p>Fique por dentro dos últimos lançamentos e garanta os melhores jogos.</p>
+              <p class="text-lg">Fique por dentro dos últimos lançamentos e garanta os melhores jogos.</p>
             </div>
           </div>
           <div class="carousel-item">
-            <img src="img/banner2.PNG" class="d-block w-100" alt="Promoção de produtos">
+            <img src="img/banner2.PNG" class="d-block w-100 img-banner" alt="Promoção de produtos">
             <div class="carousel-caption d-none d-md-block">
               <h5>Promoções Que Você Não Pode Perder!</h5>
-              <p>Descontos exclusivos em títulos selecionados. Corra e aproveite!</p>
+              <p class="text-lg">Descontos exclusivos em títulos selecionados. Corra e aproveite!</p>
             </div>
           </div>
           <div class="carousel-item">
-            <img src="img/banner3.PNG" class="d-block w-100" alt="Várias novidades de produtos">
+            <img src="img/banner3.PNG" class="d-block w-100 img-banner" alt="Várias novidades de produtos">
             <div class="carousel-caption d-none d-md-block">
               <h5>Sua Aventura Começa Aqui!</h5>
-              <p>Os maiores sucessos e os futuros clássicos estão te esperando na JM Games.</p>
+              <p class="text-lg">Os maiores sucessos e os futuros clássicos estão te esperando na JM Games.</p>
             </div>
           </div>
         </div>
@@ -101,171 +103,166 @@
     </section>
 
     <!-- section-apresentacao -->
-    <section id="section-apresentacao" class="container mt-5">
+    <!-- ✅ MELHORADO: Adicionado espaçamento com classes utilitárias -->
+    <section id="section-apresentacao" class="container p-xl">
       <div class="row align-items-center">
         <div class="text-center">
           <h2 class="fw-bold">O universo gamer em um só lugar!</h2>
         </div>
       </div>
-
-      <div class="row mt-4">
+      <div class="row spacing-lg">
         <div class="col-md-12 text-center">
           <h4>Descontos imperdíveis em jogos selecionados! Aproveite enquanto durarem os estoques!</h4>
-          <a href="#section-vendidos" class="btn btn-success my-3">Ver Promoções</a>
+          <!-- ✅ MELHORADO: Botão com estilo gamer -->
+          <a href="#section-vendidos" class="btn btn-gamer spacing-md">Ver Promoções</a>
         </div>
       </div>
     </section>
 
     <!-- section-novidades -->
-    <section id="section-novidades" class="container py-5 bg-light">
-      <h2 class="text-center fw-bold mb-4">🆕 NOVIDADES EM JOGOS 🆕</h2>
-      <p class="text-center mb-5 lead">Descubra os lançamentos mais esperados do mundo gamer!</p>
-
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-        <div class="col">
-          <div class="card shadow-sm h-100 border border-primary">
-            <img src="img/elden-ring-shadows.jpg" class="card-img-top img-fluid" alt="Elden Ring Shadows">
-            <div class="card-body text-center">
-              <h5 class="card-title fw-bold">Elden Ring: Shadows</h5>
-              <p class="card-text">Explore reinos sombrios e enfrente chefes épicos nesse novo capítulo aguardado por
-                milhares de jogadores.</p>
-              <a href="#" class="btn btn-primary mt-auto">Ver Mais</a>
+    <!-- ✅ MANTIDO: Bootstrap grid + melhorado com classes utilitárias -->
+    <section id="section-novidades" class="container-fluid py-5 bg-light">
+      <div class="container">
+        <h2 class="text-center fw-bold mb-4">🆕 NOVIDADES EM JOGOS 🆕</h2>
+        <p class="text-center mb-5 lead">Descubra os lançamentos mais esperados do mundo gamer!</p>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+          <div class="col">
+            <!-- ✅ MELHORADO: Card com classes utilitárias para hover e sombra -->
+            <div class="card product-card shadow-medium border border-primary product-hover transition-normal">
+              <!-- ✅ MELHORADO: Imagem com classe utilitária -->
+              <img src="img/elden-ring-shadows.jpg" class="card-img-top img-produto" alt="Elden Ring Shadows">
+              <div class="card-body text-center d-flex flex-column">
+                <h5 class="card-title fw-bold">Elden Ring: Shadows</h5>
+                <p class="card-text flex-grow-1">Explore reinos sombrios e enfrente chefes épicos nesse novo capítulo aguardado por milhares de jogadores.</p>
+                <!-- ✅ MELHORADO: Botão com estilo gamer -->
+                <a href="#" class="btn btn-gamer mt-auto">Ver Mais</a>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card product-card shadow-medium border border-primary product-hover transition-normal">
+              <img src="img/cyberpunk-2077.jpg" class="card-img-top img-produto" alt="cyberpunk 2077">
+              <div class="card-body text-center d-flex flex-column">
+                <h5 class="card-title fw-bold">Cyberpunk 2077</h5>
+                <p class="card-text flex-grow-1">Explore Night City com total liberdade e mergulhe no universo cyberpunk com atualizações incríveis.</p>
+                <a href="#" class="btn btn-gamer mt-auto">Ver Mais</a>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card product-card shadow-medium border border-primary product-hover transition-normal">
+              <img src="img/final-fantasy-xvi.jpg" class="card-img-top img-produto" alt="Final Fantasy XVI">
+              <div class="card-body text-center d-flex flex-column">
+                <h5 class="card-title fw-bold">Final Fantasy XVI</h5>
+                <p class="card-text flex-grow-1">Mergulhe em uma jornada épica com gráficos de última geração e uma narrativa envolvente.</p>
+                <a href="#" class="btn btn-gamer mt-auto">Ver Mais</a>
+              </div>
             </div>
           </div>
         </div>
-
-        <div class="col">
-          <div class="card shadow-sm h-100 border border-primary">
-            <img src="img/cyberpunk-2077.jpg" class="card-img-top img-fluid" alt="cyberpunk 2077">
-            <div class="card-body text-center">
-              <h5 class="card-title fw-bold">Cyberpunk 2077</h5>
-              <p class="card-text">Explore Night City com total liberdade e mergulhe no universo cyberpunk com
-                atualizações incríveis.</p>
-              <a href="#" class="btn btn-primary">Ver Mais</a>
-            </div>
-          </div>
+        <div class="text-center spacing-lg">
+          <a href="#section-catalogo" class="btn btn-gamer btn-lg">Ver Todos os Lançamentos</a>
         </div>
-
-        <div class="col">
-          <div class="card shadow-sm h-100 border border-primary">
-            <img src="img/final-fantasy-xvi.jpg" class="card-img-top img-fluid" alt="Final Fantasy XVI">
-            <div class="card-body text-center">
-              <h5 class="card-title fw-bold">Final Fantasy XVI</h5>
-              <p class="card-text">Mergulhe em uma jornada épica com gráficos de última geração e uma narrativa
-                envolvente.</p>
-              <a href="#" class="btn btn-primary">Ver Mais</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="text-center mt-4">
-        <a href="#section-catalogo" class="btn btn-success mt-3">Ver Todos os Lançamentos</a>
       </div>
     </section>
 
     <!-- section-ranking -->
-    <section id="section-ranking" class="container py-5">
+    <!-- ✅ MANTIDO: Bootstrap list-group + melhorado com espaçamentos -->
+    <section id="section-ranking" class="container p-xl">
       <h2 class="text-center fw-bold mb-4">🏆 TOP 5 MAIS JOGADOS 🏆</h2>
-      <p class="text-center mb-5">Estes são os títulos que estão dominando os servidores e conquistando os corações dos
-        gamers:</p>
-
+      <p class="text-center mb-5">Estes são os títulos que estão dominando os servidores e conquistando os corações dos gamers:</p>
       <div class="row">
         <div class="col-md-6 mx-auto">
-          <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
+          <!-- ✅ MELHORADO: Lista com sombra sutil -->
+          <ul class="list-group shadow-light">
+            <li class="list-group-item d-flex justify-content-between align-items-center transition-fast">
               <strong>1º - Call of Duty: Warzone</strong>
               <span class="badge bg-success rounded-pill">250K Jogadores</span>
             </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
+            <li class="list-group-item d-flex justify-content-between align-items-center transition-fast">
               <strong>2º - Fortnite</strong>
               <span class="badge bg-primary rounded-pill">230K Jogadores</span>
             </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
+            <li class="list-group-item d-flex justify-content-between align-items-center transition-fast">
               <strong>3º - League of Legends</strong>
               <span class="badge bg-warning rounded-pill">210K Jogadores</span>
             </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
+            <li class="list-group-item d-flex justify-content-between align-items-center transition-fast">
               <strong>4º - GTA V Online</strong>
               <span class="badge bg-info rounded-pill">190K Jogadores</span>
             </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
+            <li class="list-group-item d-flex justify-content-between align-items-center transition-fast">
               <strong>5º - Minecraft</strong>
               <span class="badge bg-danger rounded-pill">170K Jogadores</span>
             </li>
           </ul>
         </div>
       </div>
-
-      <div class="text-center mt-4">
-        <a href="#section-catalogo" class="btn btn-success mt-3">Ver Catálogo Completo</a>
+      <div class="text-center spacing-lg">
+        <a href="#section-catalogo" class="btn btn-gamer btn-lg">Ver Catálogo Completo</a>
       </div>
     </section>
 
     <!-- section-vendidos -->
+    <!-- ✅ MANTIDO: Bootstrap grid + melhorado com classes utilitárias -->
     <section id="section-vendidos" class="container-fluid py-5 bg-light">
       <div class="container">
         <h2 class="text-center fw-bold mb-4">🔥 OS MAIS VENDIDOS 🔥</h2>
         <p class="text-center mb-5">
-          Confira os jogos que estão fazendo história! Títulos imperdíveis que combinam qualidade, desafio e muita
-          diversão para todas as plataformas.
+          Confira os jogos que estão fazendo história! Títulos imperdíveis que combinam qualidade, desafio e muita diversão para todas as plataformas.
         </p>
-
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           <div class="col">
-            <div class="card shadow-sm h-100 border border-primary">
-              <img src="img/the-last-of-us-part-ii.jpg" alt="The Last of Us Part II" class="card-img-top img-fluid">
-              <div class="card-body text-center">
+            <!-- ✅ MELHORADO: Card de produto otimizado -->
+            <div class="card product-card shadow-medium border border-primary product-hover transition-normal">
+              <img src="img/the-last-of-us-part-ii.jpg" alt="The Last of Us Part II" class="card-img-top img-produto">
+              <div class="card-body text-center d-flex flex-column">
                 <h5 class="card-title fw-bold">The Last of Us Part II</h5>
-                <p class="card-text">Um dos jogos mais aclamados da geração com enredo emocionante e jogabilidade
-                  refinada.</p>
-                <p class="preco fw-bold text-success">R$ 98,00</p>
-                <p class="text-warning">⭐⭐⭐⭐☆ (4.5/5)</p>
-                <a href="#" class="btn btn-primary">Comprar</a>
+                <p class="card-text flex-grow-1">Um dos jogos mais aclamados da geração com enredo emocionante e jogabilidade refinada.</p>
+                <!-- ✅ MELHORADO: Preço com classe utilitária -->
+                <p class="text-price text-success">R$ 98,00</p>
+                <p class="text-warning text-sm">⭐⭐⭐⭐☆ (4.5/5)</p>
+                                <a href="#" class="btn btn-gamer mt-auto">Comprar</a>
               </div>
             </div>
           </div>
           <div class="col">
-            <div class="card shadow-sm h-100 border border-primary">
-              <img src="img/god-of-war-ragnarok.jpg" alt="God of War: Ragnarok" class="card-img-top img-fluid">
-              <div class="card-body text-center">
-                <h5 class="card-title fw-bold pb-1">God of War: Ragnarok</h5>
-                <p class="card-text">A jornada de Kratos e Atreus continua em uma saga épica e cinematográfica.</p>
-                <p class="preco fw-bold text-success pb-1">R$ 149,90</p>
-                <p class="text-warning pb-3">⭐⭐⭐⭐⭐ (5/5)</p>
-                <a href="#" class="btn btn-primary">Comprar</a>
+            <div class="card product-card shadow-medium border border-primary product-hover transition-normal">
+              <img src="img/god-of-war-ragnarok.jpg" alt="God of War: Ragnarok" class="card-img-top img-produto">
+              <div class="card-body text-center d-flex flex-column">
+                <h5 class="card-title fw-bold">God of War: Ragnarok</h5>
+                <p class="card-text flex-grow-1">A jornada de Kratos e Atreus continua em uma saga épica e cinematográfica.</p>
+                <p class="text-price text-success">R$ 149,90</p>
+                <p class="text-warning text-sm">⭐⭐⭐⭐⭐ (5/5)</p>
+                <a href="#" class="btn btn-gamer mt-auto">Comprar</a>
               </div>
             </div>
           </div>
-
           <div class="col">
-            <div class="card shadow-sm h-100 border border-primary">
-              <img src="img/spider-man-2.jpg" alt="Spider-man 2" class="card-img-top img-fluid">
-              <div class="card-body text-center">
+            <div class="card product-card shadow-medium border border-primary product-hover transition-normal">
+              <img src="img/spider-man-2.jpg" alt="Spider-man 2" class="card-img-top img-produto">
+              <div class="card-body text-center d-flex flex-column">
                 <h5 class="card-title fw-bold">Spider-Man 2</h5>
-                <p class="card-text">Aventure-se por Nova York com novos vilões, combates aprimorados e jogabilidade
-                  cinematográfica.</p>
-                <p class="preco fw-bold text-success">R$ 89,90</p>
-                <p class="text-warning">⭐⭐⭐⭐☆ (4.2/5)</p>
-                <a href="#" class="btn btn-primary">Comprar</a>
+                <p class="card-text flex-grow-1">Aventure-se por Nova York com novos vilões, combates aprimorados e jogabilidade cinematográfica.</p>
+                <p class="text-price text-success">R$ 89,90</p>
+                <p class="text-warning text-sm">⭐⭐⭐⭐☆ (4.2/5)</p>
+                <a href="#" class="btn btn-gamer mt-auto">Comprar</a>
               </div>
             </div>
           </div>
         </div>
       </div>
-      </div>
     </section>
 
-
-
-    <section id="faq" class="container my-5">
+    <!-- FAQ Section -->
+    <!-- ✅ MANTIDO: Bootstrap accordion + melhorado com espaçamentos -->
+    <section id="faq" class="container p-xl">
       <h2 class="text-center mb-4">Perguntas Frequentes</h2>
-
-      <div class="accordion" id="faqAccordion">
-
+      <!-- ✅ MELHORADO: Accordion com sombra -->
+      <div class="accordion shadow-light" id="faqAccordion">
         <div class="accordion-item">
           <h2 class="accordion-header" id="faqHeading1">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1"
+            <button class="accordion-button transition-fast" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1"
               aria-expanded="true" aria-controls="faqCollapse1">
               Como posso comprar um jogo digital?
             </button>
@@ -273,15 +270,14 @@
           <div id="faqCollapse1" class="accordion-collapse collapse show" aria-labelledby="faqHeading1"
             data-bs-parent="#faqAccordion">
             <div class="accordion-body">
-              Basta escolher o jogo desejado, clicar em “Comprar” e seguir o processo de checkout. Após a confirmação do
+              Basta escolher o jogo desejado, clicar em "Comprar" e seguir o processo de checkout. Após a confirmação do
               pagamento, você receberá o código do jogo por e-mail ou WhatsApp.
             </div>
           </div>
         </div>
-
         <div class="accordion-item">
           <h2 class="accordion-header" id="faqHeading2">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            <button class="accordion-button collapsed transition-fast" type="button" data-bs-toggle="collapse"
               data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
               Os jogos funcionam no meu console?
             </button>
@@ -294,10 +290,9 @@
             </div>
           </div>
         </div>
-
         <div class="accordion-item">
           <h2 class="accordion-header" id="faqHeading3">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            <button class="accordion-button collapsed transition-fast" type="button" data-bs-toggle="collapse"
               data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
               Quais são as formas de pagamento aceitas?
             </button>
@@ -309,10 +304,9 @@
             </div>
           </div>
         </div>
-
         <div class="accordion-item">
           <h2 class="accordion-header" id="faqHeading4">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            <button class="accordion-button collapsed transition-fast" type="button" data-bs-toggle="collapse"
               data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
               Em quanto tempo recebo meu jogo?
             </button>
@@ -324,10 +318,9 @@
             </div>
           </div>
         </div>
-
         <div class="accordion-item">
           <h2 class="accordion-header" id="faqHeading5">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            <button class="accordion-button collapsed transition-fast" type="button" data-bs-toggle="collapse"
               data-bs-target="#faqCollapse5" aria-expanded="false" aria-controls="faqCollapse5">
               É seguro comprar na JM Games?
             </button>
@@ -340,31 +333,34 @@
             </div>
           </div>
         </div>
-
       </div>
     </section>
-
   </main>
 
   <!-- botão voltar ao topo -->
-  <button id="voltar-topo" type="button" class="btn btn-outline-primary rounded-pill" onclick="topo()">&uarr; Voltar ao topo</button>
+  <!-- ✅ MANTIDO: Funcionalidade original + melhorado visualmente -->
+  <button id="voltar-topo" type="button" class="btn btn-primary shadow-medium" onclick="topo()" title="Voltar ao topo">
+    <i class="bi bi-arrow-up-circle-fill"></i>
+  </button>
 
   <!-- rodapé -->
+  <!-- ✅ MANTIDO: Bootstrap footer + melhorado com transições -->
   <footer class="bg-dark text-white text-center py-3 mt-5">
     <div class="container">
       <p class="fw-bold mb-0">Desenvolvido por Jonathan Monteiro &copy; 2025</p>
       <p class="fw-bold mb-0">Todos os direitos reservados à JM Games.</p>
       <div class="social-icons mt-2">
-        <a href="#" class="text-white mx-2"><i class="bi bi-instagram fs-4"></i></a>
-        <a href="#" class="text-white mx-2"><i class="bi bi-linkedin fs-4"></i></a>
-        <a href="#" class="text-white mx-2"><i class="bi bi-whatsapp fs-4"></i></a>
+        <!-- ✅ MELHORADO: Ícones com transições suaves -->
+        <a href="#" class="text-white mx-2 transition-fast"><i class="bi bi-instagram fs-4"></i></a>
+        <a href="#" class="text-white mx-2 transition-fast"><i class="bi bi-linkedin fs-4"></i></a>
+        <a href="#" class="text-white mx-2 transition-fast"><i class="bi bi-whatsapp fs-4"></i></a>
       </div>
     </div>
   </footer>
-
 </body>
+
 <script src="js/script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-
 </html>
+

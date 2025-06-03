@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JM Games - login</title>
+    <title>JM Games - Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -15,9 +14,12 @@
 <body>
     <header>
         <!-- cabeçalho -->
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <!-- ✅ MANTIDO: Bootstrap navbar + adicionada sombra -->
+        <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html"><img src="img/logo.png" alt="logo"></a>
+                <a class="navbar-brand" href="index.html">
+                    <img src="img/logo.png" alt="logo" class="transition-fast">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -26,7 +28,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Promoções</a>
+                            <a class="nav-link" href="index.html">Início</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Promoções</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Console</a>
@@ -35,13 +40,14 @@
                             <a class="nav-link" href="#">Jogos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="login.html">Login</a>
+                            <a class="nav-link active" aria-current="page" href="login.html">Login</a>
                         </li>
                     </ul>
                     <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="O que deseja buscar"
+                        <!-- ✅ MELHORADO: Input com transição + botão gamer -->
+                        <input class="form-control me-2 transition-fast" type="search" placeholder="O que deseja buscar"
                             aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit"> Buscar</button>
+                        <button class="btn btn-gamer" type="submit">Buscar</button>
                     </form>
                 </div>
             </div>
@@ -50,149 +56,241 @@
 
     <main>
         <!-- formulário de login -->
-        <section id="section-login" class="container my-5 py-4 bg-light rounded shadow-sm">
-
-            <h1 class="text-center fw-bold p-3 mb-5">Login</h1>
-
+        <!-- ✅ MELHORADO: Container com classes utilitárias -->
+        <section id="section-login" class="container p-xl bg-light rounded shadow-medium">
+            <h1 class="text-center fw-bold spacing-lg">🎮 Faça seu Login 🎮</h1>
             <div class="d-flex justify-content-center">
-                <form method="post" action="" id="form-login">
-                    <p>
-                        <!-- nome -->
-                        <label for="usuario">Nome: </label>
-                        <input id="usuario-login" name="-login-usuario" required="required" type="text"
-                            placeholder="Insira o seu usuário" class="form-control" />
-                    </p>
-                    <p>
-                        <!-- senha -->
-                        <label for="senha">Senha: </label>
-                        <input id="senha-login" name="senha" required="required" type="password"
-                            placeholder="Insira a sua senha" class="form-control" />
-                    </p>
-                    <div class="text-center">
-                        <p>
-                            <input type="button" value="login" class="btn btn-primary" id="bt-login"
-                                onclick="login()" />
-                        </p>
-                    </div>
-                </form>
-            </div>
-        </section>
-
-        <!-- formulário de cadastro -->
-        <section id="section-cadastro" class="text-center bg-light p-5">
-            <div id="form-cadastrar" class="p-5">
-
-                <h1>Criar minha conta</h1>
-                <p>Informe os seus dados abaixo para criar sua conta.</p>
-
-                <div class="d-flex justify-content-center">
-                    <form method="post" action="" id="form-cadastro">
-                        <p>
-                            <label for="usuario">Usuário: </label>
-                            <input id="usuario-cadastro" name="usuario" required="required" type="text"
-                                placeholder="ex. nome de usuário" class="form-control" />
-                        </p>
-                        <p>
-                            <label for="email">E-mail: </label>
-                            <input id="email" name="email" required="required" type="email"
-                                placeholder="seu@email.com.br" class="form-control" />
-                        </p>
-                        <p>
-                            <label for="senha">Senha: </label>
-                            <input id="senha-cadastro" name="senha" required="required" type="password"
-                                placeholder="mínimo de 6 caracteres" class="form-control" />
-                        </p>
-                        <p>
-                            <input type="button" value="Cadastrar" class="btn btn-primary" id="bt-cadastrar"
-                                onclick="cadastro()" />
-                        </p>
+                <!-- ✅ MELHORADO: Formulário com largura máxima e sombra -->
+                <div class="form-container shadow-light rounded p-4 bg-white" style="max-width: 400px; width: 100%;">
+                    <form method="post" action="" id="form-login">
+                        <!-- ✅ MELHORADO: Input groups com classes utilitárias -->
+                        <div class="form-group spacing-md">
+                            <label for="usuario-login" class="form-label fw-semibold">
+                                <i class="bi bi-person-fill me-2 text-primary"></i>Nome de Usuário:
+                            </label>
+                            <input id="usuario-login" name="login-usuario" required type="text"
+                                placeholder="Insira o seu usuário" 
+                                class="form-control form-input transition-fast" />
+                        </div>
+                        
+                        <div class="form-group spacing-md">
+                            <label for="senha-login" class="form-label fw-semibold">
+                                <i class="bi bi-lock-fill me-2 text-primary"></i>Senha:
+                            </label>
+                            <div class="input-group">
+                                <input id="senha-login" name="senha" required type="password" 
+                                    placeholder="Insira a sua senha"
+                                    class="form-control form-input transition-fast" />
+                                <button class="btn btn-outline-secondary toggle-password transition-fast" type="button"
+                                    title="Mostrar/ocultar senha">
+                                    <i class="bi bi-eye-slash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- ✅ MELHORADO: Botão com estilo gamer -->
+                        <div class="d-grid gap-2 spacing-md">
+                            <button type="submit" class="btn btn-gamer btn-lg" id="btn-login-submit">
+                                <i class="bi bi-box-arrow-in-right me-2"></i>Entrar
+                            </button>
+                        </div>
+                        
+                        <!-- ✅ MELHORADO: Seção de cadastro com melhor visual -->
+                        <div class="text-center spacing-lg">
+                            <hr class="my-3">
+                            <p class="text-muted">Ainda não tem conta?</p>
+                            <button type="button" class="btn btn-outline-success btn-lg transition-normal" id="botao-cadastrar">
+                                <i class="bi bi-person-plus-fill me-2"></i>Criar Conta
+                            </button>
+                        </div>
                     </form>
                 </div>
-
             </div>
         </section>
 
-        <!-- Secao beneficios membros -->
-        <section id="beneficios-membro" class="container my-1 py-1 bg-light rounded shadow-sm">
-            <div class="row">
-                <div class="col-md-8 mx-auto text-center">
-                    <h2 class="mb-5">🎮 Desbloqueie o Próximo Nível da Diversão! 🎮</h2>
-                    <p class="text-center">Crie sua conta gratuita na **JM Games** e tenha acesso a um universo de
-                        vantagens:
-                    </p>
-                    <ul class="list-unstyled text-start mx-auto" style="max-width: 500px;">
-                        <li class="my-2"><i class="bi bi-gift-fill me-2 text-primary"></i> Promoções e descontos
-                            exclusivos para membros</li>
-                        <li class="my-2"><i class="bi bi-bookmark-heart-fill me-2 text-danger"></i> Salve seus jogos
-                            favoritos e monte sua lista de desejos</li>
-                        <li class="my-2"><i class="bi bi-bell-fill me-2 text-warning"></i> Receba alertas de novos
-                            lançamentos e reposições de estoque</li>
-                        <li class="my-2"><i class="bi bi-cart-check-fill me-2 text-success"></i> Checkout rápido e
-                            seguro para suas próximas compras</li>
-                    </ul>
-                    <p class="mt-4">É rápido, fácil e totalmente grátis. Venha fazer parte da nossa comunidade gamer!
-                    </p>
-                    <div id="botao-cadastrar">
-                        <button type="button" class="btn btn-primary btn-lg mt-3">Quero Me Cadastrar Agora!</button>
+        <!-- ✅ MELHORADO: Seção de cadastro com melhor estrutura -->
+        <section id="section-cadastro" class="container p-xl bg-light rounded shadow-medium" style="display: none;">
+            <div class="text-center">
+                <h1 class="fw-bold spacing-md">🚀 Criar Minha Conta 🚀</h1>
+                <p class="lead text-muted">Informe os seus dados abaixo para criar sua conta e começar a jogar!</p>
+                
+                <div class="d-flex justify-content-center">
+                    <div class="form-container shadow-light rounded p-4 bg-white" style="max-width: 450px; width: 100%;">
+                        <form method="post" action="" id="form-cadastro">
+                            <!-- ✅ MELHORADO: Inputs com ícones e melhor visual -->
+                            <div class="form-group spacing-md">
+                                <label for="usuario-cadastro" class="form-label fw-semibold">
+                                    <i class="bi bi-person-badge-fill me-2 text-primary"></i>Nome de Usuário:
+                                </label>
+                                <input id="usuario-cadastro" name="usuario" required type="text"
+                                    placeholder="ex. gamer123" class="form-control form-input transition-fast" />
+                            </div>
+                            
+                            <div class="form-group spacing-md">
+                                <label for="email" class="form-label fw-semibold">
+                                    <i class="bi bi-envelope-fill me-2 text-primary"></i>E-mail:
+                                </label>
+                                <input id="email" name="email" required type="email" placeholder="seu@email.com"
+                                    class="form-control form-input transition-fast" />
+                                <div class="invalid-feedback">
+                                    <i class="bi bi-exclamation-triangle-fill me-1"></i>Por favor, insira um e-mail válido.
+                                </div>
+                                <div class="valid-feedback">
+                                    <i class="bi bi-check-circle-fill me-1"></i>E-mail válido!
+                                </div>
+                            </div>
+                            
+                            <div class="form-group spacing-md">
+                                <label for="senha-cadastro" class="form-label fw-semibold">
+                                    <i class="bi bi-shield-lock-fill me-2 text-primary"></i>Senha:
+                                </label>
+                                <input id="senha-cadastro" name="senha" required type="password"
+                                    placeholder="mínimo de 6 caracteres" class="form-control form-input transition-fast" />
+                                <div class="invalid-feedback">
+                                    <i class="bi bi-exclamation-triangle-fill me-1"></i>A senha deve ter no mínimo 6 caracteres.
+                                </div>
+                            </div>
+                            
+                            <!-- ✅ MELHORADO: Botão de cadastro com estilo gamer -->
+                            <div class="d-grid gap-2 spacing-lg">
+                                <button type="submit" class="btn btn-gamer btn-lg" id="btn-cadastro-submit">
+                                    <i class="bi bi-rocket-takeoff-fill me-2"></i>Criar Conta
+                                </button>
+                            </div>
+                        </form>
                     </div>
+                </div>
+                
+                <!-- ✅ MELHORADO: Botão voltar com melhor visual -->
+                <button type="button" class="btn btn-outline-secondary btn-lg spacing-lg transition-normal" id="botao-voltar">
+                    <i class="bi bi-arrow-left-circle-fill me-2"></i>Voltar ao Login
+                </button>
+            </div>
+        </section>
+
+        <!-- Seção benefícios membros -->
+        <!-- ✅ MELHORADO: Seção com melhor estrutura visual -->
+        <section id="beneficios-membro" class="container p-xl bg-gradient-light rounded shadow-medium">
+            <div class="row">
+                <div class="col-md-10 mx-auto text-center">
+                    <h2 class="spacing-lg">🎮 Desbloqueie o Próximo Nível da Diversão! 🎮</h2>
+                    <p class="lead text-muted spacing-md">
+                        Crie sua conta gratuita na <strong class="text-primary">JM Games</strong> e tenha acesso a um universo de vantagens:
+                    </p>
+                    
+                    <!-- ✅ MELHORADO: Lista com cards visuais -->
+                    <div class="row row-cols-1 row-cols-md-2 g-3 spacing-lg">
+                        <div class="col">
+                            <div class="benefit-card p-3 rounded shadow-light bg-white h-100 transition-fast">
+                                <i class="bi bi-gift-fill fs-1 text-primary mb-2"></i>
+                                <h5 class="fw-bold">Promoções Exclusivas</h5>
+                                <p class="text-sm text-muted">Descontos especiais só para membros</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="benefit-card p-3 rounded shadow-light bg-white h-100 transition-fast">
+                                <i class="bi bi-bookmark-heart-fill fs-1 text-danger mb-2"></i>
+                                <h5 class="fw-bold">Lista de Desejos</h5>
+                                <p class="text-sm text-muted">Salve seus jogos favoritos</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="benefit-card p-3 rounded shadow-light bg-white h-100 transition-fast">
+                                <i class="bi bi-bell-fill fs-1 text-warning mb-2"></i>
+                                <h5 class="fw-bold">Alertas Personalizados</h5>
+                                <p class="text-sm text-muted">Novidades e reposições em primeira mão</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="benefit-card p-3 rounded shadow-light bg-white h-100 transition-fast">
+                                <i class="bi bi-cart-check-fill fs-1 text-success mb-2"></i>
+                                <h5 class="fw-bold">Checkout Rápido</h5>
+                                <p class="text-sm text-muted">Compras mais ágeis e seguras</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="spacing-lg lead">
+                        <strong>É rápido, fácil e totalmente grátis.</strong> Venha fazer parte da nossa comunidade gamer!
+                    </p>
                 </div>
             </div>
         </section>
-        <!-- Secao Seguranca e privacidade -->
-        <section id="seguranca-privacidade" class="container my-5 py-4 rounded shadow-sm">
+
+        <!-- Seção Segurança e privacidade -->
+        <!-- ✅ MELHORADO: Seção com badges mais visuais -->
+        <section id="seguranca-privacidade" class="container p-xl rounded shadow-medium bg-dark text-white">
             <div class="row">
-                <div class="col-md-8 mx-auto text-center">
-                    <h2 class="mb-4">🔒 Sua Segurança é a Nossa Prioridade 🔒</h2>
-                    <p class="lead">Na JM Games, protegemos seus dados com tecnologia de ponta para garantir uma
-                        experiência de compra e cadastro totalmente segura e tranquila.</p>
-                    <div class="d-flex justify-content-center flex-wrap gap-3 mt-4">
-                        <span class="badge bg-success p-3 fs-5"><i class="bi bi-lock-fill me-2"></i> Dados
-                            Criptografados</span>
-                        <span class="badge bg-success p-3 fs-5"><i class="bi bi-shield-fill-check me-2"></i> Proteção
-                            Contra Fraudes</span>
-                        <span class="badge bg-success p-3 fs-5"><i class="bi bi-file-earmark-lock-fill me-2"></i>
-                            Política de Privacidade Clara</span>
+                <div class="col-md-10 mx-auto text-center">
+                    <h2 class="spacing-md">🔒 Sua Segurança é a Nossa Prioridade 🔒</h2>
+                    <p class="lead spacing-md">
+                        Na JM Games, protegemos seus dados com tecnologia de ponta para garantir uma experiência de compra e cadastro totalmente segura e tranquila.
+                    </p>
+                    
+                    <!-- ✅ MELHORADO: Cards de segurança mais visuais -->
+                    <div class="row row-cols-1 row-cols-md-3 g-3 spacing-lg">
+                        <div class="col">
+                            <div class="security-card p-4 rounded shadow-light bg-success text-white h-100 transition-fast">
+                                <i class="bi bi-lock-fill fs-1 mb-3"></i>
+                                <h5 class="fw-bold">Dados Criptografados</h5>
+                                <p class="text-sm">Proteção SSL de última geração</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="security-card p-4 rounded shadow-light bg-success text-white h-100 transition-fast">
+                                <i class="bi bi-shield-fill-check fs-1 mb-3"></i>
+                                <h5 class="fw-bold">Anti-Fraude</h5>
+                                <p class="text-sm">Monitoramento 24/7 contra atividades suspeitas</p>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="security-card p-4 rounded shadow-light bg-success text-white h-100 transition-fast">
+                                <i class="bi bi-file-earmark-lock-fill fs-1 mb-3"></i>
+                                <h5 class="fw-bold">Privacidade Total</h5>
+                                <p class="text-sm">Seus dados nunca são compartilhados</p>
+                            </div>
+                        </div>
                     </div>
-                    <p class=" mt-4">
-                        Suas informações pessoais são confidenciais e nunca serão compartilhadas com terceiros.
-                        <a href="#" class="text-white text-decoration-underline">Saiba mais sobre nossa Política de
-                            Privacidade.</a>
+                    
+                    <p class="spacing-lg">
+                        Suas informações pessoais são confidenciais e protegidas por nossa política rigorosa de segurança.
+                        <br>
+                        <a href="#" class="text-warning text-decoration-underline transition-fast">
+                            <i class="bi bi-info-circle-fill me-1"></i>Saiba mais sobre nossa Política de Privacidade
+                        </a>
                     </p>
                 </div>
             </div>
         </section>
-
-
     </main>
 
     <!-- botão voltar ao topo -->
-    <button id="voltar-topo" type="button" class="btn btn-outline-primary rounded-pill" onclick="topo()">&uarr; Voltar
-        ao
-        topo</button>
+    <!-- ✅ MELHORADO: Botão com ícone Bootstrap e transições -->
+    <button id="voltar-topo" type="button" class="btn btn-primary shadow-medium" onclick="topo()" title="Voltar ao topo">
+        <i class="bi bi-arrow-up-circle-fill"></i>
+    </button>
 
     <!-- rodapé -->
+    <!-- ✅ MELHORADO: Footer com transições nos links sociais -->
     <footer class="bg-dark text-white text-center py-3 mt-5">
         <div class="container">
             <p class="fw-bold mb-0">Desenvolvido por Jonathan Monteiro &copy; 2025</p>
             <p class="fw-bold mb-0">Todos os direitos reservados à JM Games.</p>
             <div class="social-icons mt-2">
-                <a href="#" class="text-white mx-2"><i class="bi bi-instagram fs-4"></i></a>
-                <a href="#" class="text-white mx-2"><i class="bi bi-twitter fs-4"></i></a>
-                <a href="#" class="text-white mx-2"><i class="bi bi-facebook fs-4"></i></a>
+                <!-- ✅ MELHORADO: Links sociais com transições -->
+                <a href="#" class="text-white mx-2 transition-fast"><i class="bi bi-instagram fs-4"></i></a>
+                <a href="#" class="text-white mx-2 transition-fast"><i class="bi bi-linkedin fs-4"></i></a>
+                <a href="#" class="text-white mx-2 transition-fast"><i class="bi bi-whatsapp fs-4"></i></a>
             </div>
         </div>
     </footer>
-
-
 </body>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
     crossorigin="anonymous"></script>
-
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
     crossorigin="anonymous"></script>
-<script type="text/javascript" src="js/jquery-script.js"></script>
-
+<script src="js/jquery-script.js"></script>
 <script src="js/script.js"></script>
-
 </html>

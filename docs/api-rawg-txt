@@ -1,0 +1,341 @@
+GUIA RÁPIDO: RAWG Video Games Database API para Portfólio
+
+---
+
+OBJETIVO DO PROJETO: Explorador de Jogos com Filtros e Busca
+(Base para um projeto de portfólio que demonstra consumo de API, manipulação de dados, interatividade e UI/UX.)
+
+---
+
+1.  SOBRE A RAWG API
+
+    A RAWG Video Games Database API é uma API RESTful que oferece acesso a uma vasta base de dados de jogos, incluindo informações detalhadas, imagens (capas, screenshots), gêneros, plataformas, desenvolvedoras, avaliações, etc.
+
+    * Termos de Uso Pessoais:
+        * **Gratuito** para uso pessoal.
+        * **ATRIBUIÇÃO OBRIGATÓRIA:** Você DEVE atribuir "RAWG.io" como fonte dos dados e/ou imagens.
+        * **Hiperlink Ativo:** Você DEVE adicionar um hiperlink ativo para "https://rawg.io/" em cada página onde os dados do RAWG são usados.
+        * **Uso Proibido:** Não pode ser usada com conteúdo calunioso, difamatório, obsceno, pornográfico, abusivo ou ofensivo.
+
+    * Documentação Oficial:
+        * Principal: https://rawg.io/apidocs
+        * No RapidAPI: https://rapidapi.com/accujazz/api/rawg-video-games-database
+
+---
+
+2.  PRIMEIROS PASSOS: OBTER A API KEY
+
+    Para usar a API, você precisa de uma chave de API (API Key).
+    1.  Vá para https://rawg.io/apidocs e crie uma conta (ou faça login).
+    2.  Na página de documentação ou no seu painel de controle, você deverá encontrar a opção para gerar sua API Key. É uma string alfanumérica única.
+    3.  **Mantenha sua API Key SEGURA!** Não a exponha diretamente no seu código frontend em um ambiente de produção público sem um proxy, mas para um projeto de portfólio inicial, para fins de demonstração, colocá-la diretamente no JavaScript é aceitável, desde que você entenda os riscos (alguém pode roubar e usar sua chave, embora para RAWG isso seja menos crítico do que para APIs pagas).
+
+---
+
+3.  ENDPOINTS PRINCIPAIS PARA O PROJETO
+
+    A RAWG API possui vários endpoints. Para um Explorador de Jogos, os mais relevantes são:
+
+    * **Listar Jogos (Pesquisa, Filtros, Ordenação):**
+        `GET /games`
+        Parâmetros comuns:
+        * `key`: SUA_API_KEY (obrigatório)
+        * `search`: Termo de busca por nome do jogo.
+        * `genres`: ID(s) de gêneros (separados por vírgula para múltiplos).
+        * `platforms`: ID(s) de plataformas (separados por vírgula para múltiplos).
+        * `ordering`: Critério de ordenação (ex: `-rating` para maior avaliação, `-released` para mais recentes). Use '-' para ordem decrescente.
+        * `page`: Número da página.
+        * `page_size`: Quantidade de resultados por página (máx. 40 para usuários gratuitos).
+        * `dates`: Período de lançamento (ex: `2020-01-01,2020-12-31`).
+
+    * **Obter Detalhes de um Jogo Específico:**
+        `GET /games/{id}`
+        Parâmetros:
+        * `id`: ID único do jogo.
+        * `key`: SUA_API_KEY (obrigatório)
+
+    * **Listar Gêneros:**
+        `GET /genres`
+        Parâmetros: `key`
+
+    * **Listar Plataformas:**
+        `GET /platforms`
+        Parâmetros: `key`
+
+    * **Obter Screenshots de um Jogo:**
+        `GET /games/{game_pk}/screenshots`
+        Parâmetros:
+        * `game_pk`: ID único do jogo.
+        * `key`: SUA_API_KEY (obrigatório)
+
+---
+
+4.  BASE PARA IMPLEMENTAÇÃO NO SEU PROJETO (JavaScript)
+
+    A estrutura básica envolverá fazer requisições (usando `fetch` ou jQuery `$.ajax`), processar os dados JSON recebidos e renderizar dinamicamente o HTML.
+
+    **Estrutura do Projeto:**
+    * `index.html` (ou `jogos.html`)
+    * `css/style.css`
+    * `js/script.js` (Lógica de API, manipulação de dados, renderização)
+    * `js/jquery-script.js` (UI/Animações com jQuery, se ainda estiver usando)
+
+    **No `index.html`:**
+    * Ter um contêiner (ex: `<div id="game-list-container"></div>`) onde os cards dos jogos serão injetados.
+    * Campos de busca (`<input type="text" id="search-input">`).
+    * Controles de filtro (dropdowns, checkboxes) para gêneros e plataformas.
+    * Botões de paginação ou "Carregar Mais".
+    * Não esquecer os links para seus arquivos JS e CSS, e a inclusão da biblioteca jQuery (se usada).
+
+    ```html
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Explorador de Jogos RAWG</title>
+        <link rel="stylesheet" href="css/style.css">
+        <link href="[https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css](https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css)" rel="stylesheet">
+    </head>
+    <body>
+
+        <header class="container my-4">
+            <h1 class="text-center">Explorador de Jogos RAWG</h1>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <input type="text" id="search-input" class="form-control" placeholder="Buscar jogos por nome...">
+                </div>
+                <div class="col-md-3">
+                    <select id="genre-filter" class="form-select">
+                        <option value="">Todos os Gêneros</option>
+                        </select>
+                </div>
+                <div class="col-md-3">
+                    <select id="platform-filter" class="form-select">
+                        <option value="">Todas as Plataformas</option>
+                        </select>
+                </div>
+            </div>
+            <div class="text-center my-3">
+                <button id="apply-filters-btn" class="btn btn-primary">Aplicar Filtros</button>
+            </div>
+        </header>
+
+        <main class="container my-5">
+            <div id="game-list-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                </div>
+            <div class="text-center my-4">
+                <button id="load-more-btn" class="btn btn-secondary">Carregar Mais Jogos</button>
+            </div>
+        </main>
+
+        <footer class="text-center py-3 bg-light mt-5">
+            <p>Dados e imagens fornecidos por <a href="[https://rawg.io/](https://rawg.io/)" target="_blank">RAWG.io</a></p>
+        </footer>
+
+        <script src="[https://code.jquery.com/jquery-3.6.1.min.js](https://code.jquery.com/jquery-3.6.1.min.js)"></script>
+        <script src="[https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js](https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js)"></script>
+
+        <script src="js/script.js"></script>
+        <script src="js/jquery-script.js"></script>
+    </body>
+    </html>
+    ```
+
+    **No `js/script.js` (Exemplo de Lógica):**
+
+    ```javascript
+    // js/script.js
+
+    const API_KEY = 'SUA_CHAVE_AQUI'; // <<< SUBSTITUA PELA SUA CHAVE REAL DA RAWG API
+    const BASE_URL = '[https://api.rawg.io/api](https://api.rawg.io/api)';
+
+    let currentPage = 1; // Para paginação
+    let currentSearchTerm = '';
+    let currentGenreId = '';
+    let currentPlatformId = '';
+
+    // Função para buscar jogos da API
+    async function fetchGames(page = 1, search = '', genreId = '', platformId = '') {
+        try {
+            const params = new URLSearchParams({
+                key: API_KEY,
+                page: page,
+                page_size: 20, // Max 40 para free
+                search: search,
+                genres: genreId,
+                platforms: platformId,
+                ordering: '-rating' // Exemplo: ordenar por avaliação
+            });
+
+            // Limpa parâmetros vazios para não serem enviados
+            for (let [key, value] of params.entries()) {
+                if (!value) {
+                    params.delete(key);
+                }
+            }
+
+            const url = `${BASE_URL}/games?${params.toString()}`;
+            console.log("Fetching URL:", url); // Para depuração
+
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Erro HTTP! Status: ${response.status}`);
+            }
+            const data = await response.json();
+            return data.results; // Retorna o array de jogos
+        } catch (error) {
+            console.error('Erro ao buscar jogos:', error);
+            alert('Não foi possível carregar os jogos. Tente novamente mais tarde.');
+            return [];
+        }
+    }
+
+    // Função para renderizar os cards dos jogos no HTML
+    function renderGames(games, append = false) {
+        const container = document.getElementById('game-list-container');
+        if (!append) { // Se não for para adicionar, limpa o conteúdo existente
+            container.innerHTML = '';
+        }
+
+        if (games.length === 0 && !append) {
+            container.innerHTML = '<p class="col-12 text-center">Nenhum jogo encontrado com os filtros selecionados.</p>';
+            document.getElementById('load-more-btn').style.display = 'none';
+            return;
+        }
+
+        games.forEach(game => {
+            const gameCard = document.createElement('div');
+            gameCard.classList.add('col'); // Bootstrap column
+            gameCard.innerHTML = `
+                <div class="card h-100 shadow-sm">
+                    <img src="${game.background_image || '[https://via.placeholder.com/400x250?text=No+Image](https://via.placeholder.com/400x250?text=No+Image)'}" 
+                         class="card-img-top" alt="${game.name}" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">${game.name}</h5>
+                        <p class="card-text">
+                            <strong>Gêneros:</strong> ${game.genres.map(g => g.name).join(', ') || 'N/A'}<br>
+                            <strong>Plataformas:</strong> ${game.platforms.map(p => p.platform.name).join(', ') || 'N/A'}<br>
+                            <strong>Avaliação:</strong> ${game.rating || 'N/A'}
+                        </p>
+                        </div>
+                </div>
+            `;
+            container.appendChild(gameCard);
+        });
+
+        // Mostra/esconde botão "Carregar Mais"
+        document.getElementById('load-more-btn').style.display = (games.length === 20) ? 'block' : 'none';
+    }
+
+    // Função para carregar e renderizar gêneros nos filtros
+    async function fetchAndRenderGenres() {
+        try {
+            const response = await fetch(`${BASE_URL}/genres?key=${API_KEY}`);
+            const data = await response.json();
+            const genreFilter = document.getElementById('genre-filter');
+            data.results.forEach(genre => {
+                const option = document.createElement('option');
+                option.value = genre.id;
+                option.textContent = genre.name;
+                genreFilter.appendChild(option);
+            });
+        } catch (error) {
+            console.error('Erro ao buscar gêneros:', error);
+        }
+    }
+
+    // Função para carregar e renderizar plataformas nos filtros
+    async function fetchAndRenderPlatforms() {
+        try {
+            const response = await fetch(`${BASE_URL}/platforms?key=${API_KEY}`);
+            const data = await response.json();
+            const platformFilter = document.getElementById('platform-filter');
+            data.results.forEach(platform => {
+                const option = document.createElement('option');
+                option.value = platform.id;
+                option.textContent = platform.name;
+                platformFilter.appendChild(option);
+            });
+        } catch (error) {
+            console.error('Erro ao buscar plataformas:', error);
+        }
+    }
+
+    // Função principal para carregar jogos com os filtros atuais
+    async function loadGames(append = false) {
+        currentSearchTerm = document.getElementById('search-input').value;
+        currentGenreId = document.getElementById('genre-filter').value;
+        currentPlatformId = document.getElementById('platform-filter').value;
+
+        const games = await fetchGames(currentPage, currentSearchTerm, currentGenreId, currentPlatformId);
+        renderGames(games, append);
+    }
+
+    // === Event Listeners ===
+    document.addEventListener('DOMContentLoaded', () => {
+        // Carrega os filtros ao carregar a página
+        fetchAndRenderGenres();
+        fetchAndRenderPlatforms();
+
+        // Carrega os jogos iniciais
+        loadGames();
+
+        // Evento para o botão "Aplicar Filtros"
+        document.getElementById('apply-filters-btn').addEventListener('click', () => {
+            currentPage = 1; // Reinicia a página para a busca/filtro
+            loadGames();
+        });
+
+        // Evento para o botão "Carregar Mais"
+        document.getElementById('load-more-btn').addEventListener('click', () => {
+            currentPage++;
+            loadGames(true); // 'true' para adicionar (append) os jogos
+        });
+
+        // Opcional: Busca ao digitar (com debounce para melhor performance)
+        let searchTimeout;
+        document.getElementById('search-input').addEventListener('input', () => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                currentPage = 1;
+                loadGames();
+            }, 500); // Espera 500ms depois que o usuário para de digitar
+        });
+    });
+    ```
+
+---
+
+5.  ESTILIZAÇÃO BÁSICA (No `css/style.css`)
+
+    Use Bootstrap (se incluiu) e adicione estilos para os cards dos jogos.
+
+    ```css
+    /* css/style.css */
+    body {
+        font-family: sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    .jogo-card .card-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    /* Adicione mais estilos conforme a necessidade */
+    ```
+
+---
+
+6.  CONSIDERAÇÕES IMPORTANTES
+
+    * **Tratamento de Erros:** Sempre inclua `try...catch` em suas requisições `fetch` para lidar com problemas de rede ou erros da API.
+    * **Loading States:** Para uma melhor UX, mostre um indicador de carregamento (spinner) enquanto os dados estão sendo buscados da API.
+    * **Atribuição:** Não esqueça de adicionar a atribuição da RAWG.io no rodapé ou em um local visível do seu projeto, com o hiperlink ativo.
+    * **Responsividade:** Certifique-se de que seu layout seja responsivo para diferentes tamanhos de tela.
+    * **Otimização de Imagens:** As imagens da API podem ser grandes. Considere carregar imagens de tamanho adequado ou implementar lazy loading se o projeto for complexo.
+    * **Segurança da API Key:** Para projetos maiores ou de produção, a API Key não deve ficar exposta no frontend. Usa-se um servidor proxy. Para portfólio pequeno, é aceitável, mas esteja ciente.
+
+---
+FIM DO GUIA

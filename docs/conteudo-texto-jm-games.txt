@@ -1,0 +1,384 @@
+================================================================================
+📝 CONTEÚDO E TEXTOS - JM GAMES
+================================================================================
+Todos os textos utilizados no projeto para manter consistência
+================================================================================
+
+🏷️ MARCA E SLOGAN
+================================================================================
+Nome da Loja: JM Games
+Slogan Principal: "Sua próxima aventura começa aqui!"
+Slogan Alternativo: "O melhor em games e tecnologia"
+Tagline: "Jogos, Consoles e Acessórios"
+
+================================================================================
+🏠 PÁGINA INICIAL (INDEX.HTML)
+================================================================================
+
+📍 NAVEGAÇÃO:
+- Início
+- Produtos
+- Ofertas
+- Contato
+- Login/Cadastro
+
+📍 SEÇÃO HERO/BANNER:
+Título: "Bem-vindo à JM Games"
+Subtítulo: "Descubra os melhores jogos, consoles e acessórios com preços incríveis!"
+Botão CTA: "Ver Ofertas"
+
+📍 SEÇÃO NOVIDADES:
+Título: "🎮 Novidades"
+Subtítulo: "Os lançamentos mais esperados chegaram!"
+Descrição: "Confira os jogos mais recentes e seja um dos primeiros a jogar as maiores novidades do mundo gamer."
+
+📍 SEÇÃO MAIS VENDIDOS:
+Título: "🔥 Mais Vendidos"
+Subtítulo: "Os favoritos da nossa comunidade"
+Descrição: "Produtos com as melhores avaliações e que fazem sucesso entre os gamers."
+
+📍 SEÇÃO BENEFÍCIOS:
+Título: "Por que escolher a JM Games?"
+
+Benefício 1:
+Ícone: 🚚
+Título: "Entrega Rápida"
+Descrição: "Receba seus jogos em casa com segurança e agilidade"
+
+Benefício 2:
+Ícone: 💳
+Título: "Pagamento Seguro"
+Descrição: "Diversas formas de pagamento com total segurança"
+
+Benefício 3:
+Ícone: 🎮
+Título: "Produtos Originais"
+Descrição: "Apenas produtos originais e com garantia oficial"
+
+Benefício 4:
+Ícone: 💬
+Título: "Suporte 24/7"
+Descrição: "Atendimento especializado sempre que precisar"
+
+📍 SEÇÃO NEWSLETTER:
+Título: "📧 Fique por dentro das novidades!"
+Subtítulo: "Cadastre-se e receba ofertas exclusivas"
+Placeholder: "Digite seu melhor e-mail"
+Botão: "Cadastrar"
+Texto legal: "Não enviamos spam. Você pode cancelar a qualquer momento."
+
+================================================================================
+🔐 PÁGINA DE LOGIN (LOGIN.HTML)
+================================================================================
+
+📍 FORMULÁRIO DE LOGIN:
+Título: "Entrar na sua conta"
+Subtítulo: "Acesse sua conta para continuar suas compras"
+
+Campo Email:
+Label: "📧 Email:"
+Placeholder: "seu@email.com"
+Erro: "Por favor, insira um email válido."
+
+Campo Senha:
+Label: "🔒 Senha:"
+Placeholder: "Sua senha"
+Erro: "A senha deve ter pelo menos 6 caracteres."
+
+Checkbox: "Lembrar-me"
+Botão: "🚪 Entrar"
+Link: "Esqueceu sua senha?"
+
+📍 FORMULÁRIO DE CADASTRO:
+Título: "Criar nova conta"
+Subtítulo: "Junte-se à comunidade JM Games"
+
+Campo Nome:
+Label: "👤 Nome completo:"
+Placeholder: "Seu nome completo"
+Erro: "Nome é obrigatório."
+
+Campo Email:
+Label: "📧 Email:"
+Placeholder: "seu@email.com"
+Erro: "Por favor, insira um email válido."
+
+Campo Senha:
+Label: "🔒 Senha:"
+Placeholder: "Crie uma senha segura"
+Erro: "A senha deve ter pelo menos 6 caracteres."
+
+Campo Confirmar Senha:
+Label: "🔒 Confirmar senha:"
+Placeholder: "Digite a senha novamente"
+Erro: "As senhas não coincidem."
+
+Checkbox: "Aceito os termos de uso e política de privacidade"
+Botão: "✨ Criar Conta"
+
+📍 SEÇÃO BENEFÍCIOS PARA MEMBROS:
+Título: "🌟 Benefícios exclusivos para membros"
+
+Benefício 1: "🎁 Ofertas exclusivas toda semana"
+Benefício 2: "🚚 Frete grátis em compras acima de R$ 99"
+Benefício 3: "⭐ Acesso antecipado a lançamentos"
+Benefício 4: "🎮 Programa de pontos e recompensas"
+
+📍 SEÇÃO SEGURANÇA:
+Título: "🔐 Segurança e Privacidade"
+Texto: "Seus dados estão protegidos com criptografia de ponta e nunca são compartilhados com terceiros."
+
+================================================================================
+🛒 CARRINHO DE COMPRAS
+================================================================================
+
+📍 CARRINHO VAZIO:
+Ícone: 🛒❌
+Título: "Seu carrinho está vazio"
+Subtítulo: "Adicione produtos para começar suas compras!"
+Botão: "Continuar Comprando"
+
+📍 CARRINHO COM ITENS:
+Título: "🛒 Meu Carrinho"
+Contador: Badge com número de itens
+Botões: "➕" "➖" "🗑️"
+Total: "Total: R$ 0,00"
+Botão Principal: "💳 Finalizar Compra"
+Botão Secundário: "Continuar Comprando"
+Botão Limpar: "🗑️ Limpar Carrinho"
+
+================================================================================
+❤️ SISTEMA DE FAVORITOS
+================================================================================
+
+📍 FAVORITOS VAZIOS:
+Ícone: ❤️💔
+Título: "Nenhum favorito ainda"
+Subtítulo: "Adicione produtos aos favoritos para encontrá-los facilmente!"
+
+📍 NOTIFICAÇÕES:
+Adicionar: "[Nome do Produto] adicionado aos favoritos!"
+Remover: "[Nome do Produto] removido dos favoritos!"
+
+================================================================================
+🔍 SISTEMA DE BUSCA
+================================================================================
+
+📍 BUSCA:
+Placeholder: "Buscar jogos, consoles..."
+Botão: "🔍"
+Filtro: "Todas as categorias"
+Opções: "Jogos", "Consoles", "Acessórios"
+
+📍 SEM RESULTADOS:
+Ícone: 🔍
+Título: "Nenhum produto encontrado"
+Subtítulo: "Tente buscar por outros termos ou verifique a categoria selecionada."
+Botão: "🔄 Limpar Busca"
+
+📍 SUGESTÕES:
+Texto: "Você quis dizer..."
+Produtos populares: "Mais buscados"
+
+================================================================================
+📱 MENU MOBILE
+================================================================================
+
+📍 NAVEGAÇÃO INFERIOR:
+- 🏠 Início
+- 🔍 Buscar  
+- 🛒 Carrinho
+- 👤 Login
+
+================================================================================
+🔔 NOTIFICAÇÕES (TOASTS)
+================================================================================
+
+📍 SUCESSO:
+- "Produto adicionado ao carrinho!"
+- "Item adicionado aos favoritos!"
+- "Login realizado com sucesso!"
+- "Cadastro realizado com sucesso!"
+
+📍 INFORMAÇÃO:
+- "Item removido do carrinho!"
+- "Item removido dos favoritos!"
+- "Carrinho limpo!"
+- "Página de detalhes em desenvolvimento!"
+
+📍 ERRO:
+- "Erro ao processar solicitação"
+- "Verifique os dados informados"
+- "Conexão perdida, tente novamente"
+
+================================================================================
+🦶 RODAPÉ (FOOTER)
+================================================================================
+
+📍 SEÇÃO EMPRESA:
+Título: "JM Games"
+Texto: "Sua loja especializada em games, consoles e acessórios. Produtos originais com os melhores preços do mercado."
+
+📍 SEÇÃO LINKS RÁPIDOS:
+Título: "Links Rápidos"
+- Sobre Nós
+- Produtos  
+- Ofertas
+- Contato
+- Política de Privacidade
+- Termos de Uso
+
+📍 SEÇÃO ATENDIMENTO:
+Título: "Atendimento"
+- 📞 (11) 9999-9999
+- 📧 contato@jmgames.com.br
+- 💬 Chat Online
+- 🕐 Seg-Sex: 8h às 18h
+
+📍 SEÇÃO REDES SOCIAIS:
+Título: "Siga-nos"
+- 📘 Facebook
+- 📷 Instagram  
+- 🐦 Twitter
+- 📺 YouTube
+
+📍 COPYRIGHT:
+"© 2024 JM Games. Todos os direitos reservados. | Projeto desenvolvido para fins educacionais."
+
+================================================================================
+🎮 PRODUTOS DE EXEMPLO
+================================================================================
+
+📍 JOGOS:
+1. "The Last of Us Part II"
+   Descrição: "Aventura pós-apocalíptica emocionante com gráficos incríveis"
+   
+2. "God of War Ragnarök"  
+   Descrição: "A épica jornada de Kratos e Atreus continua"
+   
+3. "Spider-Man: Miles Morales"
+   Descrição: "Torne-se o novo Homem-Aranha de Nova York"
+
+📍 CONSOLES:
+1. "PlayStation 5"
+   Descrição: "Console de nova geração com SSD ultra-rápido"
+   
+2. "Xbox Series X"
+   Descrição: "O Xbox mais poderoso de todos os tempos"
+   
+3. "Nintendo Switch OLED"
+   Descrição: "Jogue onde quiser com a tela OLED vibrante"
+
+📍 ACESSÓRIOS:
+1. "DualSense Controller"
+   Descrição: "Controle sem fio com feedback tátil avançado"
+   
+2. "Headset Gamer 7.1"
+   Descrição: "Som surround para uma experiência imersiva"
+   
+3. "Teclado Mecânico RGB"
+   Descrição: "Performance profissional para gamers exigentes"
+
+================================================================================
+💬 TEXTOS DE CARREGAMENTO
+================================================================================
+
+📍 LOADING STATES:
+- "Carregando produtos..."
+- "Processando..."
+- "Aguarde um momento..."
+- "Buscando resultados..."
+
+================================================================================
+📋 FORMULÁRIOS - MENSAGENS DE VALIDAÇÃO
+================================================================================
+
+📍 CAMPOS OBRIGATÓRIOS:
+- "Este campo é obrigatório"
+- "Por favor, preencha este campo"
+
+📍 EMAIL:
+- "Por favor, insira um email válido"
+- "Email válido!"
+
+📍 SENHA:
+- "A senha deve ter pelo menos 6 caracteres"
+- "Senha muito fraca"
+- "Senha válida!"
+
+📍 CONFIRMAÇÃO:
+- "As senhas não coincidem"
+- "Senhas coincidem!"
+
+================================================================================
+🎯 CALL-TO-ACTIONS (BOTÕES)
+================================================================================
+
+📍 PRINCIPAIS:
+- "Comprar Agora"
+- "Adicionar ao Carrinho"
+- "Ver Detalhes"
+- "Finalizar Compra"
+- "Cadastrar-se"
+- "Entrar"
+
+📍 SECUNDÁRIOS:
+- "Continuar Comprando"
+- "Ver Mais"
+- "Saiba Mais"
+- "Voltar"
+- "Cancelar"
+
+📍 AÇÕES:
+- "Limpar Carrinho"
+- "Remover Item"
+- "Aplicar Cupom"
+- "Calcular Frete"
+
+================================================================================
+📊 TEXTOS DE STATUS
+================================================================================
+
+📍 ESTOQUE:
+- "Em estoque"
+- "Últimas unidades"
+- "Fora de estoque"
+- "Pré-venda"
+
+📍 ENTREGA:
+- "Entrega rápida"
+- "Frete grátis"
+- "Retirada na loja"
+
+📍 PAGAMENTO:
+- "Parcelamento sem juros"
+- "À vista no PIX"
+- "Cartão de crédito"
+
+================================================================================
+🏆 SELOS E BADGES
+================================================================================
+
+📍 PRODUTOS:
+- "🔥 Mais Vendido"
+- "⭐ Novidade"
+- "💥 Oferta"
+- "🎯 Exclusivo"
+- "🏆 Recomendado"
+
+📍 DESCONTOS:
+- "20% OFF"
+- "FRETE GRÁTIS"
+- "OFERTA RELÂMPAGO"
+- "LIQUIDAÇÃO"
+
+================================================================================
+💡 DICAS DE USO
+================================================================================
+
+Para manter consistência no projeto:
+✅ Use sempre os mesmos textos para ações similares
+✅ Mantenha o tom amigável e profissional
+✅ Emojis apenas onde especificado
+✅ Textos de erro sempre claros e úteis
+✅ CTAs sempre diretos e motivadores
