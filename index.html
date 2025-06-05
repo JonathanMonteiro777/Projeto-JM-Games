@@ -17,19 +17,17 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
   <link rel="stylesheet" href="css/_variables.css">
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
   <!-- cabeçalho -->
   <header>
-    <!-- Bootstrap navbar + adicionada classe utilitária shadow-light -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-light">
       <div class="container-fluid">
-        <!-- Logo responsivo já funciona com nossas variáveis CSS -->
         <a class="navbar-brand" href="index.html">
           <img src="img/logo.png" alt="logo" class="transition-fast">
         </a>
@@ -48,17 +46,37 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Jogos</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="login.html">Login</a>
+            <li class="nav-item" id="loginLinkContainer"> <a class="nav-link" href="login.html" id="loginLink">Login</a>
             </li>
           </ul>
           <form class="d-flex" role="search">
-            <!--  MELHORADO: Adicionada transição suave no input -->
             <input class="form-control me-2 transition-fast" type="search" placeholder="O que deseja buscar"
               aria-label="Search">
-            <!--  MELHORADO: Botão com classe gamer personalizada -->
             <button class="btn btn-gamer" type="submit">Buscar</button>
           </form>
+
+          <ul class="navbar-nav mb-2 mb-lg-0 ms-lg-2">
+            <li class="nav-item">
+              <a class="nav-link position-relative" href="#" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasCarrinho" aria-controls="offcanvasCarrinho">
+                <i class="bi bi-cart fs-4"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                  id="cart-item-count">
+                  0
+                  <span class="visually-hidden">itens no carrinho</span>
+                </span>
+              </a>
+            </li>
+            <li class="nav-item ms-2"> <a class="nav-link position-relative" href="#" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasFavoritos" aria-controls="offcanvasFavoritos">
+                <i class="bi bi-heart fs-4"></i> <span
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning"
+                  id="favorite-item-count">
+                  0 <span class="visually-hidden">itens favoritos</span>
+                </span>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
@@ -236,7 +254,17 @@
                 <!-- MELHORADO: Preço com classe utilitária -->
                 <p class="text-price text-success">R$ 98,00</p>
                 <p class="text-warning text-sm">⭐⭐⭐⭐☆ (4.5/5)</p>
-                <a href="#" class="btn btn-gamer mt-auto">Comprar</a>
+                <a href="#" class="btn btn-gamer mt-auto add-to-cart" data-product-id="TLOU2"
+                  data-product-name="The Last of Us Part II" data-product-price="98.00"
+                  data-product-image="img/the-last-of-us-part-ii.jpg">Comprar
+                </a>
+                <button class="btn btn-outline-warning mt-auto add-to-favorites"
+                data-product-id="TLOU2"
+                data-product-name="The Last of Us Part II"
+                data-product-price="98.00"
+                data-product-image="img/the-last-of-us-part-ii.jpg"
+                title="Adicionar aos favoritos"
+                ><i class="bi bi-heart"></i></button>
               </div>
             </div>
           </div>
@@ -249,7 +277,16 @@
                   cinematográfica.</p>
                 <p class="text-price text-success">R$ 149,90</p>
                 <p class="text-warning text-sm">⭐⭐⭐⭐⭐ (5/5)</p>
-                <a href="#" class="btn btn-gamer mt-auto">Comprar</a>
+                <a href="#" class="btn btn-gamer mt-auto add-to-cart" data-product-id="GOWR"
+                  data-product-name="God of War: Ragnarok" data-product-price="149.90"
+                  data-product-image="img/god-of-war-ragnarok.jpg">Comprar</a>
+                  <button class="btn btn-outline-warning mt-auto add-to-favorites"
+                  data-product-id="GOWR"
+                  data-product-name="God of War: Ragnarok"
+                  data-product-price="149.90"
+                  data-product-image="img/god-of-war-ragnarok.jpg"
+                  title="Adicionar aos favoritos"
+                  ><i class="bi bi-heart"></i></button>
               </div>
             </div>
           </div>
@@ -262,7 +299,16 @@
                   jogabilidade cinematográfica.</p>
                 <p class="text-price text-success">R$ 89,90</p>
                 <p class="text-warning text-sm">⭐⭐⭐⭐☆ (4.2/5)</p>
-                <a href="#" class="btn btn-gamer mt-auto">Comprar</a>
+                <a href="#" class="btn btn-gamer mt-auto add-to-cart" data-product-id="SPM2"
+                  data-product-name="Spider-Man 2" data-product-price="89.90"
+                  data-product-image="img/spider-man-2.jpg">Comprar</a>
+                  <button class="btn btn-outline-warning mt-auto add-to-favorites"
+                  data-product-id="SPM2"
+                  data-product-name="Spider-Man 2"
+                  data-product-price="89.90"
+                  data-product-image="img/spider-man-2.jpg"
+                  title="Adicionar aos favoritos"
+                  ><i class="bi bi-heart"></i></button>
               </div>
             </div>
           </div>
@@ -354,14 +400,12 @@
   </main>
 
   <!-- botão voltar ao topo -->
-  <!-- MANTIDO: Funcionalidade original + melhorado visualmente -->
   <button id="voltar-topo" type="button" class="btn btn-primary shadow-medium" onclick="topo()" title="Voltar ao topo">
     <i class="bi bi-arrow-up-circle-fill"></i>
   </button>
 
   <!-- rodapé -->
-  <!-- MANTIDO: Bootstrap footer + melhorado com transições -->
-  <footer class="bg-dark text-white text-center py-3 mt-5">
+  <footer class=" text-white text-center py-3 mt-5">
     <div class="container">
       <p class="fw-bold mb-0">Desenvolvido por Jonathan Monteiro &copy; 2025</p>
       <p class="fw-bold mb-0">Todos os direitos reservados à JM Games.</p>
@@ -373,6 +417,47 @@
       </div>
     </div>
   </footer>
+
+  <!--  CARRINHO LATERAL (OFFCANVAS) -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCarrinho" aria-labelledby="offcanvasCarrinhoLabel">
+    <div class="offcanvas-header bg-primary text-white">
+      <h5 class="offcanvas-title" id="offcanvasCarrinhoLabel"><i class="bi bi-cart"></i> Seu Carrinho</h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul id="carrinho-lista" class="list-group mb-3">
+        <li class="list-group-item text-center">Seu carrinho está vazio.</li>
+      </ul>
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h6 class="mb-0">Total:</h6>
+        <h4 class="mb-0 text-success">R$ <span id="carrinho-total">0.00</span></h4>
+      </div>
+      <div class="d-grid gap-2">
+        <button class="btn btn-gamer">Finalizar Compra</button>
+        <button class="btn btn-outline-danger" id="btn-limpar-carrinho">Limpar Carrinho</button>
+      </div>
+    </div>
+  </div>
+  <!-- LISTA DE FAVORITOS -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasFavoritos" aria-labelledby="offcanvasFavoritosLabel">
+    <div class="offcanvas-header bg-warning text-white">
+      <h5 class="offcanvas-title" id="offcanvasFavoritosLabel"><i class="bi bi-heart-fill"></i> Seus Favoritos</h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul id="favoritos-lista" class="list-group mb-3">
+        <li class="list-group-item text-center">Nenhum item favorito ainda.</li>
+      </ul>
+      <div class="d-grid gap-2">
+        <button class="btn btn-outline-warning" id="btn-limpar-favoritos">Limpar Favoritos</button>
+      </div>
+    </div>
+  </div>
+  <!-- TOAST -->
+  <div aria-live="polite" aria-atomic="true" class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100">
+    <div id="toastContainer" class="toast-container">
+    </div>
+  </div>
 </body>
 
 <script type="module" src="js/main.js"></script>

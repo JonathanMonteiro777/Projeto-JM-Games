@@ -67,3 +67,22 @@ header .navbar-brand img {
 #seguranca-privacidade {
     /* adicione estilos de layout se houverem aqui */
 }
+
+/* Estilos para o corpo do Toast */
+#toastContainer {
+    z-index: 1100;
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+    padding: 1rem;
+    pointer-events: none;
+}
+.toast .toast-body {
+    font-size: 1rem;
+    color: var(--bs-body-color);
+    font-weight: 500;
+}
+
+.toast {
+    min-width: 280px;
+}

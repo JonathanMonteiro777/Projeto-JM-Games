@@ -34,7 +34,8 @@ $(document).ready(function () {
     });
 
     // === VALIDAÇÃO VISUAL EM TEMPO REAL (CAMPO E-MAIL) ===
-    // Note: A função 'validarEmail' precisa ser acessível globalmente (estar em script.js carregado antes)
+
+    // Validação do campo de e-mail em tempo real
     $("#email").on("input", function () {
         const email = $(this).val();
         // A função 'validarEmail' é chamada do script.js
@@ -70,4 +71,4 @@ $(document).ready(function () {
         $(this).removeClass("shadow-sm");
     });
 
-}); // Fim de $(document).ready()
+});

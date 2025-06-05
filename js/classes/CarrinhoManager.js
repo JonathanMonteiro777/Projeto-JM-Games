@@ -61,6 +61,7 @@ export class CarrinhoManager {
     renderizarCarrinho() {
         const carrinhoLista = document.getElementById('carrinho-lista');
         const carrinhoTotal = document.getElementById('carrinho-total');
+        const cartItemCountSpan = document.getElementById('cart-item-count'); // Contador de itens no cabeçalho do carrinho
 
         if (!carrinhoLista || !carrinhoTotal) {
             // console.warn("Elementos do carrinho (lista ou total) não encontrados. Verifique IDs.");
@@ -94,6 +95,15 @@ export class CarrinhoManager {
         }
         carrinhoTotal.textContent = this.calcularTotal().toFixed(2);
 
+        // Atualiza a contagem de itens no cabeçalho do carrinho
+        if (cartItemCountSpan) {
+            // Conta a soma das quantidades de todos os itens no carrinho
+            const totalItens = this.carrinho.reduce((sum, item) => sum + item.quantidade, 0);
+            cartItemCountSpan.textContent = totalItens.toString(); // converte para string
+            cartItemCountSpan.style.display = totalItens > 0 ? 'block' : 'none'; // Exibe ou oculta o contador
+        }
+
+        // Adiciona eventos aos botões de remover e inputs de quantidade
         carrinhoLista.querySelectorAll('.remove-item').forEach(button => {
             button.addEventListener('click', (event) => {
                 const productId = event.target.closest('button').dataset.productId;

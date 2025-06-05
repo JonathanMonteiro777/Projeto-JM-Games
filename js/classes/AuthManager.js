@@ -10,9 +10,9 @@ export class AuthManager {
         this.setupLogout(); // Para o botão de logout no header, se aplicável
     }
 
-    /**
-     * Inicializa o formulário de login e seus event listeners.
-     */
+    
+     // === Inicializa o formulário de login e seus event listeners ===
+     
     initLoginForm() {
         const loginForm = document.getElementById('loginForm');
         if (!loginForm) return;
@@ -54,7 +54,7 @@ export class AuthManager {
             }
         });
 
-        // Adicionar validação em tempo real ao digitar (opcional)
+        // Adicionar validação em tempo real ao digitar 
         const loginEmailInput = document.getElementById('loginEmail');
         if (loginEmailInput) {
             loginEmailInput.addEventListener('input', () => {
@@ -69,9 +69,9 @@ export class AuthManager {
         }
     }
 
-    /**
-     * Inicializa o formulário de cadastro e seus event listeners.
-     */
+    
+     // === Inicializa o formulário de cadastro e seus event listeners ===
+     
     initRegisterForm() {
         const registerForm = document.getElementById('registerForm');
         if (!registerForm) return;
@@ -138,7 +138,7 @@ export class AuthManager {
             setTimeout(() => window.location.href = 'login.html', 1000);
         });
 
-        // Adicionar validação em tempo real ao digitar (opcional)
+        // Adicionar validação em tempo real ao digitar 
         document.querySelectorAll('#registerForm .form-input').forEach(input => {
             input.addEventListener('input', () => {
                 let isValid = true;
