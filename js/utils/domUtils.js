@@ -1,5 +1,3 @@
-// js/utils/domUtils.js
-
 /**
  * Controla a visibilidade e a transição do botão "Voltar ao Topo".
  * Esta função será chamada por um event listener de scroll no main.js.
@@ -20,8 +18,7 @@ export function handleScrollToTopButton() {
 }
 
 /**
- * Exibe uma notificação toast personalizada usando Bootstrap.
- * Certifique-se de ter um <div id="toastContainer" ...> no seu HTML.
+ * --- Exibe uma notificação toast personalizada usando Bootstrap ---
  * @param {string} message - A mensagem a ser exibida no toast.
  * @param {string} type - O tipo de toast ('success', 'danger', 'info', 'warning'). Mapeia para bg-bootstrap.
  */

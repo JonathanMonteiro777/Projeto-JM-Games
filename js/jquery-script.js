@@ -1,9 +1,8 @@
-// Este comando inicializa o jQuery quando o DOM estiver completamente carregado
 $(document).ready(function () {
 
-    // === CONTROLE DE EXIBIÇÃO DOS FORMULÁRIOS ===
+    // --- CONTROLE DE EXIBIÇÃO DOS FORMULÁRIOS ---
 
-    // Ação para exibir o formulário de cadastro e ocultar o de login
+    // exibir o formulário de cadastro e ocultar o de login
     $("#botao-cadastrar").click(function () {
         $("#section-login").slideToggle("slow", function() {
             console.log("CALLBACK EXECUTADO: Login oculto, agora tentando mostrar Cadastro.");
@@ -22,7 +21,7 @@ $(document).ready(function () {
         $("#botao-cadastrar").show(); // Exibe o botão "Cadastrar-se" novamente
     });
 
-    // === EFEITOS VISUAIS NOS CAMPOS DE FORMULÁRIO ===
+    // --- EFEITOS VISUAIS NOS CAMPOS DE FORMULÁRIO ---
     // Adiciona borda primária ao focar no input
     $("input").focus(function(){
         $(this).addClass("border-primary");
@@ -33,9 +32,8 @@ $(document).ready(function () {
         $(this).removeClass("border-primary");
     });
 
-    // === VALIDAÇÃO VISUAL EM TEMPO REAL (CAMPO E-MAIL) ===
 
-    // Validação do campo de e-mail em tempo real
+    // --- Validação do campo de e-mail em tempo real ---
     $("#email").on("input", function () {
         const email = $(this).val();
         // A função 'validarEmail' é chamada do script.js
@@ -49,7 +47,7 @@ $(document).ready(function () {
         }
     });
 
-    // === MOSTRAR/ESCONDER SENHA ===
+    // --- MOSTRAR/ESCONDER SENHA ---
     $(".toggle-password").click(function() {
         // Encontra o input de senha que está antes do botão
         const input = $(this).prev("input");
@@ -64,7 +62,7 @@ $(document).ready(function () {
         }
     });
 
-    // === ANIMAÇÃO SUAVE PARA BOTÕES (HOVER) ===
+    // --- ANIMAÇÃO SUAVE PARA BOTÕES (HOVER) ---
     $(".btn").hover(function(){
         $(this).addClass("shadow-sm"); // Corrigido 'sahdow-sm' para 'shadow-sm'
     }, function(){

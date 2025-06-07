@@ -113,3 +113,63 @@
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* Sombra mais forte */
 }
+
+/* No seu arquivo CSS (ex: style.css) */
+
+.game-card-link {
+    position: relative; /* Necessário para posicionar o overlay e para o zoom */
+    overflow: hidden; /* Garante que o zoom não vaze para fora do card */
+    transition: transform 0.3s ease-in-out; /* Transição suave para o zoom */
+    cursor: pointer; /* Indica que é clicável */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra inicial */
+}
+
+/* Efeito de zoom no card inteiro ao passar o mouse */
+.game-card-link:hover {
+    transform: scale(1.03); /* Leve zoom */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra mais intensa no hover */
+}
+
+.card-link-overlay {
+    text-decoration: none; /* Remove sublinhado padrão do link */
+    color: inherit; /* Mantém a cor do texto do card */
+    display: block; /* Ocupa todo o espaço para ser clicável */
+    position: relative; /* Necessário para o overlay de "Ver Detalhes" */
+    z-index: 1; /* Garante que o overlay fique acima do conteúdo do card */
+}
+
+.view-details-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 70px); /* Altura do card menos a área dos botões (aprox. 70px de padding+altura) */
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo semi-transparente */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    opacity: 0; /* Começa invisível */
+    transition: opacity 0.3s ease-in-out; /* Transição suave para o texto */
+    z-index: 2; /* Acima do card-link-overlay */
+    pointer-events: none; /* Permite que o clique "passe" para o link por baixo */
+    border-radius: inherit; /* Herda o border-radius do card pai */
+}
+
+/* Exibe o overlay de "Ver Detalhes" no hover do card */
+.game-card-link:hover .view-details-overlay {
+    opacity: 1;
+}
+
+/* Para garantir que a imagem não seja distorcida e cubra o espaço */
+.card-img-top {
+    object-fit: cover;
+    height: 180px; /* Ajuste a altura conforme a necessidade do seu design */
+}
+
+/* Ajustes para o card-body se houver espaço extra */
+.card-body {
+    padding-bottom: 0 !important; /* Remove o padding-bottom padrão para a div de botões encaixar melhor */
+}

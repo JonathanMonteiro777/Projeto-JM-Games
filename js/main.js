@@ -1,6 +1,5 @@
-// js/main.js
 
-// Importações de classes e utilitários
+// --- Importações de classes e utilitários ---
 import { CarrinhoManager } from './classes/CarrinhoManager.js';
 import { AuthManager } from './classes/AuthManager.js';
 import { FavoritosManager } from './classes/FavoritosManager.js';
@@ -9,7 +8,7 @@ import { fetchGames } from './services/rawgApi.js';
 import { scrollToTop } from './utils/helpers.js';
 
 
-// Inicialização de todas as funcionalidades quando o DOM estiver pronto
+// --- Inicialização de todas as funcionalidades quando o DOM estiver pronto ---
 document.addEventListener('DOMContentLoaded', () => {
 
     const carrinho = new CarrinhoManager(); // Inicializa o gerenciador de carrinho
@@ -18,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const favoritos = new FavoritosManager(); // Inicializa o gerenciador de favoritos
 
+    // --- Função para renderizar jogos em uma seção específica ---
     function renderGamesToSection(games, containerSelector, CarrinhoManager, FavoritosManager) {
         console.log('TRACE: renderGamesToSection', games, containerSelector);
         console.log('TRACE: Jogos recebidos para renderizar:', games);
@@ -37,15 +37,14 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        
-
+        // Renderiza cada jogo na seção
         games.forEach(game => {
             console.log(`TRACE: Processando jogo: ${game.name}, imagem: ${game.background_image}`);
 
             const stars = '⭐'.repeat(Math.round(game.rating || 0));
             const gameCard = `
         <div class="col-md-4 col-sm-6 mb-4">
-            <div class="card h-100 shadow-light">
+            <div class="card h-100 shadow-light game-card-link"> <a href="pages/detalhes.html?id=${game.id}" class="card-link-overlay">
                 <img src="${game.background_image || 'img/placeholder.jpg'}" class="card-img-top" alt="${game.name || 'nome do jogo'}">
                 <div class="card-body text-center d-flex flex-column">
                     <h5 class="card-title fw-bold">${game.name || 'Nome Desconhecido'}</h5>
@@ -57,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p class="text-warning text-sm">
                         ${stars} (${game.rating || 'N/A'}/5)
                     </p>
+                    <div class="view-details-overlay">Ver Detalhes</div> </a>
                     <div class="d-flex justify-content-around align-items-center mt-auto">
                         <a href="#" class="btn btn-gamer flex-fill me-2 add-to-cart"
                             data-product-id="${game.id}"
@@ -80,17 +80,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         reassignEventListeners(CarrinhoManager, FavoritosManager);
-        console.log(`TRACE: renderGamesToSection finalizada para "${containerSelector}".`); 
+        console.log(`TRACE: renderGamesToSection finalizada para "${containerSelector}".`);
     }
 
     // --- DEFINIÇÃO DA FUNÇÃO reassignEventListeners ---
     function reassignEventListeners(carrinhoManager, favoritosManager) {
         console.log('TRACE: reassignEventListeners chamada.');
 
-        // Event listeners para adicionar ao carrinho
+        // --- Event listeners para adicionar ao carrinho ---
         document.querySelectorAll('.add-to-cart').forEach(button => {
-            // Remove qualquer listener anterior para evitar duplicação (boa prática ao reatribuir)
-            //button.removeEventListener('click', suaFuncaoAqui); // Se você usasse uma função nomeada
+            // Remove qualquer listener anterior para evitar duplicação
+            //button.removeEventListener();
             button.onclick = (event) => { // Usando onclick simplifica a remoção de listeners anteriores
                 event.preventDefault();
 
@@ -114,10 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         });
 
-        // Event listeners para adicionar/remover dos favoritos
+        // --- Event listeners para adicionar/remover dos favoritos ---
         document.querySelectorAll('.add-to-favorites').forEach(button => {
             button.onclick = (event) => { // Usando onclick
-                event.preventDefault(); // Boa prática para botões em links ou se o default é irrelevante
+                event.preventDefault();
 
                 const productId = button.dataset.productId;
                 const productName = button.dataset.productName;
@@ -132,6 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 };
 
                 const isNowFavorited = favoritosManager.adicionarRemoverItem(produto); // Usar favoritosManager
+
                 // Atualiza o ícone visualmente
                 const icon = button.querySelector('i.bi');
                 if (icon) {
@@ -142,10 +143,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('TRACE: Botão "Favoritar" clicado.');
             };
         });
-        
+
         console.log('TRACE: reassignEventListeners finalizada.');
     }
 
+    // --- Carrega e renderiza os jogos Mais Bem Avaliados e Novidades ---
     async function loadAndRenderGames() {
         try {
             //  chamada para jogos Mais Bem Avaliados (Ranking)
@@ -169,34 +171,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadAndRenderGames(); // Chama a função que iniciará a busca dos jogos
 
-    // === Event Listeners Globais ===
+    // --- Event Listeners Globais ---
 
-    // 1. Botões "Comprar" para adicionar ao carrinho
-    document.querySelectorAll('.add-to-cart').forEach(button => {
-        button.addEventListener('click', (event) => {
-            event.preventDefault(); // Evita que o link # mude a URL
-
-            const productId = button.dataset.productId;
-            const productName = button.dataset.productName;
-            const productPrice = parseFloat(button.dataset.productPrice);
-            const productImage = button.dataset.productImage;
-
-            const produto = {
-                id: productId,
-                name: productName,
-                price: productPrice,
-                image: productImage
-            };
-
-            carrinho.adicionarItem(produto);
-
-            // Opcional: Abrir o offcanvas automaticamente após adicionar (se o botão estiver fora do offcanvas)
-            const offcanvasCarrinho = new bootstrap.Offcanvas(document.getElementById('offcanvasCarrinho'));
-            offcanvasCarrinho.show();
-        });
-    });
-
-    // 2. Botão "Limpar Carrinho" dentro do offcanvas (se você tiver um)
+    // Botão "Limpar Carrinho" dentro do offcanvas
     const btnLimparCarrinho = document.getElementById('btn-limpar-carrinho');
     if (btnLimparCarrinho) {
         btnLimparCarrinho.addEventListener('click', () => {
@@ -204,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. Botão "Voltar ao Topo"
+    // Botão "Voltar ao Topo"
     const btnVoltarTopo = document.getElementById('voltar-topo');
     if (btnVoltarTopo) {
         // Usa a função utilitária para controlar a visibilidade ao rolar
@@ -213,28 +190,8 @@ document.addEventListener('DOMContentLoaded', () => {
         btnVoltarTopo.addEventListener('click', scrollToTop);
     }
 
-    // 4. Exemplo de uso do showToast (você pode chamar isso de dentro das suas classes também)
+    // Exibe um toast de boas-vindas ao carregar a página
     showToast('Bem-vindo à JM Games!', 'info');
-
-    // botões "Adicionar aos favoritos"
-    document.querySelectorAll('.add-to-favorites').forEach(button => {
-        button.addEventListener('click', (event) => {
-            event.preventDefault();
-            const productId = button.dataset.productId;
-            const productName = button.dataset.productName;
-            const productPrice = parseFloat(button.dataset.productPrice);
-            const productImage = button.dataset.productImage;
-
-            const produto = {
-                id: productId,
-                name: productName,
-                price: productPrice,
-                image: productImage
-            };
-
-            favoritos.adicionarRemoverItem(produto); // Alterna entre adicionar e remover do favoritos
-        });
-    });
 
     // Botão "Limpar favoritos" dentro do offcanvas
     const btnLimparFavoritos = document.getElementById('btn-limpar-favoritos');

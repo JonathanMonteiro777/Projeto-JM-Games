@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Jogo - JM Games</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="../css/_variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">
+                    <img src="../img/logo.png" alt="logo" class="transition-fast">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Promoções</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Console</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Jogos</a>
+                        </li>
+                        <li class="nav-item" id="loginLinkContainer"> <a class="nav-link" href="login.html"
+                                id="loginLink">Login</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2 transition-fast" type="search" placeholder="O que deseja buscar"
+                            aria-label="Search">
+                        <button class="btn btn-gamer" type="submit">Buscar</button>
+                    </form>
+
+                    <ul class="navbar-nav mb-2 mb-lg-0 ms-lg-2">
+                        <li class="nav-item">
+                            <a class="nav-link position-relative" href="#" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasCarrinho" aria-controls="offcanvasCarrinho">
+                                <i class="bi bi-cart fs-4"></i>
+                                <span
+                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                    id="cart-item-count">
+                                    0
+                                    <span class="visually-hidden">itens no carrinho</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item ms-2"> <a class="nav-link position-relative" href="#"
+                                data-bs-toggle="offcanvas" data-bs-target="#offcanvasFavoritos">
+                                <i class="bi bi-heart fs-4"></i> <span
+                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning"
+                                    id="favorite-item-count">
+                                    0 <span class="visually-hidden">itens favoritos</span>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <section id="game-details-section">
+
+    </section>
+
+    <!-- Offcanvas Carrinho -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCarrinho" aria-labelledby="offcanvasCarrinhoLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasCarrinhoLabel">Carrinho</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <!-- Conteúdo do carrinho aqui -->
+            <p>Seu carrinho está vazio.</p>
+        </div>
+    </div>
+
+    <footer class=" text-white text-center py-3 mt-5">
+        <div class="container">
+            <p class="fw-bold mb-0">Desenvolvido por Jonathan Monteiro &copy; 2025</p>
+            <p class="fw-bold mb-0">Todos os direitos reservados à JM Games.</p>
+            <div class="social-icons mt-2">
+                <!-- MELHORADO: Ícones com transições suaves -->
+                <a href="#" class="text-white mx-2 transition-fast"><i class="bi bi-instagram fs-4"></i></a>
+                <a href="#" class="text-white mx-2 transition-fast"><i class="bi bi-linkedin fs-4"></i></a>
+                <a href="#" class="text-white mx-2 transition-fast"><i class="bi bi-whatsapp fs-4"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+        <script type="module" src="../js/services/rawgApi.js"></script>
+        <script type="module" src="../js/detalhes.js"></script>
+        <script type="module" src="../js/utils/domUtils.js"></script>
+        <script type="module" src="../js/detalhes.js"></script>  
+</body>
+
+</html>
