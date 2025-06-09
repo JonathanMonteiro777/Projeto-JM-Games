@@ -40,6 +40,32 @@
     }
 }
 
+// Função para buscar trailers de um jogo específico
+export async function fetchGameTrailers(gameId) {
+    if (!gameId) {
+        throw new Error('ID do jogo é necessário para buscar trailers.');
+    }
+
+    const url = `${RAWGAPI_HOST}games/${gameId}/movies?key=${RAWGAPI_KEY}`;
+    console.log('DEBUG: URL da requisição por trailers:', url);
+
+    try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`Erro HTTP: ${response.status} - ${errorData.detail || response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('DEBUG: Dados dos trailers:', data);
+        return data.results;
+    } catch (error) {
+        console.error(`Erro ao buscar trailers do jogo com ID ${gameId} da API RAWG:`, error);
+        throw error; // Relança o erro
+    }
+}
+
 // Função para buscar um jogo específico por ID
 export async function fetchGameById(gameId) {
     if (!gameId) {

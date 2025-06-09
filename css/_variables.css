@@ -26,7 +26,7 @@
     --bs-heading-font-family: 'Montserrat', sans-serif;
 
     /* Gradientes */
-    --gradient-primary: linear-gradient(135deg, var(--bs-primary), var(--bs-secondary));
+    --gradient-primary: linear-gradient(135deg, var(--bs-primary), var(--bs-info));
     --gradient-light: linear-gradient(135deg, var(--bs-light), #e9ecef);
 
     /* Formulários */

@@ -38,13 +38,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Promoções</a>
+              <a class="nav-link active" aria-current="page" href="#section-apresentacao">Promoções</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Console</a>
+              <a class="nav-link" href="#section-novidades">Novidades</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Jogos</a>
+              <a class="nav-link" href="#section-ranking">Jogos</a>
             </li>
             <li class="nav-item" id="loginLinkContainer"> <a class="nav-link" href="login.html" id="loginLink">Login</a>
             </li>
@@ -139,19 +139,33 @@
       <div class="row spacing-lg">
         <div class="col-md-12 text-center">
           <h4>Descontos imperdíveis em jogos selecionados! Aproveite enquanto durarem os estoques!</h4>
-          <!--  MELHORADO: Botão com estilo gamer -->
-          <a href="#section-vendidos" class="btn btn-gamer spacing-md">Ver Promoções</a>
         </div>
       </div>
+       <div class="row mt-5 justify-content-center">
+        <div class="col-md-10">
+            <div id="gameTrailersCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                <div class="carousel-indicators"></div>
+                <div class="carousel-inner"></div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#gameTrailersCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#gameTrailersCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
     </section>
 
     <!-- section-novidades -->
     <section id="section-novidades" class="container-fluid py-5 bg-dark">
-        <div class="container">
-          <h2 class="text-center fw-bold mb-4">🆕 NOVIDADES  🆕</h2>
-          <div id="novidades-games-container" class="row justify-content-center">
-          </div>
+      <div class="container">
+        <h2 class="text-center fw-bold mb-4">🆕 NOVIDADES 🆕</h2>
+        <div id="novidades-games-container" class="row justify-content-center">
         </div>
+      </div>
     </section>
 
     <!-- section-ranking -->
@@ -308,7 +322,7 @@
 </body>
 
 <script type="module" src="js/main.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
 </html>
