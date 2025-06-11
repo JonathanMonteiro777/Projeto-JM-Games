@@ -19,8 +19,6 @@
 
 <body>
     <header>
-        <!-- cabeçalho -->
-        <!-- MANTIDO: Bootstrap navbar + adicionada sombra -->
         <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="index.html">
@@ -45,12 +43,12 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Jogos</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="login.html">Login</a>
+                        <li class="nav-item" id="loginNavItem"> <a class="nav-link active" aria-current="page" href="login.html" id="loginLink">Login</a>
+                        </li>
+                        <li class="nav-item" id="logoutNavItem" style="display: none;"> <a class="nav-link" href="#" id="logoutButton">Sair</a>
                         </li>
                     </ul>
                     <form class="d-flex" role="search">
-                        <!-- MELHORADO: Input com transição + botão gamer -->
                         <input class="form-control me-2 transition-fast" type="search" placeholder="O que deseja buscar"
                             aria-label="Search">
                         <button class="btn btn-gamer" type="submit">Buscar</button>
@@ -61,51 +59,49 @@
     </header>
 
     <main>
-        <!-- formulário de login -->
-        <!-- MELHORADO: Container com classes utilitárias -->
-        <section id="section-login" class="container p-xl bg-dark rounded shadow-medium">
+        <section id="login-section" class="container p-xl bg-dark rounded shadow-medium">
             <h1 class="text-center fw-bold spacing-lg">🎮 Faça seu Login 🎮</h1>
             <div class="d-flex justify-content-center">
-                <!-- MELHORADO: Formulário com largura máxima e sombra -->
                 <div class="form-container shadow-light rounded p-4 bg-ligth" style="max-width: 400px; width: 100%;">
-                    <form method="post" action="" id="form-login">
-                        <!-- MELHORADO: Input groups com classes utilitárias -->
-                        <div class="form-group spacing-md">
-                            <label for="usuario-login" class="form-label fw-semibold">
-                                <i class="bi bi-person-fill me-2 text-primary"></i>Nome de Usuário:
+                    <form method="post" action="" id="loginForm"> <div class="form-group spacing-md">
+                            <label for="loginEmail" class="form-label fw-semibold"> <i class="bi bi-person-fill me-2 text-primary"></i>E-mail:
                             </label>
-                            <input id="usuario-login" name="login-usuario" required type="text"
-                                placeholder="Insira o seu usuário" class="form-control form-input transition-fast" />
-                        </div>
-
-                        <div class="form-group spacing-md">
-                            <label for="senha-login" class="form-label fw-semibold">
-                                <i class="bi bi-lock-fill me-2 text-primary"></i>Senha:
-                            </label>
-                            <div class="input-group">
-                                <input id="senha-login" name="senha" required type="password"
-                                    placeholder="Insira a sua senha" class="form-control form-input transition-fast" />
-                                <button class="btn btn-outline-secondary toggle-password transition-fast" type="button"
-                                    title="Mostrar/ocultar senha">
-                                    <i class="bi bi-eye-slash"></i>
-                                </button>
+                            <input id="loginEmail" name="login-email" required type="email" placeholder="Insira o seu e-mail" class="form-control form-input transition-fast" />
+                            <div class="invalid-feedback">
+                                <i class="bi bi-exclamation-triangle-fill me-1"></i>Por favor, insira um e-mail válido.
+                            </div>
+                            <div class="valid-feedback">
+                                <i class="bi bi-check-circle-fill me-1"></i>E-mail válido!
                             </div>
                         </div>
 
-                        <!-- MELHORADO: Botão com estilo gamer -->
+                        <div class="form-group spacing-md">
+                            <label for="loginPassword" class="form-label fw-semibold"> <i class="bi bi-lock-fill me-2 text-primary"></i>Senha:
+                            </label>
+                            <div class="input-group">
+                                <input id="loginPassword" name="login-password" required type="password" placeholder="Insira a sua senha" class="form-control form-input transition-fast" />
+                                <button class="btn btn-outline-secondary toggle-password transition-fast" type="button"
+                                    data-target="loginPassword" title="Mostrar/ocultar senha"> <i class="bi bi-eye-slash"></i>
+                                </button>
+                            </div>
+                            <div class="invalid-feedback">
+                                <i class="bi bi-exclamation-triangle-fill me-1"></i>Por favor, insira sua senha.
+                            </div>
+                            <div class="valid-feedback">
+                                <i class="bi bi-check-circle-fill me-1"></i>Senha válida!
+                            </div>
+                        </div>
+
                         <div class="d-grid gap-2 spacing-md">
-                            <button type="submit" class="btn btn-gamer btn-lg" id="btn-login-submit">
-                                <i class="bi bi-box-arrow-in-right me-2"></i>Entrar
+                            <button type="submit" class="btn btn-gamer btn-lg"> <i class="bi bi-box-arrow-in-right me-2"></i>Entrar
                             </button>
                         </div>
 
-                        <!-- MELHORADO: Seção de cadastro com melhor visual -->
                         <div class="text-center spacing-lg">
                             <hr class="my-3">
                             <p class="text-muted">Ainda não tem conta?</p>
                             <button type="button" class="btn btn-outline-success btn-lg transition-normal"
-                                id="botao-cadastrar">
-                                <i class="bi bi-person-plus-fill me-2"></i>Criar Conta
+                                id="showRegisterLink"> <i class="bi bi-person-plus-fill me-2"></i>Criar Conta
                             </button>
                         </div>
                     </form>
@@ -113,34 +109,33 @@
             </div>
         </section>
 
-        <!-- MELHORADO: Seção de cadastro com melhor estrutura -->
-        <section id="section-cadastro" class="container p-xl bg-dark rounded shadow-medium" style="display: none;">
-            <div class="text-center">
+        <section id="register-section" class="container p-xl bg-dark rounded shadow-medium" style="display: none;"> <div class="text-center">
                 <h1 class="fw-bold spacing-md">🚀 Criar Minha Conta 🚀</h1>
-                <p class="lead text-muted">Informe os seus dados abaixo para criar sua conta e começar a jogar!</p>
+                <p class="lead text-muted spacing-md">
+                    Informe os seus dados abaixo para criar sua conta e começar a jogar!
+                </p>
 
                 <div class="d-flex justify-content-center">
                     <div class="form-container shadow-light rounded p-4 bg-white"
                         style="max-width: 450px; width: 100%;">
-                        <form method="post" action="" id="form-cadastro">
-                            <!-- MELHORADO: Inputs com ícones e melhor visual -->
-                            <div class="form-group spacing-md">
-                                <label for="usuario-cadastro" class="form-label fw-semibold">
-                                    <i class="bi bi-person-badge-fill me-2 text-primary"></i>Nome de Usuário:
+                        <form method="post" action="" id="registerForm"> <div class="form-group spacing-md">
+                                <label for="registerName" class="form-label fw-semibold"> <i class="bi bi-person-badge-fill me-2 text-primary"></i>Nome de Usuário:
                                 </label>
-                                <input id="usuario-cadastro" name="usuario" required type="text"
-                                    placeholder="ex. gamer123" class="form-control form-input transition-fast" />
+                                <input id="registerName" name="register-name" required type="text" placeholder="ex. gamer123" class="form-control form-input transition-fast" />
+                                <div class="invalid-feedback">
+                                    <i class="bi bi-exclamation-triangle-fill me-1"></i>Por favor, insira seu nome de usuário.
+                                </div>
+                                <div class="valid-feedback">
+                                    <i class="bi bi-check-circle-fill me-1"></i>Nome de usuário válido!
+                                </div>
                             </div>
 
                             <div class="form-group spacing-md">
-                                <label for="email" class="form-label fw-semibold">
-                                    <i class="bi bi-envelope-fill me-2 text-primary"></i>E-mail:
+                                <label for="registerEmail" class="form-label fw-semibold"> <i class="bi bi-envelope-fill me-2 text-primary"></i>E-mail:
                                 </label>
-                                <input id="email" name="email" required type="email" placeholder="seu@email.com"
-                                    class="form-control form-input transition-fast" />
+                                <input id="registerEmail" name="register-email" required type="email" placeholder="seu@email.com" class="form-control form-input transition-fast" />
                                 <div class="invalid-feedback">
-                                    <i class="bi bi-exclamation-triangle-fill me-1"></i>Por favor, insira um e-mail
-                                    válido.
+                                    <i class="bi bi-exclamation-triangle-fill me-1"></i>Por favor, insira um e-mail válido.
                                 </div>
                                 <div class="valid-feedback">
                                     <i class="bi bi-check-circle-fill me-1"></i>E-mail válido!
@@ -148,38 +143,57 @@
                             </div>
 
                             <div class="form-group spacing-md">
-                                <label for="senha-cadastro" class="form-label fw-semibold">
-                                    <i class="bi bi-shield-lock-fill me-2 text-primary"></i>Senha:
+                                <label for="registerPassword" class="form-label fw-semibold"> <i class="bi bi-shield-lock-fill me-2 text-primary"></i>Senha:
                                 </label>
-                                <input id="senha-cadastro" name="senha" required type="password"
-                                    placeholder="mínimo de 6 caracteres"
-                                    class="form-control form-input transition-fast" />
+                                <div class="input-group">
+                                    <input id="registerPassword" name="register-password" required type="password" placeholder="mínimo de 6 caracteres"
+                                        class="form-control form-input transition-fast" />
+                                    <button class="btn btn-outline-secondary toggle-password transition-fast" type="button"
+                                        data-target="registerPassword" title="Mostrar/ocultar senha"> <i class="bi bi-eye-slash"></i>
+                                    </button>
+                                </div>
                                 <div class="invalid-feedback">
-                                    <i class="bi bi-exclamation-triangle-fill me-1"></i>A senha deve ter no mínimo 6
-                                    caracteres.
+                                    <i class="bi bi-exclamation-triangle-fill me-1"></i>A senha deve ter no mínimo 6 caracteres.
+                                </div>
+                                <div class="valid-feedback">
+                                    <i class="bi bi-check-circle-fill me-1"></i>Senha válida!
                                 </div>
                             </div>
 
-                            <!-- MELHORADO: Botão de cadastro com estilo gamer -->
+                            <div class="form-group spacing-md">
+                                <label for="registerConfirmPassword" class="form-label fw-semibold"> <i class="bi bi-check-circle-fill me-2 text-primary"></i>Confirmar Senha:
+                                </label>
+                                <div class="input-group">
+                                    <input id="registerConfirmPassword" name="confirm-password" required type="password"
+                                        placeholder="Confirme sua senha"
+                                        class="form-control form-input transition-fast" />
+                                    <button class="btn btn-outline-secondary toggle-password transition-fast" type="button"
+                                        data-target="registerConfirmPassword" title="Mostrar/ocultar senha">
+                                        <i class="bi bi-eye-slash"></i>
+                                    </button>
+                                </div>
+                                <div class="invalid-feedback">
+                                    <i class="bi bi-exclamation-triangle-fill me-1"></i>As senhas não coincidem.
+                                </div>
+                                <div class="valid-feedback">
+                                    <i class="bi bi-check-circle-fill me-1"></i>Senhas coincidem!
+                                </div>
+                            </div>
+
                             <div class="d-grid gap-2 spacing-lg">
-                                <button type="submit" class="btn btn-gamer btn-lg" id="btn-cadastro-submit">
-                                    <i class="bi bi-rocket-takeoff-fill me-2"></i>Criar Conta
+                                <button type="submit" class="btn btn-gamer btn-lg"> <i class="bi bi-rocket-takeoff-fill me-2"></i>Criar Conta
                                 </button>
                             </div>
                         </form>
                     </div>
                 </div>
 
-                <!-- MELHORADO: Botão voltar com melhor visual -->
                 <button type="button" class="btn btn-outline-secondary btn-lg spacing-lg transition-normal"
-                    id="botao-voltar">
-                    <i class="bi bi-arrow-left-circle-fill me-2"></i>Voltar ao Login
+                    id="showLoginLink"> <i class="bi bi-arrow-left-circle-fill me-2"></i>Voltar ao Login
                 </button>
             </div>
         </section>
 
-        <!-- Seção benefícios membros -->
-        <!-- MELHORADO: Seção com melhor estrutura visual -->
         <section id="beneficios-membro" class="container p-xl bg-gradient-dark rounded shadow-medium">
             <div class="row">
                 <div class="col-md-10 mx-auto text-center">
@@ -189,7 +203,6 @@
                         universo de vantagens:
                     </p>
 
-                    <!-- MELHORADO: Lista com cards visuais -->
                     <div class="row row-cols-1 row-cols-md-2 g-3 spacing-lg">
                         <div class="col">
                             <div class="benefit-card p-3 rounded shadow-light bg-dark h-100 transition-fast">
@@ -229,8 +242,6 @@
             </div>
         </section>
 
-        <!-- Seção Segurança e privacidade -->
-        <!-- MELHORADO: Seção com badges mais visuais -->
         <section id="seguranca-privacidade" class="container p-xl rounded shadow-medium bg-dark text-white">
             <div class="row">
                 <div class="col-md-10 mx-auto text-center">
@@ -240,7 +251,6 @@
                         compra e cadastro totalmente segura e tranquila.
                     </p>
 
-                    <!-- MELHORADO: Cards de segurança mais visuais -->
                     <div class="row row-cols-1 row-cols-md-3 g-3 spacing-lg">
                         <div class="col">
                             <div
@@ -281,21 +291,16 @@
         </section>
     </main>
 
-    <!-- botão voltar ao topo -->
-    <!-- MELHORADO: Botão com ícone Bootstrap e transições -->
     <button id="voltar-topo" type="button" class="btn btn-primary shadow-medium" onclick="topo()"
         title="Voltar ao topo">
         <i class="bi bi-arrow-up-circle-fill"></i>
     </button>
 
-    <!-- rodapé -->
-    <!-- MELHORADO: Footer com transições nos links sociais -->
     <footer class="bg-dark text-white text-center py-3 mt-5">
         <div class="container">
             <p class="fw-bold mb-0">Desenvolvido por Jonathan Monteiro &copy; 2025</p>
             <p class="fw-bold mb-0">Todos os direitos reservados à JM Games.</p>
             <div class="social-icons mt-2">
-                <!-- MELHORADO: Links sociais com transições -->
                 <a href="#" class="text-white mx-2 transition-fast"><i class="bi bi-instagram fs-4"></i></a>
                 <a href="#" class="text-white mx-2 transition-fast"><i class="bi bi-linkedin fs-4"></i></a>
                 <a href="#" class="text-white mx-2 transition-fast"><i class="bi bi-whatsapp fs-4"></i></a>
@@ -310,6 +315,5 @@
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
     crossorigin="anonymous"></script>
 <script src="js/jquery-script.js"></script>
-<script type="module" src="js/main.js"></script>
-
-</html>
+<script type="module" src="js/login-page.js"></script>
+<script type="module" src="js/main.js"></script> </html>

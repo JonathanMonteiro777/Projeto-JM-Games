@@ -80,17 +80,7 @@
 
     </section>
 
-    <!-- Offcanvas Carrinho -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCarrinho" aria-labelledby="offcanvasCarrinhoLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasCarrinhoLabel">Carrinho</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <!-- Conteúdo do carrinho aqui -->
-            <p>Seu carrinho está vazio.</p>
-        </div>
-    </div>
+
 
     <footer class=" text-white text-center py-3 mt-5">
         <div class="container">
@@ -105,12 +95,57 @@
         </div>
     </footer>
 
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-        <script type="module" src="../js/services/rawgApi.js"></script>
-        <script type="module" src="../js/detalhes.js"></script>
-        <script type="module" src="../js/utils/domUtils.js"></script>
-        <script type="module" src="../js/detalhes.js"></script>  
+    <!-- Offcanvas Carrinho -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCarrinho" aria-labelledby="offcanvasCarrinhoLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasCarrinhoLabel">Seu Carrinho</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="list-group mb-3" id="carrinho-lista">
+            </ul>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <strong>Total:</strong> R$ <span id="carrinho-total">0.00</span>
+            </div>
+            <button class="btn btn-danger w-100 mb-2" id="btn-limpar-carrinho">Limpar Carrinho</button>
+            <button class="btn btn-success w-100">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <span class="badge bg-danger rounded-pill position-absolute top-0 start-100 translate-middle" id="cart-item-count"
+        style="display: none;">0</span>
+    <!-- LISTA DE FAVORITOS -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasFavoritos"
+        aria-labelledby="offcanvasFavoritosLabel">
+        <div class="offcanvas-header bg-warning text-white">
+            <h5 class="offcanvas-title" id="offcanvasFavoritosLabel"><i class="bi bi-heart-fill"></i> Seus Favoritos
+            </h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul id="favoritos-lista" class="list-group mb-3">
+                <li class="list-group-item text-center">Nenhum item favorito ainda.</li>
+            </ul>
+            <div class="d-grid gap-2">
+                <button class="btn btn-outline-warning" id="btn-limpar-favoritos">Limpar Favoritos</button>
+            </div>
+        </div>
+    </div>
+    <!-- TOAST -->
+    <div aria-live="polite" aria-atomic="true" class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100">
+        <div id="toastContainer" class="toast-container">
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+    <script type="module" src="../js/services/rawgApi.js"></script>
+    <script type="module" src="../js/detalhes.js"></script>
+    <script type="module" src="../js/utils/domUtils.js"></script>
+
 </body>
 
 </html>

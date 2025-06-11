@@ -6,8 +6,6 @@ import { handleScrollToTopButton, showToast } from './utils/domUtils.js';
 import { fetchGames, fetchGameTrailers } from './services/rawgApi.js';
 import { scrollToTop } from './utils/helpers.js';
 
-// --- Variáveis Globais para Instâncias (ou passadas como parâmetro) ---
-
 
 // --- FUNÇÕES DE RENDERIZAÇÃO ---
 
@@ -35,9 +33,21 @@ async function renderGamesToSection(games, containerSelector, carrinhoManager, f
     games.forEach(game => {
         console.log(`TRACE: Processando jogo: ${game.name}, imagem: ${game.background_image}`);
 
-        const stars = '⭐'.repeat(Math.round(game.rating || 0));
-        const gameCard = `
-        <div class="col-md-4 col-sm-6 mb-4">
+        const gameCardHtml = createGameCardHtml(game, favoritosManager); // Chama a nova função para criar o HTML do card
+
+        container.insertAdjacentHTML('beforeend', gameCardHtml);
+    });
+
+    console.log(`TRACE: renderGamesToSection finalizada para "${containerSelector}".`);
+}
+
+// NOVA FUNÇÃO: Cria e retorna a string HTML de um card de jogo
+function createGameCardHtml(game, favoritosManager) {
+    const stars = '⭐'.repeat(Math.round(game.rating || 0));
+    const isFavorited = favoritosManager.isFavorited(game.id);
+
+    return `
+     <div class="col-md-4 col-sm-6 mb-4">
             <div class="card h-100 shadow-light game-card-link">
                 <a href="pages/detalhes.html?id=${game.id}" class="card-link-overlay">
                     <img src="${game.background_image || 'img/placeholder.jpg'}" class="card-img-top" alt="${game.name || 'nome do jogo'}">
@@ -72,74 +82,19 @@ async function renderGamesToSection(games, containerSelector, carrinhoManager, f
                 </div>
             </div>
         </div>`;
-        container.insertAdjacentHTML('beforeend', gameCard);
-    });
 
-    // Reatribui os event listeners após a renderização dos novos cards
-    reassignEventListeners(carrinhoManager, favoritosManager); // Passando as instâncias aqui
-    console.log(`TRACE: renderGamesToSection finalizada para "${containerSelector}".`);
 }
 
-// DEFINIÇÃO DA FUNÇÃO reassignEventListeners
-function reassignEventListeners(carrinhoManager, favoritosManager) {
-    console.log('TRACE: reassignEventListeners chamada.');
-
-    // --- Event listeners para adicionar ao carrinho ---
-    document.querySelectorAll('.add-to-cart').forEach(button => {
-        button.onclick = (event) => {
-            event.preventDefault();
-
-            const productId = button.dataset.productId;
-            const productName = button.dataset.productName;
-            const productPrice = parseFloat(button.dataset.productPrice);
-            const productImage = button.dataset.productImage;
-
-            const produto = {
-                id: productId,
-                name: productName,
-                price: productPrice,
-                image: productImage
-            };
-
-            carrinhoManager.adicionarItem(produto);
-            showToast(`"${productName}" adicionado ao carrinho!`, 'success');
-            const offcanvasCarrinho = new bootstrap.Offcanvas(document.getElementById('offcanvasCarrinho'));
-            offcanvasCarrinho.show();
-            console.log('TRACE: Botão "Comprar" clicado.');
-        };
-    });
-
-    // --- Event listeners para adicionar/remover dos favoritos ---
-    document.querySelectorAll('.add-to-favorites').forEach(button => {
-        button.onclick = (event) => {
-            event.preventDefault();
-
-            const productId = button.dataset.productId;
-            const productName = button.dataset.productName;
-            const productPrice = parseFloat(button.dataset.productPrice);
-            const productImage = button.dataset.productImage;
-
-            const produto = {
-                id: productId,
-                name: productName,
-                price: productPrice,
-                image: productImage
-            };
-
-            const isNowFavorited = favoritosManager.adicionarRemoverItem(produto);
-
-            const icon = button.querySelector('i.bi');
-            if (icon) {
-                icon.classList.toggle('bi-heart-fill', isNowFavorited);
-                icon.classList.toggle('bi-heart', !isNowFavorited);
-            }
-            showToast(`"${productName}" ${isNowFavorited ? 'adicionado' : 'removido'} dos favoritos!`, 'info');
-            console.log('TRACE: Botão "Favoritar" clicado.');
-        };
-    });
-
-    console.log('TRACE: reassignEventListeners finalizada.');
+// NOVA FUNÇÃO: Extrai dados do produto de um botão
+function getProductDataFromButton(button) {
+    return {
+        id: button.dataset.productId,
+        name: button.dataset.productName,
+        price: parseFloat(button.dataset.productPrice),
+        image: button.dataset.productImage
+    };
 }
+
 
 // NOVA FUNÇÃO: Renderiza os trailers no carrossel
 async function renderTrailersCarousel() {
@@ -241,7 +196,45 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Carrega e renderiza os jogos das seções principais
     await loadAndRenderGames(carrinho, favoritos);
 
-    // --- Event Listeners Globais ---
+    // --- Delegação de Eventos ---
+
+    document.body.addEventListener('click', (event) => {
+        const target = event.target; // O elemento DOM que foi clicado
+
+        // Lógica para o botão 'Comprar' (add-to-cart)
+        // Usa 'closet' para garantir que mesmo um clique no ícone dentro do botão funcione
+        const addToCartButton = target.closest('.add-to-cart');
+        if (addToCartButton) {
+            event.preventDefault(); // Previne o comportamento padrão do link
+            const produto = getProductDataFromButton(addToCartButton);
+            carrinho.adicionarItem(produto);
+            showToast(`${produto.name} adicionado ao carrinho!`, 'success');
+            const offcanvasCarrinho = new bootstrap.Offcanvas(document.getElementById('offcanvasCarrinho'));
+            offcanvasCarrinho.show();
+            console.log('TRACE: Botão "Comprar" clicado via delegação.');
+            return; // Importante para sair e não processar outros ifs
+        }
+
+        // Lógica para o botão 'Adicionar aos Favoritos' (add-to-favorites)
+        const addToFavoritesButton = target.closest('.add-to-favorites');
+        if (addToFavoritesButton) {
+            event.preventDefault();  link
+            const produto = getProductDataFromButton(addToFavoritesButton);
+            const isNowFavorited = favoritos.adicionarRemoverItem(produto);
+
+            // Atualiza o ícone visualmente no botão que foi clicado
+            const icon = addToFavoritesButton.querySelector('i.bi');
+            if (icon) {
+                icon.classList.toggle('bi-heart-fill', isNowFavorited);
+                icon.classList.toggle('bi-heart', !isNowFavorited);
+            }
+            showToast(`${produto.name} ${isNowFavorited ? 'adicionado' : 'removido'} dos favoritos!`, 'info');
+            console.log('TRACE: Botão "Adicionar aos Favoritos" clicado via delegação.');
+            return; 
+        }
+    });
+
+    // --- Eventos Específicos ---
 
     // Botão "Limpar Carrinho" dentro do offcanvas
     const btnLimparCarrinho = document.getElementById('btn-limpar-carrinho');
@@ -251,19 +244,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    // Botão "Voltar ao Topo"
-    const btnVoltarTopo = document.getElementById('voltar-topo');
-    if (btnVoltarTopo) {
-        window.addEventListener('scroll', handleScrollToTopButton);
-        btnVoltarTopo.addEventListener('click', scrollToTop);
-    }
-
     // Botão "Limpar favoritos" dentro do offcanvas
     const btnLimparFavoritos = document.getElementById('btn-limpar-favoritos');
     if (btnLimparFavoritos) {
         btnLimparFavoritos.addEventListener('click', () => {
             favoritos.limparFavoritos();
         });
+    }
+
+    // Botão "Voltar ao Topo"
+    const btnVoltarTopo = document.getElementById('voltar-topo');
+    if (btnVoltarTopo) {
+        window.addEventListener('scroll', handleScrollToTopButton);
+        btnVoltarTopo.addEventListener('click', scrollToTop);
     }
 
     // Exibe um toast de boas-vindas ao carregar a página
