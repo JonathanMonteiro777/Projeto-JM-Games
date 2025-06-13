@@ -46,8 +46,6 @@
             <li class="nav-item">
               <a class="nav-link" href="#section-ranking">Jogos</a>
             </li>
-            <li class="nav-item" id="loginLinkContainer"> <a class="nav-link" href="login.html" id="loginLink">Login</a>
-            </li>
             <li class="nav-item">
               <a class="nav-link" href="login.html" id="loginLink">Entrar</a>
             </li>
@@ -55,11 +53,6 @@
               <a class="nav-link" href="#" id="logoutButton" style="display: none;">Sair</a>
             </li>
           </ul>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2 transition-fast" type="search" placeholder="O que deseja buscar"
-              aria-label="Search">
-            <button class="btn btn-gamer" type="submit">Buscar</button>
-          </form>
 
           <ul class="navbar-nav mb-2 mb-lg-0 ms-lg-2">
             <li class="nav-item">
@@ -89,6 +82,63 @@
   </header>
 
   <main>
+    <!-- Section Search -->
+    <section class="container mt-4">
+        <div class="row align-items-center mb-3">
+            <div class="col-md-8">
+                <div class="input-group">
+                    <input class="form-control" type="search" placeholder="Buscar jogos..." aria-label="Buscar" id="search-input">
+                    <button class="btn btn-primary" type="button" id="search-button">
+                        <i class="bi bi-search"></i> Buscar
+                    </button>
+                    <button class="btn btn-outline-secondary ms-2" type="button" id="filter-toggle-button" 
+                            data-bs-toggle="collapse" data-bs-target="#filters-collapse" 
+                            aria-expanded="false" aria-controls="filters-collapse">
+                        <i class="bi bi-funnel-fill"></i> Filtros
+                    </button>
+                </div>
+            </div>
+            </div>
+
+        <div class="collapse mt-3" id="filters-collapse">
+            <div class="card card-body">
+                <div class="btn-group mb-3" role="group" aria-label="Navegação de Jogos">
+                    <button type="button" class="btn btn-outline-secondary" data-filter-type="ordering" data-filter-value="-added" id="new-releases-btn">Novidades</button>
+                    <button type="button" class="btn btn-outline-secondary" data-filter-type="ordering" data-filter-value="-rating" id="most-popular-btn">Populares</button>
+                    <button type="button" class="btn btn-outline-secondary" data-filter-type="upcoming" data-filter-value="true" id="upcoming-btn">Próximos</button>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="genre-filter" class="form-label">Gênero:</label>
+                        <select class="form-select" id="genre-filter">
+                            <option value="">Todos os Gêneros</option>
+                            </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="platform-filter" class="form-label">Plataforma:</label>
+                        <select class="form-select" id="platform-filter">
+                            <option value="">Todas as Plataformas</option>
+                            </select>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-outline-danger mt-3" id="clear-filters-btn">Limpar Filtros</button>
+            </div>
+        </div>
+
+        <div id="loading-spinner" class="text-center mt-5" style="display: none;">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Carregando...</span>
+            </div>
+            <p class="mt-2 text-muted">Carregando jogos...</p>
+        </div>
+        <div id="no-results-message" class="text-center mt-5" style="display: block;">
+            <p class="alert alert-info">Use a barra de busca ou os filtros para encontrar jogos!</p>
+        </div>
+
+        <div id="game-results-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-4">
+            </div>
+    </section>
     <!-- section-banners -->
     <!--  MANTIDO: Bootstrap carousel + adicionada sombra -->
     <section id="section-banners" class="container-fluid shadow-medium">
@@ -102,7 +152,7 @@
         <div class="carousel-inner">
           <div class="carousel-item active">
             <!-- MELHORADO: Imagem com classe utilitária img-banner -->
-            <img src="img/banner-1.jpg" class="d-block w-100 img-banner" alt="Venha comprar na nossa Loja">
+            <img src="img/banner-1.PNG" class="d-block w-100 img-banner" alt="Venha comprar na nossa Loja">
             <div class="carousel-caption d-none d-md-block">
               <h5>Novidades Incríveis Chegando!</h5>
               <p class="text-lg">Fique por dentro dos últimos lançamentos e garanta os melhores jogos.</p>
@@ -166,6 +216,8 @@
         </div>
       </div>
     </section>
+
+
 
     <!-- section-novidades -->
     <section id="section-novidades" class="container-fluid py-5 bg-dark">

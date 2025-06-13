@@ -5,6 +5,7 @@ import { FavoritosManager } from './classes/FavoritosManager.js';
 import { handleScrollToTopButton, showToast } from './utils/domUtils.js';
 import { fetchGames, fetchGameTrailers } from './services/rawgApi.js';
 import { scrollToTop } from './utils/helpers.js';
+import { SearchManager } from './classes/BuscaManager.js';
 
 
 // --- FUNÇÕES DE RENDERIZAÇÃO ---
@@ -50,7 +51,7 @@ function createGameCardHtml(game, favoritosManager) {
      <div class="col-md-4 col-sm-6 mb-4">
             <div class="card h-100 shadow-light game-card-link">
                 <a href="pages/detalhes.html?id=${game.id}" class="card-link-overlay">
-                    <img src="${game.background_image || 'img/placeholder.jpg'}" class="card-img-top" alt="${game.name || 'nome do jogo'}">
+                    <img src="${game.background_image || 'img/placeholder.PNG'}" class="card-img-top" alt="${game.name || 'nome do jogo'}">
                     <div class="card-body text-center d-flex flex-column">
                         <h5 class="card-title fw-bold">${game.name || 'Nome Desconhecido'}</h5>
                         <p class="card-text flex-grow-1">
@@ -69,14 +70,15 @@ function createGameCardHtml(game, favoritosManager) {
                         data-product-id="${game.id}"
                         data-product-name="${game.name}"
                         data-product-price="${((game.id % 100) + 50).toFixed(2)}"
-                        data-product-image="${game.background_image || 'img/placeholder.jpg'}">
-                        Comprar
+                        data-product-image="${game.background_image || 'img/placeholder.PNG'}">
+                        <i class="bi bi-cart-plus-fill me-2"></i>
+                        Adicionar
                     </a>
                     <button class="btn btn-outline-warning add-to-favorites"
                         data-product-id="${game.id}"
                         data-product-name="${game.name}"
                         data-product-price="${((game.id % 100) + 50).toFixed(2)}"
-                        data-product-image="${game.background_image || 'img/placeholder.jpg'}">
+                        data-product-image="${game.background_image || 'img/placeholder.PNG'}">
                         <i class="bi ${favoritosManager.isFavorited(game.id) ? 'bi-heart-fill' : 'bi-heart'}"></i>
                     </button>
                 </div>
@@ -188,6 +190,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const carrinho = new CarrinhoManager();
     const auth = new AuthManager();
     const favoritos = new FavoritosManager();
+    const searchManager = new SearchManager(carrinho, favoritos);
 
 
     // Carrega e renderiza o carrossel de trailers

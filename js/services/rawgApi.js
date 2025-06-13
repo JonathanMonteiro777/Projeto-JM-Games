@@ -40,6 +40,50 @@
     }
 }
 
+// --- Busca uma lista de gêneros da API RAWG ---
+export async function fetchGenres() {
+    const url = new URL(`${RAWGAPI_HOST}/genres`);
+    url.searchParams.append('key', RAWGAPI_KEY);
+
+    console.log('DEBUG: URL da requisição de gêneros:', url.toString());
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`Erro HTTP! Status: ${response.status} - ${errorData.detail || response.statusText}`);
+        }
+        const data = await response.json();
+        console.log('DEBUG: Dados JSON dos gêneros:', data.results);
+        return data.results;
+    } catch (error) {
+        console.log('Erro ao buscar gêneros da API RAWG:', error);
+        throw error;
+    }
+}
+
+// --- Busca uma lista de plataformas da API RAWG ---
+export async function fetchPlatforms() {
+    const url = new URL(`${RAWGAPI_HOST}/platforms`);
+    url.searchParams.append('key', RAWGAPI_KEY);
+
+    console.log('DEBUG: URL da requisição de plataformas:', url.toString());
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`Erro HTTP! Status: ${response.status} - ${errorData.detail || response.statusText}`);
+        }
+        const data = await response.json();
+        console.log('DEBUG: Dados JSON das plataformas:', data.results);
+        return data.results;
+    } catch (error) {
+        console.log('Erro ao buscar plataformas da API RAWG:', error);
+        throw error;
+    }
+}
+
 // Função para buscar trailers de um jogo específico
 export async function fetchGameTrailers(gameId) {
     if (!gameId) {

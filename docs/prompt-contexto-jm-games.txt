@@ -7,7 +7,7 @@ Você é Cody, assistente de código da Sourcegraph. Estou trabalhando no projet
 📋 CONTEXTO DO PROJETO:
 - Nome: JM Games - Loja Virtual de Games
 - Objetivo: Projeto de portfólio para demonstrar habilidades front-end
-- Tecnologias: HTML5, CSS3, Bootstrap 5, JavaScript , jQuery
+- Tecnologias: HTML5, CSS3, Bootstrap 5, JavaScript (ESM - Módulos ES), jQuery.
 - Foco: Funcionalidades práticas que impressionem recrutadores
 
 🎨 IDENTIDADE VISUAL DEFINIDA:
@@ -18,19 +18,39 @@ Você é Cody, assistente de código da Sourcegraph. Estou trabalhando no projet
 
 📁 ESTRUTURA DE ARQUIVOS:
 jm-games/
+├── css/
+│   ├── _variables.css
+│   ├── base.css
+│   ├── components.css
+│   ├── layout.css
+│   └── main.css
+├── docs/
+│   ├── api-rawg.txt
+│   ├── checklist-portifolio.txt
+│   ├── conteudo-texto-jm-games.txt
+│   └── identidade-visual-jm-games.txt
+├── img/
+├── js/
+│   ├── detalhes.js               // Lógica específica para a página de detalhes do produto
+│   ├── jquery-script.js          // Scripts dependentes de jQuery
+│   ├── login-page.js             // Lógica específica para a página de login/cadastro
+│   ├── main.js                   // Script principal do site (navbar, global UI updates, index-page logic)
+│   └── classes/
+│       ├── AuthManager.js        // Classe para gerenciamento de autenticação
+│       ├── CarrinhoManager.js    // Classe para gerenciamento do carrinho
+│       └── FavoritosManager.js   // Classe para gerenciamento de favoritos
+│   └── services/
+│       └── rawgApi.js            // Serviço para interagir com a API RAWG
+│   └── utils/
+│       ├── domUtils.js           // Funções utilitárias para manipulação do DOM
+│       ├── helpers.js            // Funções utilitárias diversas
+│       └── validationUtils.js    // Funções utilitárias para validação
+├── pages/
+│   └── detalhes.html             // Página de detalhes do produto
 ├── index.html
 ├── login.html
-├── css/
-│   ├── _variables.css
-│   ├── base.css
-│   ├── components.css
-│   ├── layout.css
-│   ├── main.css (com responsividade completa e estilos principais)
-├── js/
-│   ├── script.js
-│   ├── jquery-script.js
-├── img/
 └── README.md
+
 
 
 ✅ FUNCIONALIDADES JÁ IMPLEMENTADAS NO CSS:
@@ -40,42 +60,43 @@ jm-games/
 - Componentes visuais: cards, botões, formulários
 - Hover effects e transições
 
-🚀 FUNCIONALIDADES PARA IMPLEMENTAR (PRIORIDADE):
-1. ✅ Carrinho funcional (localStorage)
-2. ✅ Sistema de favoritos (localStorage)  
-3. ✅ Busca com filtros funcionais
-4. ✅ Validação de formulários
-5. ✅ Notificações toast
-6. ⭐ Responsividade perfeita
+- JavaScript:
+  - Sistema de Autenticação (Login/Cadastro)
+    - Formulários de Login e Cadastro unificados em login.html com alternância dinâmica.
+    - Classe AuthManager completa (gerencia login/cadastro, validação de formulários, persistência via localStorage e atualização da navbar).
+    - Script login-page.js para integração UI/lógica de autenticação.
 
-📦 COMPONENTES PRONTOS CRIADOS:
-- Carrinho lateral (offcanvas)
-- Cards de produto completos
-- Formulários com validação
-- Sistema de busca com sugestões
-- Menu mobile fixo
-- Toast de notificações
-- Loading states
+- Carrinho Funcional:
+   - Classe CarrinhoManager completa e funcional (adicionar, remover, atualizar quantidade, calcular total, salvar/carregar do localStorage).
+   - Integração no index.html com botões "Adicionar ao Carrinho" e offcanvas de exibição/gerenciamento do carrinho.
 
-💻 CÓDIGO JAVASCRIPT ESTRUTURADO:
-- Classe CarrinhoManager (completa)
-- Classe FavoritosManager (completa)
-- Classe BuscaManager (completa)
-- Sistema de validação de formulários
-- Funções utilitárias
+- Sistema de Favoritos Funcional:
+   - Classe FavoritosManager completa e funcional (adicionar, remover, salvar/carregar do localStorage).
+   - Integração no index.html com botões "Adicionar aos Favoritos" e offcanvas de exibição/gerenciamento dos favoritos.
+
+- Notificações Toast: Função showToast implementada em js/utils/domUtils.js para feedback visual ao usuário em todas as ações pertinentes (adicionar/remover do carrinho/favoritos, login/logout).
+- Valida de Formulários (já parte do AuthManager e disponível via validationUtils.js).
+
+
+PROXÍMAS FUNCIONALIDADES PARA IMPLEMENTAR:
+1. Busca com Filtros Funcionais: Implementar a lógica de busca de produtos e filtros (por gênero, plataforma, preço, etc.), provavelmente utilizando a rawgApi.js para consumir dados e uma nova classe SearchManager.
+
+2. Responsividade Perfeita (Refinamento): Revisar e aprimorar o CSS para garantir que o layout se adapte impecavelmente a todos os tamanhos de tela.
+
+DOCUMENTOS DE APOIO:
+1. docs/api-rawg.txt (Informações da API RAWG).
+2. docs/checklist-portifolio.txt (Verificação final do projeto).
+3. docs/conteudo-texto-jm-games.txt (Textos e conteúdos gerais do projeto).
+4. docs/identidade-visual-jm-games.txt (Detalhes da identidade visual).
 
 🎯 OBJETIVO FINAL:
 Criar uma loja virtual completamente funcional (front-end) que demonstre:
-- JavaScript avançado
+- JavaScript avançado (Módulos ES)
 - UX/UI profissional
 - Código limpo e organizado
 - Responsividade perfeita
 - Acessibilidade básica
 
-📝 DOCUMENTOS CRIADOS:
-1. funcionalidades-implementar.txt (roadmap detalhado)
-2. componentes-prontos.html (códigos para copiar)
-3. checklist-portfolio.txt (verificação final)
 
 ⚠️ IMPORTANTE LEMBRAR:
 - Este é um projeto de PORTFÓLIO (não comercial)
@@ -92,8 +113,3 @@ Criar uma loja virtual completamente funcional (front-end) que demonstre:
 - Sugerir melhorias baseadas nas boas práticas
 
 Use este contexto para me ajudar a continuar o desenvolvimento do projeto JM Games de forma eficiente e focada no objetivo de portfólio profissional.
-
-
-[COLE O PROMPT COMPLETO AQUI]
-
-Agora preciso implementar o carrinho funcional no meu index.html. Onde devo colocar o código JavaScript e como integrar com os botões existentes?
