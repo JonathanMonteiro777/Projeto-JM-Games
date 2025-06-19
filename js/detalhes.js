@@ -1,23 +1,121 @@
-// js/detalhes.js
+// js/pages/detalhes.js
 
-import { fetchGameById } from './services/rawgApi.js';
-import { showToast, handleScrollToTopButton } from './utils/domUtils.js'; // handleScrollToTopButton é de domUtils
+// --- IMPORTS ---
+import { fetchGameById, fetchGames } from './services/rawgApi.js';
+import { showToast, handleScrollToTopButton } from './utils/domUtils.js';
 import { CarrinhoManager } from './classes/CarrinhoManager.js';
 import { AuthManager } from './classes/AuthManager.js';
 import { FavoritosManager } from './classes/FavoritosManager.js';
-import { scrollToTop } from './utils/helpers.js'; // scrollToTop é de helpers
+import { scrollToTop } from './utils/helpers.js';
 
-// Função para renderizar os detalhes do jogo na página
-// Agora recebe a instância de FavoritosManager para verificar o estado do favorito
-function renderGameDetails(game, favoritosManager) { // <-- MUDANÇA: Adicionado 'favoritosManager'
+// --- Função reutilizável para criar um card de jogo (adaptada para esta página) ---
+function createGameCardForRelated(game, favoritosManagerInstance) {
+    const placeholderImage = '../img/placeholder.PNG';
+    const imageUrl = game.background_image || placeholderImage;
+    const stars = '⭐'.repeat(Math.round(game.rating || 0));
+
+    const cardCol = document.createElement('div');
+    cardCol.classList.add('col-md-4', 'col-sm-6', 'mb-4');
+    cardCol.innerHTML = `
+        <div class="card h-100 shadow-light game-card-link">
+            <a href="detalhes.html?id=${game.id}" class="card-link-overlay">
+                <img src="${imageUrl}" class="card-img-top" alt="${game.name || 'nome do jogo'}">
+                <div class="card-body text-center d-flex flex-column">
+                    <h5 class="card-title fw-bold">${game.name || 'Nome Desconhecido'}</h5>
+                    <p class="card-text flex-grow-1">
+                        Lançamento: ${game.released || 'N/A'}<br>
+                        Avaliação: <span>${game.rating || 'N/A'}/5</span>
+                    </p>
+                    <p class="text-price text-success">R$${((game.id % 100) + 50).toFixed(2)}</p>
+                    <p class="text-warning text-sm">
+                        ${stars} (${game.rating || 'N/A'}/5)
+                    </p>
+                </div>
+                <div class="view-details-overlay">Ver Detalhes</div>
+            </a>
+            <div class="d-flex justify-content-around align-items-center mt-auto p-3 bg-light border-top">
+                <a href="#" class="btn btn-gamer flex-fill me-2 add-to-cart"
+                    data-product-id="${game.id}"
+                    data-product-name="${game.name}"
+                    data-product-price="${((game.id % 100) + 50).toFixed(2)}"
+                    data-product-image="${imageUrl}">
+                    <i class="bi bi-cart-plus-fill me-2"></i>
+                    Adicionar
+                </a>
+                <button class="btn btn-outline-warning add-to-favorites"
+                    data-product-id="${game.id}"
+                    data-product-name="${game.name}"
+                    data-product-price="${((game.id % 100) + 50).toFixed(2)}"
+                    data-product-image="${imageUrl}">
+                    <i class="bi ${favoritosManagerInstance.isFavorited(game.id) ? 'bi-heart-fill' : 'bi-heart'}"></i>
+                </button>
+            </div>
+        </div>
+    `;
+    return cardCol;
+}
+
+
+// --- Funções de manipulação de carrinho/favoritos para os cards relacionados ---
+function handleAddToCart(carrinhoManager, event) {
+    const productId = event.currentTarget.dataset.productId;
+    const productName = event.currentTarget.dataset.productName;
+    const productPrice = parseFloat(event.currentTarget.dataset.productPrice);
+    const productImage = event.currentTarget.dataset.productImage;
+
+    if (productId && productName && !isNaN(productPrice) && productImage) {
+        const product = { id: productId, name: productName, price: productPrice, image: productImage };
+        carrinhoManager.adicionarItem(product);
+        showToast(`"${product.name}" adicionado ao carrinho!`, 'success');
+    } else {
+        console.error('Dados do produto incompletos para adicionar ao carrinho:', event.currentTarget.dataset);
+        showToast('Erro: Dados do produto inválidos para o carrinho.', 'danger');
+    }
+}
+
+function handleAddToWishlist(favoritosManager, event) {
+    const productId = event.currentTarget.dataset.productId;
+    const productName = event.currentTarget.dataset.productName;
+    const productImage = event.currentTarget.dataset.productImage;
+
+    if (productId && productName && productImage) {
+        const product = { id: productId, name: productName, image: productImage };
+        const isNowFavorited = favoritosManager.adicionarRemoverItem(product);
+
+        const heartIcon = event.currentTarget.querySelector('i.bi');
+        if (heartIcon) {
+            heartIcon.classList.toggle('bi-heart-fill', isNowFavorited);
+            heartIcon.classList.toggle('bi-heart', !isNowFavorited);
+        }
+        showToast(`"${product.name}" ${isNowFavorited ? 'adicionado' : 'removido'} dos favoritos!`, 'info');
+    } else {
+        console.error('Dados do produto incompletos para adicionar à lista de desejos:', event.currentTarget.dataset);
+        showToast('Erro: Dados do produto inválidos para favoritos.', 'danger');
+    }
+}
+
+// Função para configurar os listeners dos botões "Comprar" e "Favoritar" na página de detalhes E NOS CARDS RELACIONADOS
+function setupListeners(container, carrinhoManager, favoritosManager) {
+    container.querySelectorAll('.add-to-cart-details, .add-to-cart').forEach(button => { // Inclui os do card principal e relacionados
+        button.addEventListener('click', (event) => handleAddToCart(carrinhoManager, event));
+    });
+
+    container.querySelectorAll('.add-to-favorites-details, .add-to-favorites').forEach(button => { // Inclui os do card principal e relacionados
+        button.addEventListener('click', (event) => handleAddToWishlist(favoritosManager, event));
+        
+    });
+}
+
+
+// --- Função para renderizar os detalhes do jogo principal ---
+function renderGameDetails(game, favoritosManager) {
     const detailsSection = document.getElementById('game-details-section');
     if (!detailsSection) {
         console.error('ERRO: Seção de detalhes do jogo não encontrada no HTML.');
         return;
     }
 
-    // Verifica se o jogo é favorito usando a instância passada
-    const isFavorited = favoritosManager.isFavorited(game.id); // <-- CORRIGIDO: Usa a instância
+    const isFavorited = favoritosManager.isFavorited(game.id);
     const stars = '⭐'.repeat(Math.round(game.rating || 0));
 
     detailsSection.innerHTML = `
@@ -58,57 +156,7 @@ function renderGameDetails(game, favoritosManager) { // <-- MUDANÇA: Adicionado
       </div>`;
 }
 
-// Função para configurar os listeners dos botões "Comprar" e "Favoritar" na página de detalhes
-function setupGameDetailsListeners(game, carrinhoManager, favoritosManager) {
-    // Usamos classes específicas para os botões da página de detalhes para evitar conflitos
-    const buyButton = document.querySelector('.add-to-cart-details');
-
-    if (buyButton) {
-        buyButton.addEventListener('click', (event) => {
-            event.preventDefault();
-
-            const produto = {
-                id: game.id,
-                name: game.name,
-                price: parseFloat(((game.id % 100) + 50).toFixed(2)),
-                image: game.background_image || '../img/placeholder.jpg'
-            };
-
-            carrinhoManager.adicionarItem(produto);
-            showToast(`"${produto.name}" adicionado ao carrinho!`, 'success');
-
-            const offcanvasCarrinho = new bootstrap.Offcanvas(document.getElementById('offcanvasCarrinho'));
-            offcanvasCarrinho.show();
-        });
-    }
-
-    const favoriteButton = document.querySelector('.add-to-favorites-details');
-    if (favoriteButton) {
-        // Não precisamos inicializar o estado do ícone aqui, pois já foi feito em renderGameDetails.
-        // Apenas pegamos a referência do ícone.
-        const icon = favoriteButton.querySelector('i.bi');
-
-        favoriteButton.addEventListener('click', (event) => {
-            event.preventDefault();
-
-            const produto = {
-                id: game.id,
-                name: game.name,
-                price: parseFloat(((game.id % 100) + 50).toFixed(2)),
-                image: game.background_image || '../img/placeholder.jpg'
-            };
-            // CORRIGIDO: Nome do método 'adicionarRemoverItem'
-            const isNowFavorited = favoritosManager.adicionarRemoverItem(produto);
-
-            if (icon) {
-                icon.classList.toggle('bi-heart-fill', isNowFavorited);
-                icon.classList.toggle('bi-heart', !isNowFavorited);
-            }
-            showToast(`"${produto.name}" ${isNowFavorited ? 'adicionado' : 'removido'} dos favoritos!`, 'info'); // Texto do toast ajustado
-        });
-    }
-}
-
+// --- Lógica principal para carregar detalhes e relacionados ---
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('TRACE: detalhes.js carregado. DOMContentLoaded.');
 
@@ -116,48 +164,89 @@ document.addEventListener('DOMContentLoaded', async () => {
     const carrinho = new CarrinhoManager();
     const favoritos = new FavoritosManager();
 
-
     // Obter o ID do jogo da URL
     const urlParams = new URLSearchParams(window.location.search);
     const gameId = urlParams.get('id');
 
+    const relatedGamesContainer = document.getElementById('related-games-container');
+    const noRelatedGamesMessage = document.getElementById('no-related-games-message');
+    const relatedGamesLoadingSpinner = document.getElementById('related-games-loading-spinner');
+
+
     if (!gameId) {
         console.error('ERRO: ID do jogo não encontrado na URL.');
-        showToast('ERRO: ID do jogo não especificado. Volte para a página inicial e tente novamente.', 'danger'); // <-- CORRIGIDO: Texto de erro
-
+        showToast('ERRO: ID do jogo não especificado. Volte para a página inicial e tente novamente.', 'danger');
         setTimeout(() => {
             window.location.href = 'index.html';
         }, 3000);
+        return; // Sai da função se não houver ID
     }
 
     console.log(`TRACE: ID do jogo obtido da URL: ${gameId}`);
 
-    // Buscar detalhes do jogo na API RAWG
     try {
-        const gamedetails = await fetchGameById(gameId);
-        console.log('TRACE: Detalhes do jogo recebidos:', gamedetails);
+        // Buscar detalhes do jogo principal
+        const gameDetails = await fetchGameById(gameId);
+        console.log('TRACE: Detalhes do jogo recebidos:', gameDetails);
 
         // Renderizar os detalhes do jogo na página
-        // CORRIGIDO: Passando a instância 'favoritos' para renderGameDetails
-        renderGameDetails(gamedetails, favoritos);
-        showToast(`Detalhes de "${gamedetails.name}" carregados!`, 'success');
+        renderGameDetails(gameDetails, favoritos);
+        showToast(`Detalhes de "${gameDetails.name}" carregados!`, 'success');
 
-        // Configurar os listeners dos botões de detalhes
-        setupGameDetailsListeners(gamedetails, carrinho, favoritos);
+        // Configurar os listeners para os botões do jogo principal
+        // MUDANÇA AQUI: Passamos document para que a função pegue os botões da página inteira
+        setupListeners(document, carrinho, favoritos);
+
+        // ----- Lógica para Jogos Relacionados -----
+        relatedGamesLoadingSpinner.style.display = 'block';
+        noRelatedGamesMessage.style.display = 'none';
+        relatedGamesContainer.innerHTML = ''; // Limpa resultados anteriores
+
+        if (!gameDetails || !gameDetails.genres || gameDetails.genres.length === 0) {
+            noRelatedGamesMessage.style.display = 'block';
+            noRelatedGamesMessage.querySelector('p').textContent = 'Nenhum gênero encontrado para este jogo, impossível buscar relacionados.';
+            relatedGamesLoadingSpinner.style.display = 'none'; // Esconde o spinner
+            return; // Não prossegue se não houver gênero
+        }
+
+        const genresSlugs = gameDetails.genres.map(genre => genre.slug).join(',');
+
+        // Buscar jogos relacionados
+        const relatedGamesParams = {
+            genres: genresSlugs,
+            page_size: 16, // Quantos jogos relacionados mostrar
+            ordering: '-rating' // Ou '-released' para mais recentes
+        };
+        const apiResponseForRelated = await fetchGames(relatedGamesParams);
+        let relatedGames = apiResponseForRelated.results;
+
+        // Filtrar manualmente o jogo atual dos resultados
+        relatedGames = relatedGames.filter(game => String(game.id) !== String(gameId));
+
+        if (relatedGames.length === 0) {
+            noRelatedGamesMessage.style.display = 'block';
+            noRelatedGamesMessage.querySelector('p').textContent = 'Nenhum jogo relacionado encontrado.';
+        } else {
+            relatedGames.forEach(game => {
+                const gameCard = createGameCardForRelated(game, favoritos);
+                relatedGamesContainer.appendChild(gameCard);
+            });
+            
+            setupListeners(relatedGamesContainer, carrinho, favoritos);
+        }
 
     } catch (error) {
-        console.error('ERRO ao buscar detalhes do jogo:', error);
-        showToast('ERRO: Não foi possível carregar os detalhes do jogo.', 'danger');
+        console.error('ERRO: Não foi possível carregar os detalhes do jogo ou jogos relacionados:', error);
+        showToast('ERRO: Não foi possível carregar os detalhes do jogo ou jogos relacionados.', 'danger');
+        document.getElementById('game-details-section').innerHTML = '<p class="text-center text-white">Não foi possível carregar os detalhes deste jogo.</p>';
+        noRelatedGamesMessage.style.display = 'block';
+        noRelatedGamesMessage.querySelector('p').textContent = 'Ocorreu um erro ao carregar jogos relacionados.';
+    } finally {
+        // Garante que o spinner dos relacionados seja escondido no final
+        relatedGamesLoadingSpinner.style.display = 'none';
     }
 
     // --- Event Listeners Globais (para offcanvas da navbar e botão Voltar ao Topo) ---
-    // Note: A delegação de eventos para botões de carrinho/favoritos genéricos (.add-to-cart, .add-to-favorites)
-    // na `document.body` só é realmente necessária na `index.js` (onde os cards são dinâmicos).
-    // Na `detalhes.js`, os botões são específicos (.add-to-cart-details, .add-to-favorites-details)
-    // e são tratados pela `setupGameDetailsListeners`.
-    // Os listeners abaixo são para os botões do offcanvas em si.
-
-    // Botão "Limpar Carrinho"
     const btnLimparCarrinho = document.getElementById('btn-limpar-carrinho');
     if (btnLimparCarrinho) {
         btnLimparCarrinho.addEventListener('click', () => {
@@ -165,7 +254,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    // Botão "Limpar Favoritos"
     const btnLimparFavoritos = document.getElementById('btn-limpar-favoritos');
     if (btnLimparFavoritos) {
         btnLimparFavoritos.addEventListener('click', () => {
@@ -173,7 +261,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    // Botão "Voltar ao Topo"
     const btnVoltarTopo = document.getElementById('voltar-topo');
     if (btnVoltarTopo) {
         window.addEventListener('scroll', handleScrollToTopButton);

@@ -18,79 +18,88 @@
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="../index.html">
-                    <img src="../img/logo.png" alt="logo" class="transition-fast">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Promoções</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Console</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Jogos</a>
-                        </li>
-                        <li class="nav-item" id="loginLinkContainer"> <a class="nav-link" href="../login.html">Login</a>
-                        </li>
-                    </ul>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2 transition-fast" type="search" placeholder="O que deseja buscar"
-                            aria-label="Search">
-                        <button class="btn btn-gamer" type="submit">Buscar</button>
-                    </form>
+  <!-- cabeçalho -->
+  <header>
+    <nav class="navbar navbar-expand-lg bg-gradient-dark shadow-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="../index.html">
+          <img src="../img/logo.png" alt="logo" class="transition-fast">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="../login.html" id="loginLink">Entrar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" id="logoutButton" style="display: none;">Sair</a>
+            </li>
+          </ul>
 
-                    <ul class="navbar-nav mb-2 mb-lg-0 ms-lg-2">
-                        <li class="nav-item">
-                            <a class="nav-link position-relative" href="#" data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvasCarrinho" aria-controls="offcanvasCarrinho">
-                                <i class="bi bi-cart fs-4"></i>
-                                <span
-                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                                    id="cart-item-count">
-                                    0
-                                    <span class="visually-hidden">itens no carrinho</span>
-                                </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ms-2"> <a class="nav-link position-relative" href="#"
-                                data-bs-toggle="offcanvas" data-bs-target="#offcanvasFavoritos">
-                                <i class="bi bi-heart fs-4"></i> <span
-                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning"
-                                    id="favorite-item-count">
-                                    0 <span class="visually-hidden">itens favoritos</span>
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+          <ul class="navbar-nav mb-2 mb-lg-0 ms-lg-2">
+            <li class="nav-item">
+              <a class="nav-link position-relative" href="#" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasCarrinho" aria-controls="offcanvasCarrinho">
+                <i class="bi bi-cart fs-4"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                  id="cart-item-count">
+                  0
+                  <span class="visually-hidden">itens no carrinho</span>
+                </span>
+              </a>
+            </li>
+            <li class="nav-item ms-2"> <a class="nav-link position-relative" href="#" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasFavoritos" aria-controls="offcanvasFavoritos">
+                <i class="bi bi-heart fs-4"></i> <span
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning"
+                  id="favorite-item-count">
+                  0 <span class="visually-hidden">itens favoritos</span>
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
     <section id="game-details-section">
 
     </section>
 
+    <section class="container mt-5">
+        <h2 class="mb-4">Jogos Relacionados</h2>
+        <div id="related-games-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        </div>
+        <div id="no-related-games-message" class="text-center mt-3 alert alert-info" style="display: none;">
+            <p>Nenhum jogo relacionado encontrado.</p>
+        </div>
+        <div id="related-games-loading-spinner" class="text-center mt-3" style="display: none;">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Carregando jogos relacionados...</span>
+            </div>
+            <p class="mt-2 text-muted">Carregando jogos relacionados...</p>
+        </div>
+    </section>
 
 
     <footer class=" text-white text-center py-3 mt-5">
         <div class="container">
             <p class="fw-bold mb-0">Desenvolvido por Jonathan Monteiro &copy; 2025</p>
             <p class="fw-bold mb-0">Todos os direitos reservados à JM Games.</p>
+
+            <p class="mb-0 mt-2">Dados fornecidos por <a href="https://rawg.io/" target="_blank" rel="noopener"
+                    class="text-white text-decoration-underline">RAWG.io</a></p>
             <div class="social-icons mt-2">
                 <!-- MELHORADO: Ícones com transições suaves -->
-                <a href="#" class="text-white mx-2 transition-fast"><i class="bi bi-instagram fs-4"></i></a>
-                <a href="#" class="text-white mx-2 transition-fast"><i class="bi bi-linkedin fs-4"></i></a>
-                <a href="#" class="text-white mx-2 transition-fast"><i class="bi bi-whatsapp fs-4"></i></a>
+                <a href="https://www.linkedin.com/in/jonathan-lucas-34684a1a4" class="text-white mx-2 transition-fast"
+                    title="Instagram"><i class="bi bi-instagram fs-4"></i></a>
+                <a href="https://www.instagram.com/jonathanlucas777/" class="text-white mx-2 transition-fast"
+                    title="LinkedIn"><i class="bi bi-linkedin fs-4"></i></a>
+                <a href="https://wa.me/5537991042878" class="text-white mx-2 transition-fast" title="WhatsApp"><i
+                        class="bi bi-whatsapp fs-4"></i></a>
             </div>
         </div>
     </footer>

@@ -7,7 +7,7 @@ import { FavoritosManager } from './FavoritosManager.js';
 export class SearchManager {
     constructor(carrinhoManager, favoritosManager) {
         // Elementos da UI
-         this.searchInput = document.getElementById('search-input');
+        this.searchInput = document.getElementById('search-input');
         this.searchButton = document.getElementById('search-button');
         this.gameResultsContainer = document.getElementById('game-results-container');
         this.loadingSpinner = document.getElementById('loading-spinner');
@@ -23,17 +23,26 @@ export class SearchManager {
         this.upcomingBtn = document.getElementById('upcoming-btn');
         this.clearFiltersBtn = document.getElementById('clear-filters-btn');
 
-       // Gerenciadores de carrinho e lista de desejos
+        // Gerenciadores de carrinho e lista de desejos
         this.carrinhoManager = carrinhoManager;
         this.favoritosManager = favoritosManager;
 
+        // Elemento UI para Paginação
+        this.paginationControls = document.getElementById('pagination-controls');
+
+        // Estado da Paginação
+        this.currentPage = 1;
+        this.nextPageUrl = null;
+        this.previousPageUrl = null;
+        this.totalResultsCount = 0;
 
         // Estado da busca
         this.currentSearchParams = {
             search: '',
             genres: '',
             platforms: '',
-            page_size: 20 // Quantos resultados por página
+            page_size: 20, // Quantos resultados por página
+            page: this.currentPage
         };
 
         this.initEventListeners();
@@ -76,7 +85,7 @@ export class SearchManager {
         if (this.newReleasesBtn) {
             this.newReleasesBtn.addEventListener('click', (event) => this.handleNavigationButtonClick(event));
         }
-        
+
         if (this.mostPopularBtn) {
             this.mostPopularBtn.addEventListener('click', (event) => this.handleNavigationButtonClick(event));
         }
@@ -91,7 +100,7 @@ export class SearchManager {
         const value = event.target.dataset.filterValue; // '-adde', 'rating' ou 'true'
 
         // Limpa os parâmetros de busca anteriores, exceto page_size
-        this.currentSearchParams = { page_size: 9 };
+        this.currentSearchParams = { page_size: 6 };
         this.currentSearchParams[type] = value; // Adiciona o filtro clicado
 
         // Limpa o input de busca visualmente
@@ -102,7 +111,7 @@ export class SearchManager {
 
         // Reseta os dropdowns de filtro visualmente
         if (this.genreFilter) this.genreFilter.value = '';
-        if (this.platformFilter) this.platformFilter.value = ''; 
+        if (this.platformFilter) this.platformFilter.value = '';
 
         this.performSearch();
 
@@ -114,7 +123,7 @@ export class SearchManager {
 
     // Limpa todos os filtros e a busca
     clearFilters() {
-        this.currentSearchParams = { page_size: 10 };
+        this.currentSearchParams = { page_size: 6 };
 
         if (this.searchInput) this.searchInput.value = '';
         if (this.genreFilter) this.genreFilter.value = '';
@@ -130,11 +139,44 @@ export class SearchManager {
 
     // Exibe a mensagem de carregamento
     async initialLoad() {
-        
+
         this.hideLoading();
         this.clearResults();
-        this.showNoResultsMessage('Use a barra de pesquisa para encontrar jogos!');
-        this.populateFilters(); // Garante que os filtros sejam preenchidos ao carregar
+        this.showNoResultsMessage('Use a barra de pesquisa para encontrar jogos!')
+    }
+
+    async populateFilters() {
+        // Carrega os gêneros
+        if (this.genreFilter) {
+            try {
+                const genres = await fetchGenres();
+                genres.forEach(genre => {
+                    const option = document.createElement('option');
+                    option.value = genre.slug;
+                    option.textContent = genre.name;
+                    this.genreFilter.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error fetching genres:', error);
+                showToast('Erro ao carregar opções de gênero.', 'danger');
+            }
+        }
+
+        // Carrega as plataformas
+        if (this.platformFilter) {
+            try {
+                const platforms = await fetchPlatforms();
+                platforms.forEach(platform => {
+                    const option = document.createElement('option');
+                    option.value = platform.slug;
+                    option.textContent = platform.name;
+                    this.platformFilter.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error fetching platforms:', error);
+                showToast('Erro ao carregar opções de plataforma.', 'danger');
+            }
+        }
     }
 
     async performSearch() {
@@ -151,25 +193,103 @@ export class SearchManager {
             }
         }
 
+        // garante que a pagina atual esteja nos parâmetros de busca
+        this.currentSearchParams.page = this.currentPage;
+
         this.showLoading();
         this.clearResults();
+        this.paginationControls.innerHTML = '';
 
         try {
-            const games = await fetchGames(this.currentSearchParams);
-            this.renderGames(games);
+            const apiResponse = await fetchGames(this.currentSearchParams);
+            const games = apiResponse.results; // Pega os jogos
+            this.nextPageUrl = apiResponse.next;
+            this.previousPageUrl = apiResponse.previous;
+            this.totalResultsCount = apiResponse.count;
+
             if (games.length === 0) {
                 this.showNoResultsMessage('Nenhum jogo encontrado com os critérios de busca');
+                this.renderPaginationControls(); // Renderiza para mostrar a mensagem de nenhum resultado
             } else {
                 this.hideNoResultsMessage();
                 this.renderGames(games);
+                this.renderPaginationControls();
             }
         } catch (error) {
             console.error('Error fetching games:', error);
             showToast('Erro ao buscar jogos. Tente novamente mais tarde.');
             this.showNoResultsMessage('Ocorreu um erro ao buscar os jogos. Tente novamente mais tarde.');
+            this.paginationControls.innerHTML = '';
         } finally {
             this.hideLoading();
         }
+    }
+
+    // Renderiza os controles de paginação
+    renderPaginationControls() {
+        this.paginationControls.innerHTML = '';
+
+        // Verifica se há resultados para paginar
+        if (this.totalResultsCount <= this.currentSearchParams.page_size && this.currentPage === 1) {
+            return;
+        }
+
+        // Botão "Anterior"
+        const prevItem = document.createElement('li');
+        prevItem.classList.add('page-item');
+        if (!this.previousPageUrl) { // Se não há página anterior, desabilita o botão
+            prevItem.classList.add('disabled');
+        }
+
+        prevItem.innerHTML = `<a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>`;
+        this.paginationControls.appendChild(prevItem);
+
+        prevItem.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (this.previousPageUrl) {
+                this.currentPage--;
+                this.performSearch();
+            }
+        });
+
+        const totalPages = Math.ceil(this.totalResultsCount / this.currentSearchParams.page_size);
+
+        for (let i = 1; i <= totalPages; i++) {
+            if (i >= this.currentPage - 2 && i <= this.currentPage + 2) {
+                const pageNumItem = document.createElement('li');
+                pageNumItem.classList.add('page-item');
+                if (i === this.currentPage) {
+                    pageNumItem.classList.add('active');
+                }
+                pageNumItem.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+                this.paginationControls.appendChild(pageNumItem);
+
+                pageNumItem.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (i !== this.currentPage) {
+                        this.currentPage = i;
+                        this.performSearch();
+                    }
+                });
+            }
+        }
+
+        // Botão "Próximo"
+        const nextItem = document.createElement('li');
+        nextItem.classList.add('page-item');
+        if (!this.nextPageUrl) { // Desabilita se não houver próxima página
+            nextItem.classList.add('disabled');
+        }
+        nextItem.innerHTML = `<a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>`;
+        this.paginationControls.appendChild(nextItem);
+
+        nextItem.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (this.nextPageUrl) {
+                this.currentPage++;
+                this.performSearch(); // Re-executa a busca para a próxima página
+            }
+        });
     }
 
     renderGames(games) {
@@ -193,41 +313,41 @@ export class SearchManager {
         const cardCol = document.createElement('div');
         cardCol.classList.add('col-md-4', 'col-sm-6', 'mb-4');
         cardCol.innerHTML = `
-            <div class="card h-100 shadow-light game-card-link">
-                <a href="pages/detalhes.html?id=${game.id}" class="card-link-overlay">
-                    <img src="${game.background_image || 'img/placeholder.PNG'}" class="card-img-top" alt="${game.name || 'nome do jogo'}">
-                    <div class="card-body text-center d-flex flex-column">
-                        <h5 class="card-title fw-bold">${game.name || 'Nome Desconhecido'}</h5>
-                        <p class="card-text flex-grow-1">
-                            Lançamento: ${game.released || 'N/A'}<br>
-                            Avaliação: <span>${game.rating || 'N/A'}/5</span>
-                        </p>
-                        <p class="text-price text-success">R$${((game.id % 100) + 50).toFixed(2)}</p>
-                        <p class="text-warning text-sm">
-                            ${stars} (${game.rating || 'N/A'}/5)
-                        </p>
-                    </div>
-                    <div class="view-details-overlay">Ver Detalhes</div>
-                </a>
-                <div class="d-flex justify-content-around align-items-center mt-auto p-3 bg-light border-top">
-                    <a href="#" class="btn btn-gamer flex-fill me-2 add-to-cart"
-                        data-product-id="${game.id}"
-                        data-product-name="${game.name}"
-                        data-product-price="${((game.id % 100) + 50).toFixed(2)}"
-                        data-product-image="${game.background_image || 'img/placeholder.PNG'}">
-                        <i class="bi bi-cart-plus-fill me-2"></i>
-                        Adicionar
+                <div class="card h-100 shadow-light game-card-link">
+                    <a href="pages/detalhes.html?id=${game.id}" class="card-link-overlay">
+                        <img src="${game.background_image || 'img/placeholder.PNG'}" class="card-img-top" alt="${game.name || 'nome do jogo'}">
+                        <div class="card-body text-center d-flex flex-column">
+                            <h5 class="card-title fw-bold">${game.name || 'Nome Desconhecido'}</h5>
+                            <p class="card-text flex-grow-1">
+                                Lançamento: ${game.released || 'N/A'}<br>
+                                Avaliação: <span>${game.rating || 'N/A'}/5</span>
+                            </p>
+                            <p class="text-price text-success">R$${((game.id % 100) + 50).toFixed(2)}</p>
+                            <p class="text-warning text-sm">
+                                ${stars} (${game.rating || 'N/A'}/5)
+                            </p>
+                        </div>
+                        <div class="view-details-overlay">Ver Detalhes</div>
                     </a>
-                    <button class="btn btn-outline-warning add-to-favorites"
-                        data-product-id="${game.id}"
-                        data-product-name="${game.name}"
-                        data-product-price="${((game.id % 100) + 50).toFixed(2)}"
-                        data-product-image="${game.background_image || 'img/placeholder.PNG'}">
-                        <i class="bi ${favoritosManager.isFavorited(game.id) ? 'bi-heart-fill' : 'bi-heart'}"></i>
-                    </button>
+                    <div class="d-flex justify-content-around align-items-center mt-auto p-3 bg-light border-top">
+                        <a href="#" class="btn btn-gamer flex-fill me-2 add-to-cart"
+                            data-product-id="${game.id}"
+                            data-product-name="${game.name}"
+                            data-product-price="${((game.id % 100) + 50).toFixed(2)}"
+                            data-product-image="${game.background_image || 'img/placeholder.PNG'}">
+                            <i class="bi bi-cart-plus-fill me-2"></i>
+                            Adicionar
+                        </a>
+                        <button class="btn btn-outline-warning add-to-favorites"
+                            data-product-id="${game.id}"
+                            data-product-name="${game.name}"
+                            data-product-price="${((game.id % 100) + 50).toFixed(2)}"
+                            data-product-image="${game.background_image || 'img/placeholder.PNG'}">
+                            <i class="bi ${favoritosManager.isFavorited(game.id) ? 'bi-heart-fill' : 'bi-heart'}"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
-        `;
+            `;
 
 
         return cardCol;

@@ -3,7 +3,7 @@ import { CarrinhoManager } from './classes/CarrinhoManager.js';
 import { AuthManager } from './classes/AuthManager.js';
 import { FavoritosManager } from './classes/FavoritosManager.js';
 import { handleScrollToTopButton, showToast } from './utils/domUtils.js';
-import { fetchGames, fetchGameTrailers } from './services/rawgApi.js';
+import { fetchGames } from './services/rawgApi.js';
 import { scrollToTop } from './utils/helpers.js';
 import { SearchManager } from './classes/BuscaManager.js';
 
@@ -11,9 +11,10 @@ import { SearchManager } from './classes/BuscaManager.js';
 // --- FUNÇÕES DE RENDERIZAÇÃO ---
 
 // Função para renderizar jogos em uma seção específica
-async function renderGamesToSection(games, containerSelector, carrinhoManager, favoritosManager) { // Parâmetros corrigidos
-    console.log('TRACE: renderGamesToSection', games, containerSelector);
-    console.log('TRACE: Jogos recebidos para renderizar:', games);
+async function renderGamesToSection(gamesArray, containerSelector, carrinhoManager, favoritosManager) {
+    // CORREÇÃO 1: Use gamesArray consistentemente
+    console.log('TRACE: renderGamesToSection', gamesArray, containerSelector);
+    console.log('TRACE: Jogos recebidos para renderizar:', gamesArray);
 
     const container = document.querySelector(containerSelector);
     if (!container) {
@@ -24,14 +25,15 @@ async function renderGamesToSection(games, containerSelector, carrinhoManager, f
 
     container.innerHTML = ''; // Limpa o conteúdo atual da seção
 
-    if (!games || games.length === 0) {
+    // CORREÇÃO 1: Use gamesArray consistentemente
+    if (!Array.isArray(gamesArray) || gamesArray.length === 0) { // Verifica se é um array e se está vazio
         console.warn('Nenhum jogo encontrado para renderizar.');
         container.innerHTML = '<p class="text-center text-muted">Nenhum jogo encontrado.</p>';
         return;
     }
 
     // Renderiza cada jogo na seção
-    games.forEach(game => {
+    gamesArray.forEach(game => {
         console.log(`TRACE: Processando jogo: ${game.name}, imagem: ${game.background_image}`);
 
         const gameCardHtml = createGameCardHtml(game, favoritosManager); // Chama a nova função para criar o HTML do card
@@ -98,82 +100,14 @@ function getProductDataFromButton(button) {
 }
 
 
-// NOVA FUNÇÃO: Renderiza os trailers no carrossel
-async function renderTrailersCarousel() {
-    const carouselInner = document.querySelector('#gameTrailersCarousel .carousel-inner');
-    const carouselIndicators = document.querySelector('#gameTrailersCarousel .carousel-indicators');
-
-    if (!carouselInner || !carouselIndicators) {
-        console.warn('Elementos do carrossel não encontrados.');
-        return;
-    }
-
-    const featuredGameId = 3498; // Ex: Grand Theft Auto V.
-
+// --- Carrega e renderiza os Destaques ---
+async function loadAndRenderGames(carrinhoInstance, favoritosInstance) {
     try {
-        const trailers = await fetchGameTrailers(featuredGameId);
+        // Chamada para jogos de Destaques (Ranking)
+        const apiResponse = await fetchGames({ page_size: 15, ordering: '-rating' }); // CORREÇÃO 2: Renomeia para apiResponse
+        const ratedGames = apiResponse.results; // <--- CORREÇÃO 2: Acessa a propriedade 'results'
 
-        if (trailers && trailers.length > 0) {
-            carouselInner.innerHTML = '';
-            carouselIndicators.innerHTML = '';
-
-            trailers.forEach((trailer, index) => {
-                const videoUrl = trailer.data.max || trailer.data['480'];
-                const previewImageUrl = trailer.preview;
-                if (videoUrl) {
-                    const activeClass = index === 0 ? 'active' : '';
-
-                    carouselInner.innerHTML += `
-                        <div class="carousel-item ${activeClass}">
-                            <div class="embed-responsive embed-responsive-16by9 d-flex justify-content-center">
-                                <video class="embed-responsive-item" controls muted playsinline preload="metadata"
-                                    poster="${previewImageUrl || 'img/placeholder.jpg'}">
-                                    <source src="${videoUrl}" type="video/mp4">
-                                    Seu navegador não suporta a tag de vídeo.
-                                </video>
-                            </div>
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>${trailer.name || 'Trailer do Jogo'}</h5>
-                            </div>
-                        </div>
-                    `;
-
-                    carouselIndicators.innerHTML += `
-                        <button type="button" data-bs-target="#gameTrailersCarousel" data-bs-slide-to="${index}" class="${activeClass}" aria-label="Slide ${index + 1}"></button>
-                    `;
-                }
-            });
-        } else {
-            console.log('Nenhum trailer encontrado para o jogo.');
-            const carouselContainer = document.getElementById('gameTrailersCarousel');
-            if (carouselContainer) {
-                carouselContainer.style.display = 'none';
-            }
-        }
-    } catch (error) {
-        console.error('Erro ao renderizar carrossel de trailers:', error);
-        const carouselContainer = document.getElementById('gameTrailersCarousel');
-        if (carouselContainer) {
-            carouselContainer.style.display = 'none';
-        }
-    }
-}
-
-// --- Carrega e renderiza os jogos Mais Bem Avaliados e Novidades ---
-async function loadAndRenderGames(carrinhoInstance, favoritosInstance) { // Recebe as instâncias
-    try {
-        // Chamada para jogos Mais Bem Avaliados (Ranking)
-        const ratedGames = await fetchGames({ page_size: 15, ordering: '-rating' });
-        renderGamesToSection(ratedGames, '#ranking-games-container', carrinhoInstance, favoritosInstance); // Passa instâncias
-
-        // Chamada para Novidades (Jogos mais recentes)
-        console.log('TRACE: Buscando novidades...');
-        const newGames = await fetchGames({ page_size: 3, ordering: '-released' });
-        console.log('TRACE: Novidades recebidas:', newGames);
-
-        console.log('TRACE: Renderizando para #novidades-games-container...');
-        renderGamesToSection(newGames, '#novidades-games-container', carrinhoInstance, favoritosInstance); // Passa instâncias
-        console.log('TRACE: Renderização de #novidades-games-container concluída.');
+        renderGamesToSection(ratedGames, '#ranking-games-container', carrinhoInstance, favoritosInstance); // Passa o array correto
 
         showToast('Jogos carregados da API RAWG!', 'success');
     } catch (error) {
@@ -193,9 +127,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const searchManager = new SearchManager(carrinho, favoritos);
 
 
-    // Carrega e renderiza o carrossel de trailers
-    await renderTrailersCarousel();
-
     // Carrega e renderiza os jogos das seções principais
     await loadAndRenderGames(carrinho, favoritos);
 
@@ -205,7 +136,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const target = event.target; // O elemento DOM que foi clicado
 
         // Lógica para o botão 'Comprar' (add-to-cart)
-        // Usa 'closet' para garantir que mesmo um clique no ícone dentro do botão funcione
+        // Usa 'closest' para garantir que mesmo um clique no ícone dentro do botão funcione
         const addToCartButton = target.closest('.add-to-cart');
         if (addToCartButton) {
             event.preventDefault(); // Previne o comportamento padrão do link
@@ -221,7 +152,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Lógica para o botão 'Adicionar aos Favoritos' (add-to-favorites)
         const addToFavoritesButton = target.closest('.add-to-favorites');
         if (addToFavoritesButton) {
-            event.preventDefault();  link
+            event.preventDefault();
             const produto = getProductDataFromButton(addToFavoritesButton);
             const isNowFavorited = favoritos.adicionarRemoverItem(produto);
 
@@ -233,7 +164,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             showToast(`${produto.name} ${isNowFavorited ? 'adicionado' : 'removido'} dos favoritos!`, 'info');
             console.log('TRACE: Botão "Adicionar aos Favoritos" clicado via delegação.');
-            return; 
+            return;
         }
     });
 

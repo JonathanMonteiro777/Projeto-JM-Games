@@ -26,7 +26,7 @@
 <body>
   <!-- cabeçalho -->
   <header>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-light">
+    <nav class="navbar navbar-expand-lg bg-gradient-dark shadow-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="index.html">
           <img src="img/logo.png" alt="logo" class="transition-fast">
@@ -38,13 +38,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#section-apresentacao">Promoções</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#section-novidades">Novidades</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#section-ranking">Jogos</a>
+              <a class="nav-link" href="#section-ranking">Destaques</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="login.html" id="loginLink">Entrar</a>
@@ -82,65 +76,8 @@
   </header>
 
   <main>
-    <!-- Section Search -->
-    <section class="container mt-4">
-        <div class="row align-items-center mb-3">
-            <div class="col-md-8">
-                <div class="input-group">
-                    <input class="form-control" type="search" placeholder="Buscar jogos..." aria-label="Buscar" id="search-input">
-                    <button class="btn btn-primary" type="button" id="search-button">
-                        <i class="bi bi-search"></i> Buscar
-                    </button>
-                    <button class="btn btn-outline-secondary ms-2" type="button" id="filter-toggle-button" 
-                            data-bs-toggle="collapse" data-bs-target="#filters-collapse" 
-                            aria-expanded="false" aria-controls="filters-collapse">
-                        <i class="bi bi-funnel-fill"></i> Filtros
-                    </button>
-                </div>
-            </div>
-            </div>
 
-        <div class="collapse mt-3" id="filters-collapse">
-            <div class="card card-body">
-                <div class="btn-group mb-3" role="group" aria-label="Navegação de Jogos">
-                    <button type="button" class="btn btn-outline-secondary" data-filter-type="ordering" data-filter-value="-added" id="new-releases-btn">Novidades</button>
-                    <button type="button" class="btn btn-outline-secondary" data-filter-type="ordering" data-filter-value="-rating" id="most-popular-btn">Populares</button>
-                    <button type="button" class="btn btn-outline-secondary" data-filter-type="upcoming" data-filter-value="true" id="upcoming-btn">Próximos</button>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="genre-filter" class="form-label">Gênero:</label>
-                        <select class="form-select" id="genre-filter">
-                            <option value="">Todos os Gêneros</option>
-                            </select>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="platform-filter" class="form-label">Plataforma:</label>
-                        <select class="form-select" id="platform-filter">
-                            <option value="">Todas as Plataformas</option>
-                            </select>
-                    </div>
-                </div>
-                <button type="button" class="btn btn-outline-danger mt-3" id="clear-filters-btn">Limpar Filtros</button>
-            </div>
-        </div>
-
-        <div id="loading-spinner" class="text-center mt-5" style="display: none;">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Carregando...</span>
-            </div>
-            <p class="mt-2 text-muted">Carregando jogos...</p>
-        </div>
-        <div id="no-results-message" class="text-center mt-5" style="display: block;">
-            <p class="alert alert-info">Use a barra de busca ou os filtros para encontrar jogos!</p>
-        </div>
-
-        <div id="game-results-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-4">
-            </div>
-    </section>
     <!-- section-banners -->
-    <!--  MANTIDO: Bootstrap carousel + adicionada sombra -->
     <section id="section-banners" class="container-fluid shadow-medium">
       <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -184,61 +121,177 @@
       </div>
     </section>
 
-    <!-- section-apresentacao -->
-    <!--  MELHORADO: Adicionado espaçamento com classes utilitárias -->
-    <section id="section-apresentacao" class="container p-xl">
-      <div class="row align-items-center">
-        <div class="text-center">
-          <h2 class="fw-bold">O universo gamer em um só lugar!</h2>
-        </div>
-      </div>
-      <div class="row spacing-lg">
-        <div class="col-md-12 text-center">
-          <h4>Descontos imperdíveis em jogos selecionados! Aproveite enquanto durarem os estoques!</h4>
-        </div>
-      </div>
-      <div class="row mt-5 justify-content-center">
-        <div class="col-md-10">
-          <div id="gameTrailersCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
-            <div class="carousel-indicators"></div>
-            <div class="carousel-inner"></div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#gameTrailersCarousel"
-              data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
+    <!-- Section Search -->
+    <section class="container mt-4 ">
+      <div class="row align-items-center mb-3">
+        <div class="col-md-8">
+          <div class="input-group">
+            <input class="form-control" type="search" placeholder="Buscar jogos..." aria-label="Buscar"
+              id="search-input">
+            <button class="btn btn-primary" type="button" id="search-button">
+              <i class="bi bi-search"></i> Buscar
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#gameTrailersCarousel"
-              data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
+            <button class="btn btn-outline-secondary ms-2" type="button" id="filter-toggle-button"
+              data-bs-toggle="collapse" data-bs-target="#filters-collapse" aria-expanded="false"
+              aria-controls="filters-collapse">
+              <i class="bi bi-funnel-fill"></i> Filtros
             </button>
           </div>
         </div>
       </div>
-    </section>
 
+      <div class="collapse mt-3" id="filters-collapse">
+        <div class="card card-body">
+          <div class="btn-group mb-3" role="group" aria-label="Navegação de Jogos">
+            <button type="button" class="btn btn-outline-secondary" data-filter-type="ordering"
+              data-filter-value="-added" id="new-releases-btn">Novidades</button>
+            <button type="button" class="btn btn-outline-secondary" data-filter-type="ordering"
+              data-filter-value="-rating" id="most-popular-btn">Populares</button>
+            <button type="button" class="btn btn-outline-secondary" data-filter-type="upcoming" data-filter-value="true"
+              id="upcoming-btn">Próximos</button>
+          </div>
 
-
-    <!-- section-novidades -->
-    <section id="section-novidades" class="container-fluid py-5 bg-dark">
-      <div class="container">
-        <h2 class="text-center fw-bold mb-4">🆕 NOVIDADES 🆕</h2>
-        <div id="novidades-games-container" class="row justify-content-center">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="genre-filter" class="form-label">Gênero:</label>
+              <select class="form-select" id="genre-filter">
+                <option value="">Todos os Gêneros</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="platform-filter" class="form-label">Plataforma:</label>
+              <select class="form-select" id="platform-filter">
+                <option value="">Todas as Plataformas</option>
+              </select>
+            </div>
+          </div>
+          <button type="button" class="btn btn-outline-danger mt-3" id="clear-filters-btn">Limpar Filtros</button>
         </div>
       </div>
+
+      <div id="loading-spinner" class="text-center mt-5" style="display: none;">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Carregando...</span>
+        </div>
+        <p class="mt-2 text-muted">Carregando jogos...</p>
+      </div>
+      <div id="no-results-message" class="text-center mt-5" style="display: block;">
+        <p class="alert alert-info">Use a barra de busca ou os filtros para encontrar jogos!</p>
+      </div>
+
+      <div id="game-results-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-4">
+      </div>
+      <nav aria-label="Navegação de Páginas" class="mt-4">
+        <ul class="pagination justify-content" id="pagination-controls">
+          
+        </ul>
+      </nav>
     </section>
 
-    <!-- section-ranking -->
+    <!-- section-destaques -->
     <section id="section-ranking" class="container-fluid py-5 bg-dark">
       <div class="container">
-        <h2 class="text-center fw-bold mb-4">Jogos Mais bem Avaliados</h2>
+        <h1 class="text-center fw-bold mb-4">Destaques</h1>
         <div id="ranking-games-container" class="row justify-content-center">
         </div>
       </div>
     </section>
 
+    <!-- Section-membros -->
+    <section id="beneficios-membro" class="container p-xl bg-gradient-dark rounded shadow-medium">
+      <div class="row">
+        <div class="col-md-10 mx-auto text-center">
+          <h2 class="spacing-lg">🎮 Desbloqueie o Próximo Nível da Diversão! 🎮</h2>
+          <p class="lead text-muted spacing-md">
+            Crie sua conta gratuita na <strong class="text-primary">JM Games</strong> e tenha acesso a um
+            universo de vantagens:
+          </p>
+
+          <div class="row row-cols-1 row-cols-md-2 g-3 spacing-lg">
+            <div class="col">
+              <div class="benefit-card p-3 rounded shadow-light bg-dark h-100 transition-fast">
+                <i class="bi bi-gift-fill fs-1 text-primary mb-2"></i>
+                <h5 class="fw-bold">Promoções Exclusivas</h5>
+                <p class="text-sm text-muted">Descontos especiais só para membros</p>
+              </div>
+            </div>
+            <div class="col">
+              <div class="benefit-card p-3 rounded shadow-light bg-dark h-100 transition-fast">
+                <i class="bi bi-bookmark-heart-fill fs-1 text-danger mb-2"></i>
+                <h5 class="fw-bold">Lista de Desejos</h5>
+                <p class="text-sm text-muted">Salve seus jogos favoritos</p>
+              </div>
+            </div>
+            <div class="col">
+              <div class="benefit-card p-3 rounded shadow-light bg-dark h-100 transition-fast">
+                <i class="bi bi-bell-fill fs-1 text-warning mb-2"></i>
+                <h5 class="fw-bold">Alertas Personalizados</h5>
+                <p class="text-sm text-muted">Novidades e reposições em primeira mão</p>
+              </div>
+            </div>
+            <div class="col">
+              <div class="benefit-card p-3 rounded shadow-light bg-dark h-100 transition-fast">
+                <i class="bi bi-cart-check-fill fs-1 text-success mb-2"></i>
+                <h5 class="fw-bold">Checkout Rápido</h5>
+                <p class="text-sm text-muted">Compras mais ágeis e seguras</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="spacing-lg lead">
+            <strong>É rápido, fácil e totalmente grátis.</strong> Venha fazer parte da nossa comunidade
+            gamer!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section-seguranca-privacidade -->
+    <section id="seguranca-privacidade" class="container p-xl rounded shadow-medium bg-dark text-white">
+      <div class="row">
+        <div class="col-md-10 mx-auto text-center">
+          <h2 class="spacing-md">🔒 Sua Segurança é a Nossa Prioridade 🔒</h2>
+          <p class="lead spacing-md">
+            Na JM Games, protegemos seus dados com tecnologia de ponta para garantir uma experiência de
+            compra e cadastro totalmente segura e tranquila.
+          </p>
+
+          <div class="row row-cols-1 row-cols-md-3 g-3 spacing-lg">
+            <div class="col">
+              <div class="security-card p-4 rounded shadow-light bg-success text-white h-100 transition-fast">
+                <i class="bi bi-lock-fill fs-1 mb-3"></i>
+                <h5 class="fw-bold">Dados Criptografados</h5>
+                <p class="text-sm">Proteção SSL de última geração</p>
+              </div>
+            </div>
+            <div class="col">
+              <div class="security-card p-4 rounded shadow-light bg-success text-white h-100 transition-fast">
+                <i class="bi bi-shield-fill-check fs-1 mb-3"></i>
+                <h5 class="fw-bold">Anti-Fraude</h5>
+                <p class="text-sm">Monitoramento 24/7 contra atividades suspeitas</p>
+              </div>
+            </div>
+            <div class="col">
+              <div class="security-card p-4 rounded shadow-light bg-success text-white h-100 transition-fast">
+                <i class="bi bi-file-earmark-lock-fill fs-1 mb-3"></i>
+                <h5 class="fw-bold">Privacidade Total</h5>
+                <p class="text-sm">Seus dados nunca são compartilhados</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="spacing-lg">
+            Suas informações pessoais são confidenciais e protegidas por nossa política rigorosa de
+            segurança.
+            <br>
+            <a href="#" class="text-warning text-decoration-underline transition-fast">
+              <i class="bi bi-info-circle-fill me-1"></i>Saiba mais sobre nossa Política de Privacidade
+            </a>
+          </p>
+        </div>
+      </div>
+    </section>
     <!-- FAQ Section -->
-    <!--  MANTIDO: Bootstrap accordion + melhorado com espaçamentos -->
     <section id="faq" class="container p-xl">
       <h2 class="text-center mb-4">Perguntas Frequentes</h2>
       <!--  MELHORADO: Accordion com sombra -->
@@ -330,11 +383,17 @@
     <div class="container">
       <p class="fw-bold mb-0">Desenvolvido por Jonathan Monteiro &copy; 2025</p>
       <p class="fw-bold mb-0">Todos os direitos reservados à JM Games.</p>
+
+      <p class="mb-0 mt-2">Dados fornecidos por <a href="https://rawg.io/" target="_blank" rel="noopener"
+          class="text-white text-decoration-underline">RAWG.io</a></p>
       <div class="social-icons mt-2">
         <!-- MELHORADO: Ícones com transições suaves -->
-        <a href="#" class="text-white mx-2 transition-fast"><i class="bi bi-instagram fs-4"></i></a>
-        <a href="#" class="text-white mx-2 transition-fast"><i class="bi bi-linkedin fs-4"></i></a>
-        <a href="#" class="text-white mx-2 transition-fast"><i class="bi bi-whatsapp fs-4"></i></a>
+        <a href="https://www.linkedin.com/in/jonathan-lucas-34684a1a4" class="text-white mx-2 transition-fast"
+          title="Instagram"><i class="bi bi-instagram fs-4"></i></a>
+        <a href="https://www.instagram.com/jonathanlucas777/" class="text-white mx-2 transition-fast"
+          title="LinkedIn"><i class="bi bi-linkedin fs-4"></i></a>
+        <a href="https://wa.me/5537991042878" class="text-white mx-2 transition-fast" title="WhatsApp"><i
+            class="bi bi-whatsapp fs-4"></i></a>
       </div>
     </div>
   </footer>
