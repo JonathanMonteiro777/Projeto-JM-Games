@@ -18,9 +18,7 @@ header .navbar-brand img {
     width: 100%;
 }
 
-/* seção de Apresentação */
-/* css/styles.css ou css/components/carousel.css */
-
+/* seção de Apresentação (Carrossel de Vídeos - Considerações de Tema) */
 /* Garante que o video ocupa a largura total e mantém a proporção 16:9 */
 .embed-responsive {
     position: relative;
@@ -46,37 +44,73 @@ header .navbar-brand img {
     border: 0;
 }
 
-/* Ajuste para o carrossel no seu tema escuro */
-#gameTrailersCarousel { /* ID atualizado */
-    background-color: #000; /* Fundo preto para o carrossel */
-    border-radius: 8px; /* Cantos arredondados */
-    overflow: hidden; /* Garante que o conteúdo não vaze */
+/* Cores dos Badges */
+.badge.bg-primary {
+    background-color: var(--primary-color) !important; /* Seu azul Google */
 }
 
-.carousel-caption {
-    background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente para o texto */
-    padding: 10px 15px;
-    border-radius: 5px;
-    bottom: 20px; /* Posição acima da base */
+.badge.bg-secondary {
+    background-color: var(--secondary-color) !important; /* Seu amarelo Google ou outra cor para contraste */
 }
 
-/* Cor dos controles do carrossel */
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    filter: invert(1); /* Inverte a cor para que sejam visíveis em fundo escuro */
+/* Container de mídia (vídeo/imagem principal) */
+.game-media-container {
+    max-width: 100%; /* Garante que não estoure */
+    height: auto;
+    margin: 0 auto; /* Centraliza */
+    border: 2px solid var(--primary-color); /* Borda com cor primária */
 }
 
-/* Seções de Produtos (Novidades e Vendidos) */
-#section-novidades img,
-#section-vendidos img {
-    max-height: 220px;
-    object-fit: cover;
+.game-media-container video,
+.game-media-container img {
+    display: block; /* Remove espaço extra abaixo de imagens */
     width: 100%;
+    height: 100%;
+    object-fit: cover; /* Garante que a imagem preencha o container sem distorção */
 }
 
-#section-vendidos .preco {
-    font-size: 1.1rem;
-    font-weight: bold;
+/* Galeria de Screenshots */
+.screenshots-gallery img {
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.screenshots-gallery img:hover {
+    transform: scale(1.05);
+    border-color: var(--secondary-color); /* Borda amarela no hover */
+}
+
+/* Lista de informações do jogo */
+.game-info-list strong {
+    color: var(--secondary-color); /* Deixa os títulos das informações em amarelo */
+    min-width: 120px; /* Alinha os dois pontos */
+    display: inline-block; /* Permite que min-width funcione */
+}
+
+.game-info-list li {
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+    margin-bottom: 0.5rem;
+}
+
+.game-info-list li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+/* Botões de ação */
+.add-to-cart-details, .add-to-favorites-details {
+    white-space: nowrap; /* Evita que o texto quebre em várias linhas */
+}
+
+/* Ajustes para modais - apenas se precisar sobrescrever o Bootstrap */
+.modal-content {
+    border: none;
+}
+
+.modal-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Botão Voltar ao Topo */
@@ -91,11 +125,12 @@ header .navbar-brand img {
     display: none; /* Controlado por JS */
     opacity: 0;    /* Controlado por JS para transição */
     transition: all 0.3s ease;
+    /* A cor de fundo é controlada pela classe Bootstrap 'btn-primary' no HTML */
 }
 
 #voltar-topo:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra que funciona bem em fundo claro */
 }
 
 /* Seções de Login/Cadastro */
@@ -107,14 +142,7 @@ header .navbar-brand img {
     justify-content: center;
 }
 
-/* Seções específicas (Benefícios e Segurança - se tiverem estilos de layout únicos) */
-#beneficios-membro {
-    /* adicione estilos de layout se houverem aqui */
-}
 
-#seguranca-privacidade {
-    /* adicione estilos de layout se houverem aqui */
-}
 
 /* Estilos para o corpo do Toast */
 #toastContainer {
@@ -127,7 +155,7 @@ header .navbar-brand img {
 }
 .toast .toast-body {
     font-size: 1rem;
-    color: var(--bs-body-color);
+    color: var(--bs-body-color); /* Perfeito para o tema claro */
     font-weight: 500;
 }
 
