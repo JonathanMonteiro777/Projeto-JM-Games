@@ -113,6 +113,37 @@ header .navbar-brand img {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Estilos para o footer */
+
+footer {
+    background-color: #333; /* Um tom escuro para contraste */
+    color: #f8f9fa; /* Texto claro */
+    font-size: 0.9em;
+}
+
+footer h5 {
+    color: var(--primary-color); /* Usando sua cor primária (#1a73e8) para os títulos */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+footer p.text-muted,
+footer .list-unstyled li a.text-white,
+footer .social-links a.text-white {
+    color: rgba(255, 255, 255, 0.7) !important; /* Um branco mais suave para o texto e links */
+    transition: color 0.3s ease;
+}
+
+footer .list-unstyled li a.text-white:hover,
+footer .social-links a.text-white:hover {
+    color: var(--secondary-color) !important; /* Sua cor secundária (#f4b400) no hover */
+}
+
+/* Opcional: Separador */
+footer hr.bg-secondary {
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
 /* Botão Voltar ao Topo */
 #voltar-topo {
     position: fixed;
