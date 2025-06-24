@@ -36,7 +36,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            
+
             <li class="nav-item">
               <a class="nav-link text-white active" aria-current="page" href="index.html">Início</a>
             </li>
@@ -128,12 +128,116 @@
       </div>
     </section>
 
-    <section id="section-ranking" class="container-fluid py-5 bg-light">
+    <section id="search-filter-section" class="container-fluid py-5 bg-light">
       <div class="container">
-        <h1 class="text-center fw-bold mb-4 text-primary">Jogos em Destaque</h1>
-        <div id="ranking-games-container" class="row justify-content-center">
+        <div class="row mb-4 justify-content-center">
+          <div class="col-lg-8 col-md-10 col-sm-12">
+            <div class="input-group input-group-lg shadow-sm rounded-pill">
+              <input type="text" class="form-control border-0 rounded-pill ps-4" id="searchInput"
+                placeholder="Buscar jogos por nome..." aria-label="Buscar jogos">
+              <button class="btn btn-primary rounded-pill pe-4" type="button" id="searchButton">
+                <i class="bi bi-search me-2"></i> Pesquisar
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-5 justify-content-center">
+          <div class="col-lg-8 col-md-10 col-sm-12 text-center">
+            <div class="btn-group me-3 mb-2" role="group" aria-label="Filtros Rápidos">
+              <button type="button" class="btn btn-outline-primary active" id="filterAllGames">Todos</button>
+              <button type="button" class="btn btn-outline-primary" id="filterNewReleases">Novidades</button>
+              <button type="button" class="btn btn-outline-primary" id="filterPopularGames">Populares</button>
+            </div>
+            <button class="btn btn-secondary mb-2" type="button" data-bs-toggle="modal" data-bs-target="#filtersModal">
+              <i class="bi bi-funnel me-2"></i> Mais Filtros
+            </button>
+          </div>
+        </div>
+
+        <div class="modal fade" id="filtersModal" tabindex="-1" aria-labelledby="filtersModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="filtersModalLabel"><i class="bi bi-funnel me-2"></i> Filtros Avançados</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                  aria-label="Fechar"></button>
+              </div>
+              <div class="modal-body bg-light text-dark">
+                <h6 class="text-uppercase text-muted mb-3">Gêneros</h6>
+                <div id="genresFilterContainer" class="mb-4 list-group list-group-flush">
+                  <div class="list-group-item bg-light">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="defaultGenreCheck" disabled>
+                      <label class="form-check-label text-muted" for="defaultGenreCheck">
+                        Carregando gêneros...
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <hr class="my-3">
+
+                <h6 class="text-uppercase text-muted mb-3">Plataformas</h6>
+                <div id="platformsFilterContainer" class="mb-4 list-group list-group-flush">
+                  <div class="list-group-item bg-light">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="defaultPlatformCheck" disabled>
+                      <label class="form-check-label text-muted" for="defaultPlatformCheck">
+                        Carregando plataformas...
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer bg-light border-top-0">
+                <button type="button" class="btn btn-outline-secondary" id="clearFiltersButton"
+                  data-bs-dismiss="modal">Limpar Filtros</button>
+                <button type="button" class="btn btn-primary" id="applyFiltersButton" data-bs-dismiss="modal">Aplicar
+                  Filtros</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
+
+    <section class="container mt-4">
+      <div id="loading-spinner" class="text-center mt-5" style="display: none;">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Carregando...</span>
+        </div>
+        <p class="mt-2 text-muted">Carregando jogos...</p>
+      </div>
+      <div id="no-results-message" class="text-center mt-5" style="display: none;">
+        <p class="alert alert-info">Use a barra de busca ou os filtros para encontrar jogos!</p>
+      </div>
+
+      <div id="games-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-4">
+      </div>
+
+      <nav aria-label="Navegação de Páginas" class="mt-4">
+        <ul class="pagination justify-content-center" id="pagination-controls">
+        </ul>
+      </nav>
+    </section>
+
+    <section class="container mt-4">
+      <div id="loading-spinner" class="text-center mt-5" style="display: none;">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Carregando...</span>
+        </div>
+        <p class="mt-2 text-muted">Carregando jogos...</p>
+      </div>
+    
+
+      <div id="game-results-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-4">
+      </div>
+
+      <nav aria-label="Navegação de Páginas" class="mt-4">
+        <ul class="pagination justify-content-center" id="pagination-controls">
+        </ul>
+      </nav>
     </section>
 
     <section id="beneficios-membro" class="container p-xl bg-primary rounded shadow-medium text-white">
@@ -330,10 +434,10 @@
             Focado em JavaScript moderno, UX/UI e integração de API.
           </p>
           <div class="social-links mt-3">
-            <a href="https://github.com/JonathanMonteiro777" target="_blank" rel="noopener" class="text-white me-2" title="GitHub de Jonathan Monteiro"><i
-                class="fab fa-github fa-lg"></i></a>
-            <a href="https://www.linkedin.com/in/jonathan-lucas-34684a1a4" target="_blank" rel="noopener" class="text-white" title="LinkedIn de Jonathan Lucas"><i
-                class="fab fa-linkedin fa-lg"></i></a>
+            <a href="https://github.com/JonathanMonteiro777" target="_blank" rel="noopener" class="text-white me-2"
+              title="GitHub de Jonathan Monteiro"><i class="fab fa-github fa-lg"></i></a>
+            <a href="https://www.linkedin.com/in/jonathan-lucas-34684a1a4" target="_blank" rel="noopener"
+              class="text-white" title="LinkedIn de Jonathan Lucas"><i class="fab fa-linkedin fa-lg"></i></a>
           </div>
         </div>
 

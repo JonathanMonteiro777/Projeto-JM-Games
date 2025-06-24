@@ -1,41 +1,66 @@
 /* ============================================================================
-   _variables.css - Variáveis CSS Globais
-   Contém todas as variáveis de cores, tipografia, gradientes e configurações
-   básicas que são reutilizadas em todo o projeto.
-============================================================================ */
+ * @file _variables.css
+ * @description Contém todas as variáveis CSS globais para cores, tipografia,
+ * gradientes e configurações básicas que são reutilizadas em todo o projeto.
+ * @version 1.0.0
+ ============================================================================ */
 
+/**
+ * @root
+ * @description Define um escopo global para as variáveis CSS, tornando-as
+ * acessíveis em todo o documento.
+ */
 :root {
-    /* Cores */
+    /* --- Cores --- */
+    /**
+     * @group Colors
+     * @description Variáveis de cores baseadas nas paletas do Bootstrap,
+     * adaptadas para o tema do projeto JM Games.
+     */
     --bs-primary: #1a73e8; /* Azul primário */
-    --bs-primary-rgb: 26, 115, 232;
+    --bs-primary-rgb: 26, 115, 232; /** Componentes RGB do azul primário. */
     --bs-secondary: #f4b400; /* Amarelo secundário */
-    --bs-secondary-rgb: 244, 180, 0;
-    --bs-success: #28a745;
-    --bs-danger: #dc3545;
-    --bs-warning: #ffc107;
-    --bs-info: #0dcaf0;
+    --bs-secondary-rgb: 244, 180, 0; /** Componentes RGB do amarelo secundário. */
+    --bs-success: #28a745; /** Cor para feedback de sucesso. */
+    --bs-danger: #dc3545; /** Cor para feedback de erro ou perigo. */
+    --bs-warning: #ffc107; /** Cor para feedback de aviso. */
+    --bs-info: #0dcaf0; /** Cor para informações ou destaques secundários. */
 
-    --bs-light: #f8f9fa;
-    --bs-dark: #212529; 
+    --bs-light: #f8f9fa; /** Cor clara padrão. */
+    --bs-dark: #212529;  /** Cor escura padrão. */
 
-    /* Invertendo as cores principais do corpo */
-    --bs-body-color: var(--bs-dark); /* Cor do texto do corpo - agora escuro */
-    --bs-body-bg: var(--bs-light); /* Cor de fundo do corpo - agora claro */
+    /**
+     * @description Definições de cores principais para o corpo do documento.
+     * Estas são as cores padrão para o tema claro.
+     */
+    --bs-body-color: var(--bs-dark); /** Cor do texto do corpo (padrão escuro). */
+    --bs-body-bg: var(--bs-light); /** Cor de fundo do corpo (padrão claro). */
 
-    /* Tipografia */
-    --bs-font-sans-serif: 'Open Sans', sans-serif;
-    --bs-body-font-family: var(--bs-font-sans-serif);
-    --bs-heading-font-family: 'Montserrat', sans-serif;
+    /* --- Tipografia --- */
+    /**
+     * @group Typography
+     * @description Variáveis para definir famílias de fontes globais.
+     */
+    --bs-font-sans-serif: 'Open Sans', sans-serif; /** Família de fonte sans-serif padrão. */
+    --bs-body-font-family: var(--bs-font-sans-serif); /** Família de fonte aplicada ao corpo do documento. */
+    --bs-heading-font-family: 'Montserrat', sans-serif; /** Família de fonte aplicada aos títulos (h1-h6). */
 
-    /* Gradientes (ajustados para o novo tema) */
-    --gradient-primary: linear-gradient(135deg, var(--bs-primary), var(--bs-info));
-    --gradient-light: linear-gradient(135deg, var(--bs-light), #e9ecef);
-    --gradient-dark: linear-gradient(135deg, var(--bs-dark), #495057); /* Novo gradiente escuro */
+    /* --- Gradientes --- */
+    /**
+     * @group Gradients
+     * @description Variáveis para definir gradientes de fundo reutilizáveis.
+     */
+    --gradient-primary: linear-gradient(135deg, var(--bs-primary), var(--bs-info)); /** Gradiente primário (azul para info). */
+    --gradient-light: linear-gradient(135deg, var(--bs-light), #e9ecef); /** Gradiente claro. */
+    --gradient-dark: linear-gradient(135deg, var(--bs-dark), #495057); /** Gradiente escuro. */
 
-
-    /* Formulários */
-    --form-border-radius: 8px;
-    --form-focus-color: var(--bs-primary);
-    --form-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    --form-shadow-focus: 0 0 0 3px rgba(26, 115, 232, 0.25);
+    /* --- Formulários --- */
+    /**
+     * @group Forms
+     * @description Variáveis para configurações visuais de elementos de formulário.
+     */
+    --form-border-radius: 8px; /** Raio da borda padrão para campos de formulário. */
+    --form-focus-color: var(--bs-primary); /** Cor da borda ao focar em um campo de formulário. */
+    --form-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /** Sombra padrão para elementos de formulário. */
+    --form-shadow-focus: 0 0 0 3px rgba(26, 115, 232, 0.25); /** Sombra ao focar em um campo de formulário. */
 }

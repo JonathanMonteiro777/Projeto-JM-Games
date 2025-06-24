@@ -1,195 +1,82 @@
 /* ============================================================================
-   layout.css - Estilos de Layout e Estrutura da Página
-   Define a organização e o posicionamento dos principais blocos da página,
-   como cabeçalho, banners, seções de produtos e o botão de voltar ao topo.
-============================================================================ */
+ * @file layout.css
+ * @description Define a estrutura e o posicionamento dos principais blocos da
+ * página, como cabeçalho, footer e seções principais.
+ * @version 1.0.0
+ ============================================================================ */
 
-/* Cabeçalho (Navbar) */
+/* --- Header (Navbar) --- */
+/**
+ * @section Header
+ * @description Estilos para a barra de navegação e elementos do cabeçalho.
+ */
 header .navbar-brand img {
+    /** Altura máxima da logo na barra de navegação. */
     height: 70px;
+    /** Largura automática para manter a proporção da logo. */
     width: auto;
+    /** Garante que a logo não exceda a largura do seu contêiner. */
     max-width: 100%;
 }
 
-/* Seção de Banners */
+/* --- Section: Banners --- */
+/**
+ * @section Banners
+ * @description Estilos para a seção de banners, garantindo que as imagens
+ * ocupem o espaço corretamente.
+ */
 #section-banners img {
+    /** Altura máxima para as imagens dos banners. */
     max-height: 500px;
+    /** Garante que a imagem preencha o contêiner sem distorção, cortando o excesso. */
     object-fit: cover;
+    /** A imagem ocupa a largura total do seu contêiner. */
     width: 100%;
 }
 
-/* seção de Apresentação (Carrossel de Vídeos - Considerações de Tema) */
-/* Garante que o video ocupa a largura total e mantém a proporção 16:9 */
-.embed-responsive {
-    position: relative;
-    display: block;
-    width: 100%;
-    padding: 0;
-    overflow: hidden;
-}
-
-.embed-responsive::before {
-    content: "";
-    display: block;
-    padding-top: 56.25%; /* Proporção 16:9 (9 / 16 * 100) */
-}
-
-.embed-responsive-item {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-}
-
-/* Cores dos Badges */
-.badge.bg-primary {
-    background-color: var(--primary-color) !important; /* Seu azul Google */
-}
-
-.badge.bg-secondary {
-    background-color: var(--secondary-color) !important; /* Seu amarelo Google ou outra cor para contraste */
-}
-
-/* Container de mídia (vídeo/imagem principal) */
-.game-media-container {
-    max-width: 100%; /* Garante que não estoure */
-    height: auto;
-    margin: 0 auto; /* Centraliza */
-    border: 2px solid var(--primary-color); /* Borda com cor primária */
-}
-
-.game-media-container video,
-.game-media-container img {
-    display: block; /* Remove espaço extra abaixo de imagens */
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Garante que a imagem preencha o container sem distorção */
-}
-
-/* Galeria de Screenshots */
-.screenshots-gallery img {
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.screenshots-gallery img:hover {
-    transform: scale(1.05);
-    border-color: var(--secondary-color); /* Borda amarela no hover */
-}
-
-/* Lista de informações do jogo */
-.game-info-list strong {
-    color: var(--secondary-color); /* Deixa os títulos das informações em amarelo */
-    min-width: 120px; /* Alinha os dois pontos */
-    display: inline-block; /* Permite que min-width funcione */
-}
-
-.game-info-list li {
-    padding-bottom: 0.5rem;
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
-    margin-bottom: 0.5rem;
-}
-
-.game-info-list li:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-}
-
-/* Botões de ação */
-.add-to-cart-details, .add-to-favorites-details {
-    white-space: nowrap; /* Evita que o texto quebre em várias linhas */
-}
-
-/* Ajustes para modais - apenas se precisar sobrescrever o Bootstrap */
-.modal-content {
-    border: none;
-}
-
-.modal-header {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Estilos para o footer */
-
-footer {
-    background-color: #333; /* Um tom escuro para contraste */
-    color: #f8f9fa; /* Texto claro */
-    font-size: 0.9em;
-}
-
-footer h5 {
-    color: var(--primary-color); /* Usando sua cor primária (#1a73e8) para os títulos */
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-}
-
-footer p.text-muted,
-footer .list-unstyled li a.text-white,
-footer .social-links a.text-white {
-    color: rgba(255, 255, 255, 0.7) !important; /* Um branco mais suave para o texto e links */
-    transition: color 0.3s ease;
-}
-
-footer .list-unstyled li a.text-white:hover,
-footer .social-links a.text-white:hover {
-    color: var(--secondary-color) !important; /* Sua cor secundária (#f4b400) no hover */
-}
-
-/* Opcional: Separador */
-footer hr.bg-secondary {
-    border-color: rgba(255, 255, 255, 0.2) !important;
-}
-
-/* Botão Voltar ao Topo */
-#voltar-topo {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: none; /* Controlado por JS */
-    opacity: 0;    /* Controlado por JS para transição */
-    transition: all 0.3s ease;
-    /* A cor de fundo é controlada pela classe Bootstrap 'btn-primary' no HTML */
-}
-
-#voltar-topo:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra que funciona bem em fundo claro */
-}
-
-/* Seções de Login/Cadastro */
-#section-login,
-#section-cadastro {
+/* --- Section: Login/Register Forms --- */
+/**
+ * @section Formulários de Autenticação
+ * @description Estilos para as seções de login e cadastro, centralizando o
+ * conteúdo verticalmente na viewport.
+ */
+#login-section,
+#register-section {
+    /** Garante que as seções ocupem no mínimo 60% da altura da viewport. */
     min-height: 60vh;
+    /** Transforma a seção em um contêiner flexbox. */
     display: flex;
+    /** Organiza os itens filhos em uma coluna. */
     flex-direction: column;
+    /** Centraliza o conteúdo verticalmente dentro da seção. */
     justify-content: center;
 }
 
+/* --- Footer --- */
+/**
+ * @section Footer
+ * @description Estilos para o rodapé, controlando seu comportamento no layout.
+ */
+footer {
+    /** Impede que o footer encolha, mantendo sua altura definida.
+     * Necessário quando o 'body' é um contêiner flexbox. */
+    flex-shrink: 0;
+    /* Os estilos visuais (background, cores, fontes etc.) devem estar em components.css */
+}
 
-
-/* Estilos para o corpo do Toast */
-#toastContainer {
-    z-index: 1100;
+/* --- Go To Top Button --- */
+/**
+ * @section Botão Voltar ao Topo
+ * @description Estilos de posicionamento para o botão de rolagem "Voltar ao Topo".
+ * Seus estilos visuais e de interação (hover, display) devem estar em components.css.
+ */
+#voltar-topo {
+    /** Fixa o botão na viewport. */
     position: fixed;
+    /** Distância do botão em relação à parte inferior da viewport. */
     bottom: 20px;
-    right: 10px;
-    padding: 1rem;
-    pointer-events: none;
-}
-.toast .toast-body {
-    font-size: 1rem;
-    color: var(--bs-body-color); /* Perfeito para o tema claro */
-    font-weight: 500;
-}
-
-.toast {
-    min-width: 280px;
+    /** Distância do botão em relação à borda direita da viewport. */
+    right: 20px;
+    /** Garante que o botão esteja acima de outros elementos. */
+    z-index: 1000;
 }

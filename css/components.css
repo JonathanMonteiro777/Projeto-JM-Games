@@ -1,207 +1,565 @@
 /* ============================================================================
-   components.css - Estilos de Componentes Reutilizáveis
-   Define a aparência de elementos UI que se repetem no site, como botões,
-   cards de produtos, formulários e cards de benefícios/segurança.
-============================================================================ */
+ * @file components.css
+ * @description Define a aparência de elementos UI que se repetem no site,
+ * como botões, cards de produtos, formulários e cards de benefícios/segurança.
+ * @version 1.0.0
+ ============================================================================ */
 
-/* Botões */
+/* --- Botões --- */
+/**
+ * @component Button
+ * @description Estilos para botões gerais da aplicação com gradiente temático.
+ */
 .btn-gamer {
+    /** Fundo com gradiente primário definido nas variáveis. */
     background: var(--gradient-primary);
+    /** Remove a borda padrão do botão. */
     border: none;
-    color: white; /* Cor do texto deve ser branca para contraste com o gradiente primário */
+    /** Cor do texto branca para contraste com o gradiente. */
+    color: white;
+    /** Peso da fonte semi-negrito. */
     font-weight: 600;
+    /** Preenchimento interno do botão. */
     padding: 0.75rem 1.5rem;
+    /** Raio da borda baseado na variável de formulário. */
     border-radius: var(--form-border-radius);
+    /** Transição suave para todas as propriedades ao interagir. */
     transition: all 0.3s ease;
+    /** Converte o texto para maiúsculas. */
     text-transform: uppercase;
+    /** Espaçamento entre as letras. */
     letter-spacing: 0.5px;
 }
 
 .btn-gamer:hover {
-    /* Versão mais escura do gradiente para hover.
-       Certifique-se de que o #1557b0 (azul escuro) e #d49c00 (amarelo escuro)
-       ainda funcionem bem como "versões escuras" do seu primário/secundário.
-       Você pode criar uma nova variável para isso se quiser mais controle. */
-    background: linear-gradient(135deg, darken(var(--bs-primary), 10%), darken(var(--bs-info), 10%)); /* Exemplo usando funções CSS se disponíveis, ou defina um gradiente fixo */
-    background: linear-gradient(135deg, #1557b0, #0aa6c2); /* Exemplo: um pouco mais escuro que primary e info */
+    /** Gradiente mais escuro no hover para feedback visual. */
+    background: linear-gradient(135deg, #1557b0, #0aa6c2);
+    /** Eleva o botão ligeiramente para um efeito 3D. */
     transform: translateY(-2px);
-    /* A sombra precisa se destacar no fundo claro.
-       Usar rgba(0, 0, 0, 0.3) ou uma sombra baseada no primário para um efeito mais suave. */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Sombra mais sutil para o tema claro */
+    /** Sombra para destacar o botão no hover. */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .btn-gamer:active {
+    /** Retorna o botão à posição original ao ser clicado. */
     transform: translateY(0);
 }
 
-/* Cards de Produto */
+/* --- Cards de Produto (Game Card) --- */
+/**
+ * @component ProductCard
+ * @description Estilos para os cards de produtos (jogos) na listagem.
+ */
 .product-card {
+    /** Garante que o card ocupe 100% da altura do seu contêiner flexível. */
     height: 100%;
+    /** Raio da borda para o card. */
     border-radius: var(--form-border-radius);
+    /** Transição suave para todas as propriedades. */
     transition: all 0.3s ease;
-    /* Usar borda para definir o card. O bg-light ou bg-white no HTML já define o fundo. */
-    border: 1px solid var(--bs-light); /* Borda sutil para o tema claro */
-    background-color: var(--bs-light); /* Fundo do card claro */
-    color: var(--bs-body-color); /* Cor do texto padrão do card */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08); /* Sombra suave para card no tema claro */
+    /** Borda sutil para o card. */
+    border: 1px solid var(--bs-light);
+    /** Fundo claro para o card. */
+    background-color: var(--bs-light);
+    /** Cor do texto padrão para o conteúdo do card. */
+    color: var(--bs-body-color);
+    /** Sombra suave para o card. */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
 }
 
 .product-hover:hover {
+    /** Eleva o card ligeiramente no hover. */
     transform: translateY(-5px);
-    /* Sombra mais pronunciada no hover, ainda adequada para fundo claro. */
+    /** Sombra mais pronunciada no hover. */
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
-/* Imagens de Produto e Banner */
-/* Mantive o ajuste para .img-produto e .card-img-top conforme discutido acima */
-.img-produto {
-    height: 100px;
-    object-fit: cover;
-    border-radius: var(--form-border-radius) var(--form-border-radius) 0 0;
-}
-
-.img-banner {
-    max-height: 500px;
-    object-fit: cover;
-    border-radius: var(--form-border-radius);
-}
-
-/* Formulários */
-.form-container {
-    /* Já está usando var(--bs-body-bg) no HTML, aqui podemos garantir ou definir um fundo específico se for diferente do body */
-    background: var(--bs-light); /* Fundo claro para o container do formulário */
-    border-radius: var(--form-border-radius);
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Sombra suave */
-}
-
-.form-container:hover {
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Sombra um pouco mais forte no hover */
-}
-
-.form-group {
-    position: relative;
-}
-
-.form-input {
-    border-radius: var(--form-border-radius);
-    border: 2px solid var(--bs-gray-300, #dee2e6); /* Usar uma cor de borda Bootstrap padrão ou variável customizada */
-    padding: 0.75rem 1rem;
-    transition: all 0.3s ease;
-    color: var(--bs-dark); /* Garante que o texto digitado seja escuro */
-    background-color: var(--bs-white, #fff); /* Fundo do input claro */
-}
-
-.form-input:focus {
-    border-color: var(--form-focus-color);
-    box-shadow: var(--form-shadow-focus);
-    transform: translateY(-1px);
-}
-
-.form-label {
-    color: var(--bs-dark); /* Labels devem ser escuras para contraste */
-    margin-bottom: 0.5rem;
-    font-size: 0.95rem;
-}
-
-/* Campo de Senha com Toggle */
-.toggle-password {
-    border-left: none;
-    /* Se o tema é claro, talvez a cor do botão seja dark ou secondary */
-    background-color: var(--bs-light); /* Fundo claro para o botão de toggle */
-    color: var(--bs-dark); /* Ícone/texto do botão escuro */
-}
-
-.toggle-password:hover {
-    background-color: var(--bs-gray-200, #e9ecef); /* Levemente mais escuro no hover */
-    border-color: var(--bs-primary);
-}
-
-/* Cards de Benefícios e Segurança */
-.benefit-card,
-.security-card {
-    transition: all 0.3s ease;
-    cursor: pointer;
-    background-color: var(--bs-light); /* Fundo claro para os cards de benefício/segurança */
-    color: var(--bs-body-color); /* Texto escuro */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Sombra suave */
-}
-
-.benefit-card:hover {
-    transform: translateY(-3px);
-    /* Sombra com tom primário, mais suave para o tema claro */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-}
-
-.security-card:hover {
-    transform: translateY(-3px);
-    /* Sombra mais forte no hover, adequada para o tema claro */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-/* No seu arquivo CSS (ex: style.css) -> Estes estavam no components.css, deixei aqui */
-
+/**
+ * @component GameCardLink
+ * @description Estilos para o link que envolve o card do jogo, incluindo
+ * efeitos de hover e overlay de detalhes.
+ */
 .game-card-link {
+    /** Posição relativa para posicionamento absoluto de elementos filhos. */
     position: relative;
+    /** Esconde o conteúdo que excede o raio da borda. */
     overflow: hidden;
+    /** Transição suave para o efeito de zoom. */
     transition: transform 0.3s ease-in-out;
+    /** Indica que o elemento é clicável. */
     cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); /* Sombra mais suave */
-    border-radius: var(--form-border-radius); /* Garante que o card inteiro tenha o arredondamento */
+    /** Sombra para o card. */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    /** Raio da borda para o card inteiro. */
+    border-radius: var(--form-border-radius);
 }
 
-/* Efeito de zoom no card inteiro ao passar o mouse */
 .game-card-link:hover {
+    /** Aplica um zoom no card inteiro no hover. */
     transform: scale(1.03);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Sombra mais intensa no hover */
+    /** Sombra mais intensa no hover. */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
 .card-link-overlay {
+    /** Remove sublinhado do link. */
     text-decoration: none;
+    /** Herda a cor do texto do elemento pai. */
     color: inherit;
+    /** Garante que o link ocupe todo o espaço. */
     display: block;
+    /** Posição relativa para z-index. */
     position: relative;
+    /** Garante que o overlay do link esteja acima de outros elementos básicos. */
     z-index: 1;
 }
 
 .view-details-overlay {
+    /** Posiciona o overlay absolutamente sobre o card. */
     position: absolute;
+    /** Ancorado no topo e à esquerda. */
     top: 0;
     left: 0;
+    /** Ocupa 100% da largura do card. */
     width: 100%;
-    /* Use 'calc(100% - Xpx)' ou ajuste para que cubra a imagem e talvez um pouco do body superior */
-    /* Para cobrir a imagem inteira, você pode basear isso na altura da imagem definida em .card-img-top */
+    /** Altura para cobrir a imagem superior do card. */
     height: 220px; /* Ajuste para ser a mesma altura de .card-img-top */
+    /** Fundo semi-transparente escuro. */
     background-color: rgba(0, 0, 0, 0.6);
+    /** Cor do texto branca. */
     color: white;
+    /** Utiliza flexbox para centralizar o texto. */
     display: flex;
     justify-content: center;
     align-items: center;
+    /** Tamanho e peso da fonte para o texto "Ver Detalhes". */
     font-size: 1.5rem;
     font-weight: bold;
+    /** Inicialmente invisível. */
     opacity: 0;
+    /** Transição suave para a opacidade. */
     transition: opacity 0.3s ease-in-out;
+    /** Garante que o overlay esteja acima da imagem. */
     z-index: 2;
+    /** Impede que o overlay capture eventos de mouse, permitindo clicar no card. */
     pointer-events: none;
-    border-radius: var(--form-border-radius) var(--form-border-radius) 0 0; /* Herda o border-radius da parte superior do card */
+    /** Arredonda apenas os cantos superiores do overlay. */
+    border-radius: var(--form-border-radius) var(--form-border-radius) 0 0;
 }
 
-/* Exibe o overlay de "Ver Detalhes" no hover do card */
 .game-card-link:hover .view-details-overlay {
+    /** Exibe o overlay de "Ver Detalhes" no hover do card. */
     opacity: 1;
 }
 
-/* Para garantir que a imagem não seja distorcida e cubra o espaço */
+/**
+ * @component CardImage
+ * @description Estilos para a imagem principal do card de produto.
+ */
 .card-img-top {
-    width: 100%; /* Garante que a imagem ocupe toda a largura disponível no card */
-    height: 220px; /* Ajuste a altura conforme a necessidade do seu design e para evitar cortes */
-    object-fit: cover; /* Recorta a imagem para cobrir o espaço, mantendo a proporção */
-    border-radius: var(--form-border-radius) var(--form-border-radius) 0 0; /* Arredonda apenas os cantos superiores */
+    /** Garante que a imagem ocupe toda a largura disponível no card. */
+    width: 100%;
+    /** Altura fixa para a imagem do topo do card. */
+    height: 220px;
+    /** Recorta a imagem para cobrir o espaço, mantendo a proporção. */
+    object-fit: cover;
+    /** Arredonda apenas os cantos superiores da imagem. */
+    border-radius: var(--form-border-radius) var(--form-border-radius) 0 0;
 }
 
-/* Ajustes para o card-body se houver espaço extra */
+/**
+ * @component CardBody
+ * @description Estilos para o corpo do card de produto.
+ */
 .card-body {
+    /** Remove preenchimento inferior padrão do Bootstrap. */
     padding-bottom: 0 !important;
-    background-color: var(--bs-light); /* Fundo claro para o corpo do card */
-    color: var(--bs-dark); /* Texto escuro para o corpo do card */
+    /** Fundo claro para o corpo do card. */
+    background-color: var(--bs-light);
+    /** Texto escuro para o corpo do card. */
+    color: var(--bs-dark);
+}
+
+/* --- Imagens Diversas --- */
+/**
+ * @component ImageProduct
+ * @description Estilos para imagens de produto menores.
+ */
+.img-produto {
+    /** Altura fixa para imagens menores de produto. */
+    height: 100px;
+    /** Garante que a imagem preencha o espaço sem distorção. */
+    object-fit: cover;
+    /** Arredonda apenas os cantos superiores. */
+    border-radius: var(--form-border-radius) var(--form-border-radius) 0 0;
+}
+
+/**
+ * @component ImageBanner
+ * @description Estilos para imagens de banner que podem aparecer como componentes (não seções inteiras).
+ */
+.img-banner {
+    /** Altura máxima para imagens de banner. */
+    max-height: 500px;
+    /** Garante que a imagem preencha o espaço sem distorção. */
+    object-fit: cover;
+    /** Raio da borda para a imagem. */
+    border-radius: var(--form-border-radius);
+}
+
+/* --- Formulários --- */
+/**
+ * @component FormContainer
+ * @description Estilos para o contêiner principal dos formulários.
+ */
+.form-container {
+    /** Fundo claro para o contêiner do formulário. */
+    background: var(--bs-light);
+    /** Raio da borda para o contêiner. */
+    border-radius: var(--form-border-radius);
+    /** Transição suave para todas as propriedades. */
+    transition: all 0.3s ease;
+    /** Sombra suave para o contêiner. */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.form-container:hover {
+    /** Sombra um pouco mais forte no hover. */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/**
+ * @component FormGroup
+ * @description Estilos para grupos de formulário (label + input).
+ */
+.form-group {
+    /** Posição relativa para posicionamento de elementos internos (ex: ícones). */
+    position: relative;
+}
+
+/**
+ * @component FormInput
+ * @description Estilos para campos de entrada de formulário.
+ */
+.form-input {
+    /** Raio da borda para o input. */
+    border-radius: var(--form-border-radius);
+    /** Borda com cor padrão do Bootstrap ou customizada. */
+    border: 2px solid var(--bs-gray-300, #dee2e6);
+    /** Preenchimento interno do input. */
+    padding: 0.75rem 1rem;
+    /** Transição suave. */
+    transition: all 0.3s ease;
+    /** Cor do texto digitado escura para contraste. */
+    color: var(--bs-dark);
+    /** Fundo do input claro. */
+    background-color: var(--bs-white, #fff);
+}
+
+.form-input:focus {
+    /** Cor da borda ao focar. */
+    border-color: var(--form-focus-color);
+    /** Sombra ao focar. */
+    box-shadow: var(--form-shadow-focus);
+    /** Eleva o input ligeiramente ao focar. */
+    transform: translateY(-1px);
+}
+
+/**
+ * @component FormLabel
+ * @description Estilos para rótulos de formulário.
+ */
+.form-label {
+    /** Cor escura para as labels. */
+    color: var(--bs-dark);
+    /** Margem inferior. */
+    margin-bottom: 0.5rem;
+    /** Tamanho da fonte. */
+    font-size: 0.95rem;
+}
+
+/**
+ * @component TogglePassword
+ * @description Estilos para o botão de alternar visibilidade da senha.
+ */
+.toggle-password {
+    /** Remove a borda esquerda para integrar visualmente com o input. */
+    border-left: none;
+    /** Fundo claro para o botão de toggle. */
+    background-color: var(--bs-light);
+    /** Cor do ícone/texto escura. */
+    color: var(--bs-dark);
+}
+
+.toggle-password:hover {
+    /** Fundo levemente mais escuro no hover. */
+    background-color: var(--bs-gray-200, #e9ecef);
+    /** Cor da borda no hover. */
+    border-color: var(--bs-primary);
+}
+
+/* --- Cards de Benefícios e Segurança --- */
+/**
+ * @component BenefitCard
+ * @description Estilos para cards que exibem benefícios ou recursos.
+ */
+.benefit-card,
+.security-card {
+    /** Transição suave para todas as propriedades. */
+    transition: all 0.3s ease;
+    /** Indica que o elemento é clicável. */
+    cursor: pointer;
+    /** Fundo claro para os cards. */
+    background-color: var(--bs-light);
+    /** Texto escuro. */
+    color: var(--bs-body-color);
+    /** Sombra suave. */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.benefit-card:hover {
+    /** Eleva o card ligeiramente no hover. */
+    transform: translateY(-3px);
+    /** Sombra no hover. */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.security-card:hover {
+    /** Eleva o card ligeiramente no hover. */
+    transform: translateY(-3px);
+    /** Sombra mais forte no hover. */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+
+/* --- Cores dos Badges --- */
+/**
+ * @component Badge
+ * @description Sobrescrita de estilos para badges Bootstrap com cores temáticas.
+ */
+.badge.bg-primary {
+    /** Fundo com a cor primária do tema. */
+    background-color: var(--primary-color) !important;
+}
+
+.badge.bg-secondary {
+    /** Fundo com a cor secundária do tema. */
+    background-color: var(--secondary-color) !important;
+}
+
+/* --- Container de Mídia (Vídeo/Imagem Principal de Jogo) --- */
+/**
+ * @component GameMediaContainer
+ * @description Estilos para o contêiner principal de mídia em páginas de detalhes de jogo.
+ */
+.game-media-container {
+    /** Garante que o contêiner não exceda a largura de seu pai. */
+    max-width: 100%;
+    /** Altura automática para manter proporção. */
+    height: auto;
+    /** Centraliza o contêiner horizontalmente. */
+    margin: 0 auto;
+    /** Borda com a cor primária do tema. */
+    border: 2px solid var(--primary-color);
+}
+
+.game-media-container video,
+.game-media-container img {
+    /** Remove espaço extra abaixo de elementos inline. */
+    display: block;
+    /** Ocupa 100% da largura e altura do contêiner. */
+    width: 100%;
+    height: 100%;
+    /** Garante que a mídia preencha o contêiner sem distorção. */
+    object-fit: cover;
+}
+
+/* --- Galeria de Screenshots --- */
+/**
+ * @component ScreenshotsGallery
+ * @description Estilos para as imagens dentro de uma galeria de screenshots.
+ */
+.screenshots-gallery img {
+    /** Indica que a imagem é clicável. */
+    cursor: pointer;
+    /** Transição suave para o efeito de transformação. */
+    transition: transform 0.2s ease-in-out;
+    /** Borda sutil. */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.screenshots-gallery img:hover {
+    /** Aplica um leve zoom na imagem no hover. */
+    transform: scale(1.05);
+    /** Muda a cor da borda no hover. */
+    border-color: var(--secondary-color);
+}
+
+/* --- Lista de Informações do Jogo --- */
+/**
+ * @component GameInfoList
+ * @description Estilos para a lista de informações detalhadas de um jogo.
+ */
+.game-info-list strong {
+    /** Cor amarela para os títulos das informações. */
+    color: var(--secondary-color);
+    /** Largura mínima para alinhar os dois pontos. */
+    min-width: 120px;
+    /** Permite que `min-width` funcione corretamente. */
+    display: inline-block;
+}
+
+.game-info-list li {
+    /** Preenchimento inferior. */
+    padding-bottom: 0.5rem;
+    /** Borda inferior tracejada. */
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+    /** Margem inferior. */
+    margin-bottom: 0.5rem;
+}
+
+.game-info-list li:last-child {
+    /** Remove a borda e margem do último item da lista. */
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+/* --- Botões de Ação de Detalhes (Adicionar ao Carrinho/Favoritos) --- */
+/**
+ * @component CallToActionButtons
+ * @description Estilos para botões de ação em páginas de detalhes de itens.
+ */
+.add-to-cart-details, .add-to-favorites-details {
+    /** Evita que o texto quebre em várias linhas. */
+    white-space: nowrap;
+}
+
+/* --- Ajustes para Modais (se precisar sobrescrever o Bootstrap) --- */
+/**
+ * @component Modal
+ * @description Estilos para o componente Modal, ajustando elementos visuais.
+ */
+.modal-content {
+    /** Remove a borda padrão do modal. */
+    border: none;
+}
+
+.modal-header {
+    /** Borda inferior do cabeçalho do modal. */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- Estilos para o Footer --- */
+/**
+ * @component Footer
+ * @description Estilos visuais para o componente de rodapé da página.
+ * @note Os estilos de posicionamento (flex-shrink) devem permanecer em layout.css.
+ */
+footer {
+    /** Cor de fundo escura para contraste. */
+    background-color: #333;
+    /** Cor do texto claro. */
+    color: #f8f9fa;
+    /** Tamanho da fonte do texto do rodapé. */
+    font-size: 0.9em;
+}
+
+footer h5 {
+    /** Cor primária para os títulos do rodapé. */
+    color: var(--primary-color);
+    /** Fonte específica para os títulos do rodapé. */
+    font-family: 'Montserrat', sans-serif;
+    /** Peso da fonte negrito para os títulos. */
+    font-weight: 700;
+}
+
+footer p.text-muted,
+footer .list-unstyled li a.text-white,
+footer .social-links a.text-white {
+    /** Cor do texto e links com um tom de branco mais suave. */
+    color: rgba(255, 255, 255, 0.7) !important;
+    /** Transição suave para a cor no hover. */
+    transition: color 0.3s ease;
+}
+
+footer .list-unstyled li a.text-white:hover,
+footer .social-links a.text-white:hover {
+    /** Cor secundária no hover dos links. */
+    color: var(--secondary-color) !important;
+}
+
+/* Opcional: Separador no Footer */
+footer hr.bg-secondary {
+    /** Cor da borda do separador. */
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* --- Botão Voltar ao Topo --- */
+/**
+ * @component GoToTopButton
+ * @description Estilos visuais e de interação para o botão "Voltar ao Topo".
+ * @note Os estilos de posicionamento (fixed, bottom, right) devem permanecer em layout.css.
+ */
+#voltar-topo {
+    /** Largura e altura para o botão. */
+    width: 50px;
+    height: 50px;
+    /** Arredonda o botão para formar um círculo. */
+    border-radius: 50%;
+    /** Escondido por padrão, controlado por JS. */
+    display: none;
+    /** Opacidade inicial para transição, controlado por JS. */
+    opacity: 0;
+    /** Transição suave para todas as propriedades. */
+    transition: all 0.3s ease;
+    /* A cor de fundo é controlada pela classe Bootstrap 'btn-primary' no HTML */
+}
+
+#voltar-topo:hover {
+    /** Eleva o botão ligeiramente no hover. */
+    transform: translateY(-2px);
+    /** Sombra no hover. */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Toast Notifications --- */
+/**
+ * @component ToastContainer
+ * @description Estilos para o contêiner de notificações toast.
+ */
+#toastContainer {
+    /** Garante que o contêiner esteja acima de outros elementos. */
+    z-index: 1100;
+    /** Posição fixa na viewport. */
+    position: fixed;
+    /** Distância do rodapé. */
+    bottom: 20px;
+    /** Distância da direita. */
+    right: 10px;
+    /** Preenchimento interno. */
+    padding: 1rem;
+    /** Impede que os eventos de mouse interajam com o contêiner. */
+    pointer-events: none;
+}
+
+/**
+ * @component ToastBody
+ * @description Estilos para o corpo da notificação toast.
+ */
+.toast .toast-body {
+    /** Tamanho da fonte do texto do toast. */
+    font-size: 1rem;
+    /** Cor do texto baseada no tema. */
+    color: var(--bs-body-color);
+    /** Peso da fonte. */
+    font-weight: 500;
+}
+
+/**
+ * @component Toast
+ * @description Estilos para a notificação toast individual.
+ */
+.toast {
+    /** Largura mínima para o toast. */
+    min-width: 280px;
 }

@@ -4,6 +4,15 @@ import { CarrinhoManager } from './CarrinhoManager.js';
 import { FavoritosManager } from './FavoritosManager.js';
 
 /**
+ * @typedef {object} Game - Representa um objeto de jogo da API RAWG.
+ * @property {string} id - O ID único do jogo.
+ * @property {string} name - O nome do jogo.
+ * @property {string} [background_image] - URL da imagem de fundo do jogo.
+ * @property {string} [released] - Data de lançamento do jogo.
+ * @property {number} [rating] - Avaliação do jogo (0-5).
+ */
+
+/**
  * Gerencia as funcionalidades de busca, filtragem e exibição de jogos,
  * incluindo a interação com a API RAWG, paginação, carrinho e favoritos.
  */
@@ -14,41 +23,37 @@ export class SearchManager {
      */
     constructor(carrinhoManager, favoritosManager) {
         /** @type {HTMLInputElement} Elemento do input de busca. */
-        this.searchInput = document.getElementById('search-input');
+        this.searchInput = document.getElementById('searchInput');
         /** @type {HTMLButtonElement} Elemento do botão de busca. */
-        this.searchButton = document.getElementById('search-button');
+        this.searchButton = document.getElementById('searchButton');
         /** @type {HTMLElement} Contêiner onde os resultados dos jogos são exibidos. */
-        this.gameResultsContainer = document.getElementById('game-results-container');
+        this.gameResultsContainer = document.getElementById('games-container');
         /** @type {HTMLElement} Elemento de spinner de carregamento. */
         this.loadingSpinner = document.getElementById('loading-spinner');
         /** @type {HTMLElement} Elemento da mensagem de "nenhum resultado encontrado". */
         this.noResultsMessage = document.getElementById('no-results-message');
 
-        // Elementos para filtros e botões de filtro
-        /** @type {HTMLButtonElement} Botão para alternar a visibilidade dos filtros. */
-        this.filterToggleButton = document.getElementById('filter-toggle-button');
-        /** @type {HTMLElement} Contêiner colapsável dos filtros. */
-        this.filtersCollapse = document.getElementById('filters-collapse');
-        /** @type {HTMLSelectElement} Dropdown de filtro por gênero. */
-        this.genreFilter = document.getElementById('genre-filter');
-        /** @type {HTMLSelectElement} Dropdown de filtro por plataforma. */
-        this.platformFilter = document.getElementById('platform-filter');
-        /** @type {HTMLButtonElement} Botão para filtrar por novos lançamentos. */
-        this.newReleasesBtn = document.getElementById('new-releases-btn');
-        /** @type {HTMLButtonElement} Botão para filtrar por jogos mais populares. */
-        this.mostPopularBtn = document.getElementById('most-popular-btn');
-        /** @type {HTMLButtonElement} Botão para filtrar por jogos futuros. */
-        this.upcomingBtn = document.getElementById('upcoming-btn');
-        /** @type {HTMLButtonElement} Botão para limpar todos os filtros. */
-        this.clearFiltersBtn = document.getElementById('clear-filters-btn');
+        /** @type {HTMLButtonElement} Botão para filtrar por todos os jogos (filtro rápido). */
+        this.filterAllGamesButton = document.getElementById('filterAllGames');
+        /** @type {HTMLButtonElement} Botão para filtrar por novos lançamentos (filtro rápido). */
+        this.filterNewReleasesButton = document.getElementById('filterNewReleases');
+        /** @type {HTMLButtonElement} Botão para filtrar por jogos mais populares (filtro rápido). */
+        this.filterPopularGamesButton = document.getElementById('filterPopularGames');
 
-        // Gerenciadores de carrinho e lista de desejos
+        /** @type {HTMLElement} Contêiner para os checkboxes de gênero no modal. */
+        this.genresFilterContainer = document.getElementById('genresFilterContainer');
+        /** @type {HTMLElement} Contêiner para os checkboxes de plataforma no modal. */
+        this.platformsFilterContainer = document.getElementById('platformsFilterContainer');
+        /** @type {HTMLButtonElement} Botão para limpar todos os filtros no modal. */
+        this.clearFiltersButton = document.getElementById('clearFiltersButton');
+        /** @type {HTMLButtonElement} Botão para aplicar os filtros no modal. */
+        this.applyFiltersButton = document.getElementById('applyFiltersButton');
+
         /** @type {CarrinhoManager} Gerenciador de carrinho. */
         this.carrinhoManager = carrinhoManager;
         /** @type {FavoritosManager} Gerenciador de favoritos. */
         this.favoritosManager = favoritosManager;
 
-        // Elemento UI para Paginação
         /** @type {HTMLElement} Contêiner dos controles de paginação. */
         this.paginationControls = document.getElementById('pagination-controls');
 
@@ -68,12 +73,21 @@ export class SearchManager {
             search: '',
             genres: '',
             platforms: '',
-            page_size: 20, // Padrão de 20 resultados por página
+            ordering: '-rating', // Define um filtro padrão para a carga inicial (Populares)
+            page_size: 20,
             page: this.currentPage
         };
 
+        // Estado dos filtros selecionados nos checkboxes do modal
+        this.selectedGenres = [];
+        this.selectedPlatforms = [];
+        this.currentQuickOrdering = null; // Para controlar os filtros rápidos (Todos, Novidades, Populares)
+
         this.initEventListeners();
-        this.populateFilters(); // Popula os dropdowns de gênero e plataforma
+        this.populateFilters(); // Popula os checkboxes de gênero e plataforma
+
+        // Oculta a mensagem de "nenhum resultado" na carga inicial
+        this.hideNoResultsMessage();
         this.initialLoad(); // Carrega jogos iniciais ao carregar a página
     }
 
@@ -83,13 +97,16 @@ export class SearchManager {
     initEventListeners() {
         // Event listener para o input de busca (ao pressionar Enter)
         if (this.searchInput) {
-            console.log('Search input found:', this.searchInput);
             this.searchInput.addEventListener('keypress', (event) => {
                 if (event.key === 'Enter') {
-                    console.log('Enter pressed in search input');
-                    // Resetar a página para 1 em uma nova busca
                     this.currentPage = 1;
-                    this.currentSearchParams.search = this.searchInput.value;
+                    this.currentSearchParams.search = this.searchInput.value.trim();
+                    // Ao fazer uma busca textual, limpamos outros filtros (rapidos e do modal)
+                    this.selectedGenres = [];
+                    this.selectedPlatforms = [];
+                    this.currentQuickOrdering = null;
+                    this._uncheckAllModalFilters(); // Desmarca checkboxes do modal
+                    this._resetQuickFilterButtons(); // Desativa os botões de filtro rápido
                     this.performSearch();
                 }
             });
@@ -97,153 +114,263 @@ export class SearchManager {
 
         // Event listener para o botão de busca
         if (this.searchButton) {
-            console.log('Search button found:', this.searchButton);
             this.searchButton.addEventListener('click', () => {
-                console.log('Search button clicked');
-                // Resetar a página para 1 em uma nova busca
                 this.currentPage = 1;
-                this.currentSearchParams.search = this.searchInput.value;
+                this.currentSearchParams.search = this.searchInput.value.trim();
+                // Ao fazer uma busca textual, limpamos outros filtros (rapidos e do modal)
+                this.selectedGenres = [];
+                this.selectedPlatforms = [];
+                this.currentQuickOrdering = null;
+                this._uncheckAllModalFilters(); // Desmarca checkboxes do modal
+                this._resetQuickFilterButtons(); // Desativa os botões de filtro rápido
                 this.performSearch();
             });
         }
 
-        // Event listener para o filtro de gênero
-        if (this.genreFilter) {
-            this.genreFilter.addEventListener('change', () => {
-                this.currentPage = 1; // Resetar a página ao mudar o filtro
-                this.currentSearchParams.genres = this.genreFilter.value;
-                this.performSearch();
+        // Event listeners para os botões de filtro rápido
+        if (this.filterAllGamesButton) {
+            this.filterAllGamesButton.addEventListener('click', () => this.handleQuickFilter(null, this.filterAllGamesButton));
+        }
+        if (this.filterNewReleasesButton) {
+            this.filterNewReleasesButton.addEventListener('click', () => this.handleQuickFilter('-added', this.filterNewReleasesButton));
+        }
+        if (this.filterPopularGamesButton) {
+            this.filterPopularGamesButton.addEventListener('click', () => this.handleQuickFilter('-rating', this.filterPopularGamesButton));
+        }
+
+        // Event listener para o botão de limpar filtros no modal
+        if (this.clearFiltersButton) {
+            this.clearFiltersButton.addEventListener('click', () => this.clearFilters());
+        }
+
+        // Event listener para o botão de aplicar filtros no modal
+        if (this.applyFiltersButton) {
+            this.applyFiltersButton.addEventListener('click', () => this.applyModalFilters());
+        }
+
+        // Event listener para paginação (delegation)
+        if (this.paginationControls) {
+            this.paginationControls.addEventListener('click', (e) => {
+                const target = e.target.closest('.page-link');
+                if (target) {
+                    e.preventDefault();
+                    if (target.parentElement.classList.contains('disabled')) return;
+
+                    if (target.getAttribute('aria-label') === 'Previous') {
+                        if (this.previousPageUrl) {
+                            this.currentPage--;
+                            this.performSearch();
+                        }
+                    } else if (target.getAttribute('aria-label') === 'Next') {
+                        if (this.nextPageUrl) {
+                            this.currentPage++;
+                            this.performSearch();
+                        }
+                    } else {
+                        const pageNum = parseInt(target.textContent);
+                        if (!isNaN(pageNum) && pageNum !== this.currentPage) {
+                            this.currentPage = pageNum;
+                            this.performSearch();
+                        }
+                    }
+                }
             });
-        }
-
-        // Event listener para o filtro de plataforma
-        if (this.platformFilter) { // Adicionado o event listener para o filtro de plataforma
-            this.platformFilter.addEventListener('change', () => {
-                this.currentPage = 1; // Resetar a página ao mudar o filtro
-                this.currentSearchParams.platforms = this.platformFilter.value;
-                this.performSearch();
-            });
-        }
-
-        // Event listeners para os botões de navegação (Novos Lançamentos, Mais Populares, Em Breve)
-        if (this.newReleasesBtn) {
-            this.newReleasesBtn.addEventListener('click', (event) => this.handleNavigationButtonClick(event));
-        }
-
-        if (this.mostPopularBtn) {
-            this.mostPopularBtn.addEventListener('click', (event) => this.handleNavigationButtonClick(event));
-        }
-
-        if (this.upcomingBtn) {
-            this.upcomingBtn.addEventListener('click', (event) => this.handleNavigationButtonClick(event));
-        }
-
-        // Event listener para o botão de limpar filtros
-        if (this.clearFiltersBtn) {
-            this.clearFiltersBtn.addEventListener('click', () => this.clearFilters());
         }
     }
 
     /**
-     * Lida com o clique nos botões de navegação (Novos Lançamentos, Mais Populares, Em Breve).
-     * @param {Event} event - O evento de clique.
+     * Lida com o clique nos botões de filtro rápido (Todos, Novidades, Populares).
+     * @param {string|null} ordering - O valor do parâmetro 'ordering' para a API.
+     * @param {HTMLElement} clickedButton - O botão HTML que foi clicado.
      */
-    handleNavigationButtonClick(event) {
-        this.currentPage = 1; // Sempre resetar a página ao usar botões de navegação
-        const type = event.target.dataset.filterType; // 'ordering' ou 'upcoming'
-        const value = event.target.dataset.filterValue; // '-adde', 'rating' ou 'true'
+    handleQuickFilter(ordering, clickedButton) {
+        this._resetQuickFilterButtons(); // Desativa todos os botões de filtro rápido
+        clickedButton.classList.add('active'); // Ativa o botão clicado
 
-        // Limpa todos os parâmetros de busca, exceto page_size, e adiciona o filtro específico
-        this.currentSearchParams = { page_size: 20 }; // Manter page_size consistente
-        this.currentSearchParams[type] = value;
+        this.currentQuickOrdering = ordering;
+        this.currentPage = 1;
 
-        // Limpa o input de busca visualmente e remove o parâmetro 'search'
-        if (this.searchInput) {
-            this.searchInput.value = '';
-            delete this.currentSearchParams.search;
+        // Limpa o termo de busca e os filtros de modal ao usar um filtro rápido
+        this.searchInput.value = '';
+        this.selectedGenres = [];
+        this.selectedPlatforms = [];
+        this._uncheckAllModalFilters(); // Desmarca checkboxes do modal
+
+        // Atualiza currentSearchParams com o novo ordenamento e limpa outros filtros
+        this.currentSearchParams = {
+            search: '', // Garante que a busca textual esteja limpa
+            genres: '',
+            platforms: '',
+            page_size: 20,
+            page: 1,
+            ordering: ordering // Define o novo ordenamento
+        };
+
+        this.performSearch();
+    }
+
+    /**
+     * Reseta a classe 'active' de todos os botões de filtro rápido.
+     */
+    _resetQuickFilterButtons() {
+        this.filterAllGamesButton.classList.remove('active');
+        this.filterNewReleasesButton.classList.remove('active');
+        this.filterPopularGamesButton.classList.remove('active');
+    }
+
+    /**
+     * Desmarca todos os checkboxes de gênero e plataforma no modal.
+     */
+    _uncheckAllModalFilters() {
+        if (this.genresFilterContainer) {
+            this.genresFilterContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
         }
-
-        // Reseta os dropdowns de filtro visualmente e remove os parâmetros correspondentes
-        if (this.genreFilter) {
-            this.genreFilter.value = '';
-            delete this.currentSearchParams.genres;
+        if (this.platformsFilterContainer) {
+            this.platformsFilterContainer.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
         }
-        if (this.platformFilter) {
-            this.platformFilter.value = '';
-            delete this.currentSearchParams.platforms;
+    }
+
+    /**
+     * Aplica os filtros selecionados no modal.
+     */
+    applyModalFilters() {
+        this.selectedGenres = Array.from(this.genresFilterContainer.querySelectorAll('input[type="checkbox"]:checked'))
+            .map(checkbox => checkbox.value);
+        this.selectedPlatforms = Array.from(this.platformsFilterContainer.querySelectorAll('input[type="checkbox"]:checked'))
+            .map(checkbox => checkbox.value);
+
+        this.currentPage = 1;
+        // Limpa o termo de busca e os filtros rápidos ao usar filtros do modal
+        this.searchInput.value = '';
+        this.currentQuickOrdering = null; // Reseta o filtro rápido
+        this._resetQuickFilterButtons(); // Desativa os botões de filtro rápido
+
+        // Atualiza currentSearchParams com os novos filtros.
+        this.currentSearchParams = {
+            search: '', // Garante que a busca textual esteja limpa
+            page_size: 20,
+            page: 1,
+            genres: this.selectedGenres.join(','),
+            platforms: this.selectedPlatforms.join(',')
+        };
+
+        // Se nenhum filtro de gênero/plataforma foi selecionado,
+        // mas o filtro rápido "Todos" não está ativo (o que indica que talvez queiramos um padrão),
+        // redefinimos para o padrão de ordenação popular.
+        if (this.selectedGenres.length === 0 && this.selectedPlatforms.length === 0 && !this.currentQuickOrdering) {
+            this.currentSearchParams.ordering = '-rating';
+            this.filterPopularGamesButton.classList.add('active'); // Ativa Populares como padrão
         }
 
         this.performSearch();
-
-        // Colapsa o menu de filtros após a seleção
-        if (this.filtersCollapse && this.filtersCollapse.classList.contains('show')) {
-            this.filtersCollapse.classList.remove('show');
-        }
     }
+
 
     /**
      * Limpa todos os filtros e a busca e executa uma nova busca com parâmetros padrão.
      */
     clearFilters() {
-        this.currentPage = 1; // Resetar a página ao limpar filtros
-        this.currentSearchParams = { page_size: 20, ordering: '-rating' }; // Padrão de busca após limpar
+        this.currentPage = 1;
+        this.searchInput.value = ''; // Limpa o input de busca
+        this.selectedGenres = []; // Limpa gêneros selecionados
+        this.selectedPlatforms = []; // Limpa plataformas selecionadas
+        this.currentQuickOrdering = null; // Limpa filtro rápido
 
-        if (this.searchInput) this.searchInput.value = '';
-        if (this.genreFilter) this.genreFilter.value = '';
-        if (this.platformFilter) this.platformFilter.value = '';
+        this._uncheckAllModalFilters(); // Desmarca visualmente os checkboxes
+        this._resetQuickFilterButtons(); // Reseta os botões de filtro rápido (desativa todos)
+        this.filterAllGamesButton.classList.add('active'); // Ativa "Todos" após limpar
 
-        this.performSearch(); // Executa a busca com os filtros limpos
+        this.currentSearchParams = { // Reseta para os parâmetros iniciais padrão
+            search: '',
+            genres: '',
+            platforms: '',
+            ordering: null, // Ao limpar, não há ordenação inicial ativa a menos que 'Todos' ative
+            page_size: 20,
+            page: this.currentPage
+        };
 
-        // Colapsa o menu de filtros
-        if (this.filtersCollapse && this.filtersCollapse.classList.contains('show')) {
-            this.filtersCollapse.classList.remove('show');
-        }
+        this.performSearch();
     }
 
     /**
      * Carrega jogos populares ao iniciar a página.
-     * Originalmente exibia apenas uma mensagem, agora carrega conteúdo real.
+     * Define o estado inicial para exibir jogos populares por padrão.
      */
     async initialLoad() {
-        this.currentSearchParams.search = ''; // Garante que a busca inicial não seja por um termo
-        this.currentSearchParams.ordering = '-rating'; // Carrega jogos mais populares por padrão
-        this.currentPage = 1; // Garante que a carga inicial comece na primeira página
+        // Assegura que o estado inicial dos filtros rápidos e modal esteja limpo
+        this.searchInput.value = '';
+        this.selectedGenres = [];
+        this.selectedPlatforms = [];
+        this._uncheckAllModalFilters();
+
+        // Redefine todos os parâmetros para uma carga inicial limpa, focando em populares
+        this.currentSearchParams = {
+            search: '',
+            genres: '',
+            platforms: '',
+            ordering: '-rating', // Carrega jogos mais populares por padrão
+            page_size: 20,
+            page: 1
+        };
+        this.currentPage = 1;
+        this.currentQuickOrdering = '-rating'; // Sincroniza o estado interno para 'Populares'
+        this._resetQuickFilterButtons();
+        this.filterPopularGamesButton.classList.add('active'); // Ativa o botão "Populares" na carga inicial
+
         await this.performSearch();
     }
 
     /**
-     * Popula os dropdowns de gênero e plataforma com dados da API.
+     * Popula os containers de checkboxes de gênero e plataforma com dados da API.
      */
     async populateFilters() {
         // Carrega os gêneros
-        if (this.genreFilter) {
+        if (this.genresFilterContainer) {
             try {
                 const genres = await fetchGenres();
+                this.genresFilterContainer.innerHTML = ''; // Limpa o "Carregando gêneros..."
                 genres.forEach(genre => {
-                    const option = document.createElement('option');
-                    option.value = genre.slug;
-                    option.textContent = genre.name;
-                    this.genreFilter.appendChild(option);
+                    const div = document.createElement('div');
+                    div.classList.add('list-group-item', 'bg-light');
+                    div.innerHTML = `
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="${genre.slug}" id="genreCheck${genre.id}" data-type="genre">
+                            <label class="form-check-label" for="genreCheck${genre.id}">
+                                ${genre.name}
+                            </label>
+                        </div>
+                    `;
+                    this.genresFilterContainer.appendChild(div);
                 });
             } catch (error) {
                 console.error('Erro ao buscar gêneros:', error);
                 showToast('Erro ao carregar opções de gênero.', 'danger');
+                this.genresFilterContainer.innerHTML = '<p class="text-danger">Erro ao carregar gêneros.</p>';
             }
         }
 
         // Carrega as plataformas
-        if (this.platformFilter) {
+        if (this.platformsFilterContainer) {
             try {
                 const platforms = await fetchPlatforms();
+                this.platformsFilterContainer.innerHTML = ''; // Limpa o "Carregando plataformas..."
                 platforms.forEach(platform => {
-                    const option = document.createElement('option');
-                    option.value = platform.slug;
-                    option.textContent = platform.name;
-                    this.platformFilter.appendChild(option);
+                    const div = document.createElement('div');
+                    div.classList.add('list-group-item', 'bg-light');
+                    div.innerHTML = `
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="${platform.slug}" id="platformCheck${platform.id}" data-type="platform">
+                            <label class="form-check-label" for="platformCheck${platform.id}">
+                                ${platform.name}
+                            </label>
+                        </div>
+                    `;
+                    this.platformsFilterContainer.appendChild(div);
                 });
             } catch (error) {
                 console.error('Erro ao buscar plataformas:', error);
                 showToast('Erro ao carregar opções de plataforma.', 'danger');
+                this.platformsFilterContainer.innerHTML = '<p class="text-danger">Erro ao carregar plataformas.</p>';
             }
         }
     }
@@ -253,47 +380,58 @@ export class SearchManager {
      * Gerencia estados de carregamento, exibição de resultados e mensagens de erro.
      */
     async performSearch() {
-        console.log('performSearch chamado com os parâmetros:', this.currentSearchParams);
+        this.showLoading();
+        this.clearResults();
+        this.hideNoResultsMessage(); // Esconde a mensagem antes de uma nova busca
+        this.paginationControls.innerHTML = ''; // Limpa os controles de paginação antes de renderizar novos
 
-        // Limpa ordering/upcoming se houver um termo de busca
+        // Constrói os parâmetros finais para a API
+        const params = {
+            page_size: this.currentSearchParams.page_size,
+            page: this.currentPage
+        };
+
         if (this.currentSearchParams.search) {
-            delete this.currentSearchParams.ordering;
-            delete this.currentSearchParams.upcoming;
-            // Limpa filtros de gênero e plataforma ao fazer uma busca textual
-            delete this.currentSearchParams.genres;
-            if (this.genreFilter) this.genreFilter.value = '';
-            delete this.currentSearchParams.platforms;
-            if (this.platformFilter) this.platformFilter.value = '';
+            params.search = this.currentSearchParams.search;
+            // Se houver busca textual, remove os filtros de gênero, plataforma e ordenação
+            // pois a busca textual na API RAWG geralmente ignora esses parâmetros.
+            delete params.genres;
+            delete params.platforms;
+            delete params.ordering;
         } else {
-            // Se não houver termo de busca, garante que haja um parâmetro de ordenação padrão
-            // para que o initialLoad ou filtros funcionem corretamente
-            if (!this.currentSearchParams.ordering && !this.currentSearchParams.upcoming && !this.currentSearchParams.genres && !this.currentSearchParams.platforms) {
-                this.currentSearchParams.ordering = '-rating'; // Padrão: mais populares
+            // Se não há busca textual, aplica os filtros de modal e ordenação rápida
+            if (this.selectedGenres.length > 0) {
+                params.genres = this.selectedGenres.join(',');
+            }
+            if (this.selectedPlatforms.length > 0) {
+                params.platforms = this.selectedPlatforms.join(',');
+            }
+            if (this.currentQuickOrdering) {
+                params.ordering = this.currentQuickOrdering;
+            } else if (this.selectedGenres.length === 0 && this.selectedPlatforms.length === 0) {
+                // Se não há busca textual, nem filtros de modal, nem ordenação rápida,
+                // defina uma ordenação padrão para exibir algo.
+                params.ordering = '-rating'; // Ex: Populares como padrão
+                this.filterPopularGamesButton.classList.add('active'); // Garante que o botão 'Populares' esteja ativo
             }
         }
 
-        // Garante que a página atual esteja nos parâmetros de busca
-        this.currentSearchParams.page = this.currentPage;
-
-        this.showLoading();
-        this.clearResults();
-        this.paginationControls.innerHTML = ''; // Limpa os controles de paginação antes de renderizar novos
+        console.log('Parâmetros enviados para a API:', params); // Para depuração
 
         try {
-            const apiResponse = await fetchGames(this.currentSearchParams);
+            const apiResponse = await fetchGames(params); // Usa os 'params' construídos
             const games = apiResponse.results;
             this.nextPageUrl = apiResponse.next;
             this.previousPageUrl = apiResponse.previous;
             this.totalResultsCount = apiResponse.count;
 
             if (games.length === 0) {
-                // Exibe mensagem de "nenhum resultado" se a API retornar vazio para a busca
                 this.showNoResultsMessage('Nenhum jogo encontrado com os critérios de busca.');
             } else {
                 this.hideNoResultsMessage();
                 this.renderGames(games);
             }
-            this.renderPaginationControls(); // Renderiza paginação mesmo sem resultados para mostrar '0 de X'
+            this.renderPaginationControls(); // Renderiza paginação
         } catch (error) {
             console.error('Erro ao buscar jogos:', error);
             showToast('Erro ao buscar jogos. Tente novamente mais tarde.', 'danger');
@@ -301,6 +439,57 @@ export class SearchManager {
             this.paginationControls.innerHTML = ''; // Garante que a paginação não seja exibida em caso de erro
         } finally {
             this.hideLoading(); // Sempre esconde o spinner de carregamento
+        }
+    }
+
+    /**
+     * Exibe o spinner de carregamento e oculta a mensagem de "nenhum resultado".
+     */
+    showLoading() {
+        if (this.loadingSpinner) {
+            this.loadingSpinner.style.display = 'block';
+        }
+        this.hideNoResultsMessage(); // Garante que a mensagem de no-results não apareça durante o carregamento
+    }
+
+    /**
+     * Oculta o spinner de carregamento.
+     */
+    hideLoading() {
+        if (this.loadingSpinner) {
+            this.loadingSpinner.style.display = 'none';
+        }
+    }
+
+    /**
+     * Exibe a mensagem de "nenhum resultado encontrado".
+     * @param {string} message - A mensagem a ser exibida.
+     */
+    showNoResultsMessage(message) {
+        if (this.noResultsMessage) {
+            this.noResultsMessage.textContent = message;
+            this.noResultsMessage.style.display = 'block';
+        }
+        if (this.gameResultsContainer) {
+            this.gameResultsContainer.innerHTML = ''; // Limpa resultados existentes
+        }
+    }
+
+    /**
+     * Oculta a mensagem de "nenhum resultado encontrado".
+     */
+    hideNoResultsMessage() {
+        if (this.noResultsMessage) {
+            this.noResultsMessage.style.display = 'none';
+        }
+    }
+
+    /**
+     * Limpa os resultados dos jogos da tela.
+     */
+    clearResults() {
+        if (this.gameResultsContainer) {
+            this.gameResultsContainer.innerHTML = '';
         }
     }
 
@@ -329,14 +518,6 @@ export class SearchManager {
         }
         prevItem.innerHTML = `<a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>`;
         ul.appendChild(prevItem);
-
-        prevItem.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (this.previousPageUrl) {
-                this.currentPage--;
-                this.performSearch();
-            }
-        });
 
         const totalPages = Math.ceil(this.totalResultsCount / this.currentSearchParams.page_size);
 
@@ -367,14 +548,6 @@ export class SearchManager {
             }
             pageNumItem.innerHTML = `<a class="page-link" href="#">${i}</a>`;
             ul.appendChild(pageNumItem);
-
-            pageNumItem.addEventListener('click', (e) => {
-                e.preventDefault();
-                if (i !== this.currentPage) {
-                    this.currentPage = i;
-                    this.performSearch();
-                }
-            });
         }
 
         // Adiciona reticências se a última página não for a totalPages
@@ -394,21 +567,13 @@ export class SearchManager {
         nextItem.innerHTML = `<a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>`;
         ul.appendChild(nextItem);
 
-        nextItem.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (this.nextPageUrl) {
-                this.currentPage++;
-                this.performSearch(); // Re-executa a busca para a próxima página
-            }
-        });
-
         nav.appendChild(ul);
         this.paginationControls.appendChild(nav);
     }
 
     /**
      * Renderiza os cards dos jogos no contêiner de resultados.
-     * @param {Array<Object>} games - Uma array de objetos de jogos a serem renderizados.
+     * @param {Game[]} games - Uma array de objetos de jogos a serem renderizados.
      */
     renderGames(games) {
         if (!this.gameResultsContainer) return;
@@ -427,14 +592,16 @@ export class SearchManager {
 
     /**
      * Cria e retorna um elemento de card HTML para um jogo.
-     * @param {Object} game - O objeto do jogo com seus detalhes.
+     * @param {Game} game - O objeto do jogo com seus detalhes.
      * @param {FavoritosManager} favoritosManager - O gerenciador de favoritos para verificar o estado do favorito.
      * @returns {HTMLElement} O elemento DIV do card do jogo.
      */
     createGameCard(game, favoritosManager) {
         const stars = '⭐'.repeat(Math.round(game.rating || 0)); // Gera estrelas com base na avaliação
         const cardCol = document.createElement('div');
+        // Mantém as classes da versão antiga para responsividade individual do card
         cardCol.classList.add('col-md-4', 'col-sm-6', 'mb-4');
+
         cardCol.innerHTML = `
                 <div class="card h-100 shadow-light game-card-link">
                     <a href="pages/detalhes.html?id=${game.id}" class="card-link-overlay">
@@ -479,30 +646,28 @@ export class SearchManager {
      * em todos os cards de jogos renderizados. Garante que listeners duplicados não sejam criados.
      */
     attachCartAndWishListeners() {
-        // Seleciona todos os botões de "adicionar ao carrinho" nos resultados atuais
         this.gameResultsContainer.querySelectorAll('.add-to-cart').forEach(button => {
-            // Remove o listener anterior para evitar duplicação em re-renderizações
+            // Remove o listener anterior se já foi anexado para evitar duplicação
             if (button.handleAddToCartBound) {
                 button.removeEventListener('click', button.handleAddToCartBound);
             }
-            // Anexa um novo listener e armazena a referência para futura remoção
+            // Anexa o novo listener e armazena a referência para futura remoção
             const boundHandler = this.handleAddToCart.bind(this, this.carrinhoManager);
             button.addEventListener('click', boundHandler);
             button.handleAddToCartBound = boundHandler;
         });
 
-        // Seleciona todos os botões de "adicionar aos favoritos" nos resultados atuais
         this.gameResultsContainer.querySelectorAll('.add-to-favorites').forEach(button => {
-            // Remove o listener anterior para evitar duplicação em re-renderizações
+            // Remove o listener anterior se já foi anexado para evitar duplicação
             if (button.handleAddToWishlistBound) {
                 button.removeEventListener('click', button.handleAddToWishlistBound);
             }
-            // Anexa um novo listener e armazena a referência para futura remoção
+            // Anexa o novo listener e armazena a referência para futura remoção
             const boundHandler = this.handleAddToWishlist.bind(this, this.favoritosManager);
             button.addEventListener('click', boundHandler);
             button.handleAddToWishlistBound = boundHandler;
 
-            // Atualiza o ícone de favorito com base no estado atual
+            // Atualiza o ícone de coração com base no estado atual dos favoritos
             const productId = button.dataset.productId;
             const heartIcon = button.querySelector('i.bi');
             if (heartIcon) {
@@ -529,106 +694,50 @@ export class SearchManager {
         const productPrice = parseFloat(event.currentTarget.dataset.productPrice);
         const productImage = event.currentTarget.dataset.productImage;
 
-        if (productId && productName && !isNaN(productPrice) && productImage) {
-            const product = {
-                id: productId,
-                name: productName,
-                price: productPrice,
-                image: productImage
-            };
-            carrinhoManager.adicionarItem(product);
-        } else {
-            console.error('Dados do produto incompletos para adicionar ao carrinho:', event.currentTarget.dataset);
-            showToast('Erro: Dados do produto inválidos para o carrinho.', 'danger');
-        }
+        const product = {
+            id: productId,
+            name: productName,
+            price: productPrice,
+            image: productImage
+        };
+
+        carrinhoManager.adicionarItem(product);
+        showToast(`${product.name} adicionado ao carrinho!`, 'success');
+
+        // Dispara um evento personalizado para notificar que o carrinho foi atualizado
+        document.dispatchEvent(new CustomEvent('cartUpdated'));
     }
 
     /**
-     * Lida com o evento de clique para adicionar/remover um item da lista de desejos (favoritos).
+     * Lida com o evento de clique para adicionar/remover um item dos favoritos.
      * @param {FavoritosManager} favoritosManager - Instância do gerenciador de favoritos.
      * @param {Event} event - O evento de clique.
      */
     handleAddToWishlist(favoritosManager, event) {
-        event.preventDefault(); // Evita o comportamento padrão do botão
+        event.preventDefault();
         const productId = event.currentTarget.dataset.productId;
         const productName = event.currentTarget.dataset.productName;
+        const productPrice = parseFloat(event.currentTarget.dataset.productPrice);
         const productImage = event.currentTarget.dataset.productImage;
 
-        if (productId && productName && productImage) {
-            const product = {
-                id: productId,
-                name: productName,
-                image: productImage
-            };
+        const product = {
+            id: productId,
+            name: productName,
+            price: productPrice,
+            image: productImage
+        };
 
-            // Adiciona/remove o favorito e atualiza o ícone
-            this.favoritosManager.adicionarFavorito(product); // Esta função já deve alternar o estado
+        const isNowFavorited = favoritosManager.adicionarRemoverItem(product);
 
-            const heartIcon = event.currentTarget.querySelector('i.bi');
-            if (heartIcon) {
-                if (favoritosManager.isFavorited(productId)) {
-                    heartIcon.classList.remove('bi-heart');
-                    heartIcon.classList.add('bi-heart-fill');
-                    showToast(`${productName} adicionado aos favoritos!`, 'success');
-                } else {
-                    heartIcon.classList.remove('bi-heart-fill');
-                    heartIcon.classList.add('bi-heart');
-                    showToast(`${productName} removido dos favoritos!`, 'info');
-                }
-            }
-        } else {
-            console.error('Dados do produto incompletos para adicionar/remover da lista de desejos:', event.currentTarget.dataset);
-            showToast('Erro: Dados do produto inválidos para favoritos.', 'danger');
+        // Atualiza o ícone visualmente no botão que foi clicado
+        const icon = event.currentTarget.querySelector('i.bi');
+        if (icon) {
+            icon.classList.toggle('bi-heart-fill', isNowFavorited);
+            icon.classList.toggle('bi-heart', !isNowFavorited);
         }
-    }
+        showToast(`${product.name} ${isNowFavorited ? 'adicionado' : 'removido'} dos favoritos!`, 'info');
 
-    /**
-     * Limpa o contêiner de resultados de jogos.
-     */
-    clearResults() {
-        if (this.gameResultsContainer) {
-            this.gameResultsContainer.innerHTML = '';
-        }
-    }
-
-    /**
-     * Exibe o spinner de carregamento e esconde a mensagem de "nenhum resultado".
-     */
-    showLoading() {
-        if (this.loadingSpinner) {
-            this.loadingSpinner.style.display = 'block';
-        }
-        if (this.noResultsMessage) {
-            this.noResultsMessage.style.display = 'none';
-        }
-    }
-
-    /**
-     * Esconde o spinner de carregamento.
-     */
-    hideLoading() {
-        if (this.loadingSpinner) {
-            this.loadingSpinner.style.display = 'none';
-        }
-    }
-
-    /**
-     * Exibe a mensagem de "nenhum resultado encontrado".
-     * @param {string} [message='Nenhum resultado encontrado.'] - A mensagem a ser exibida.
-     */
-    showNoResultsMessage(message = 'Nenhum resultado encontrado.') {
-        if (this.noResultsMessage) {
-            this.noResultsMessage.textContent = message;
-            this.noResultsMessage.style.display = 'block';
-        }
-    }
-
-    /**
-     * Esconde a mensagem de "nenhum resultado encontrado".
-     */
-    hideNoResultsMessage() {
-        if (this.noResultsMessage) {
-            this.noResultsMessage.style.display = 'none';
-        }
+        // Dispara um evento personalizado para notificar que os favoritos foram atualizados
+        document.dispatchEvent(new CustomEvent('favoritesUpdated'));
     }
 }

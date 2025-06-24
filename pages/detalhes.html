@@ -8,7 +8,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <link rel="stylesheet" href="../css/_variables.css">
@@ -19,52 +19,65 @@
 </head>
 
 <body class="bg-light text-dark">
-    <header>
-        <nav class="navbar navbar-expand-lg bg-gradient-dark shadow-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="../index.html">
-                    <img src="../img/logo.png" alt="logo" class="transition-fast">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="../login.html" id="loginLink">Entrar</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" id="logoutButton" style="display: none;">Sair</a>
-                        </li>
-                    </ul>
+     <header>
+    <nav class="navbar navbar-expand-lg bg-primary shadow-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="../index.html">
+          <img src="../img/logo.png" alt="logo" class="transition-fast">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            
+            <li class="nav-item">
+              <a class="nav-link text-white active" aria-current="page" href="../index.html">Início</a>
+            </li>
 
-                    <ul class="navbar-nav mb-2 mb-lg-0 ms-lg-2">
-                        <li class="nav-item">
-                            <a class="nav-link position-relative" href="#" data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvasCarrinho" aria-controls="offcanvasCarrinho">
-                                <i class="bi bi-cart fs-4"></i>
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                                    id="cart-item-count">
-                                    0
-                                    <span class="visually-hidden">itens no carrinho</span>
-                                </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ms-2"> <a class="nav-link position-relative" href="#" data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvasFavoritos" aria-controls="offcanvasFavoritos">
-                                <i class="bi bi-heart fs-4"></i> <span
-                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning"
-                                    id="favorite-item-count">
-                                    0 <span class="visually-hidden">itens favoritos</span>
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#">Populares</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#">Lançamentos</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link text-white" href="login.html" id="loginLink">Entrar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#" id="logoutButton" style="display: none;">Sair</a>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav mb-2 mb-lg-0 ms-lg-2">
+            <li class="nav-item">
+              <a class="nav-link position-relative text-white" href="#" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasCarrinho" aria-controls="offcanvasCarrinho">
+                <i class="bi bi-cart fs-4"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                  id="cart-item-count">
+                  0
+                  <span class="visually-hidden">itens no carrinho</span>
+                </span>
+              </a>
+            </li>
+            <li class="nav-item ms-2"> <a class="nav-link position-relative text-white" href="#"
+                data-bs-toggle="offcanvas" data-bs-target="#offcanvasFavoritos" aria-controls="offcanvasFavoritos">
+                <i class="bi bi-heart fs-4"></i> <span
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning"
+                  id="favorite-item-count">
+                  0 <span class="visually-hidden">itens favoritos</span>
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
     <main>
         <section id="game-details-section">
             <div class="text-center py-5">
@@ -91,12 +104,14 @@
         </section>
     </main>
 
-    <div class="modal fade" id="screenshotModal" tabindex="-1" aria-labelledby="screenshotModalLabel" aria-hidden="true">
+    <div class="modal fade" id="screenshotModal" tabindex="-1" aria-labelledby="screenshotModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content bg-dark">
                 <div class="modal-header border-0">
                     <h5 class="modal-title" id="screenshotModalLabel">Screenshot do Jogo</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-0 text-center">
                     <img id="screenshotModalImage" src="" class="img-fluid rounded" alt="Screenshot em tela cheia">
@@ -111,28 +126,75 @@
             <div class="modal-content bg-dark text-white">
                 <div class="modal-header border-0">
                     <h5 class="modal-title" id="allScreenshotsModalLabel">Todas as Screenshots</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="allScreenshotsModalBody">
-                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <footer class=" text-dark text-center py-3 mt-5">
-        <div class="container">
-            <p class="fw-bold mb-0">Desenvolvido por Jonathan Monteiro &copy; 2025</p>
-            <p class="fw-bold mb-0">Todos os direitos reservados à JM Games.</p>
+    <footer>
+        <div class="container py-5">
+            <div class="row">
 
-            <p class="mb-0 mt-2">Dados fornecidos por <a href="https://rawg.io/" target="_blank" rel="noopener"
-                    class="text-white text-decoration-underline">RAWG.io</a></p>
-            <div class="social-icons mt-2">
-                <a href="https://www.linkedin.com/in/jonathan-lucas-34684a1a4" class="text-white mx-2 transition-fast"
-                    title="LinkedIn"><i class="bi bi-linkedin fs-4"></i></a>
-                <a href="https://www.instagram.com/jonathanlucas777/" class="text-white mx-2 transition-fast"
-                    title="Instagram"><i class="bi bi-instagram fs-4"></i></a>
-                <a href="https://wa.me/5537991042878" class="text-white mx-2 transition-fast" title="WhatsApp"><i
-                        class="bi bi-whatsapp fs-4"></i></a>
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <h5 class="text-uppercase mb-4">JM Games</h5>
+                    <p class="text-muted">
+                        Um projeto de portfólio que simula uma loja virtual de games,
+                        desenvolvido por [Seu Nome/Link para Portfólio].
+                        Focado em JavaScript moderno, UX/UI e integração de API.
+                    </p>
+                    <div class="social-links mt-3">
+                        <a href="https://github.com/JonathanMonteiro777" target="_blank" rel="noopener"
+                            class="text-white me-2" title="GitHub de Jonathan Monteiro"><i
+                                class="fab fa-github fa-lg"></i></a>
+                        <a href="https://www.linkedin.com/in/jonathan-lucas-34684a1a4" target="_blank" rel="noopener"
+                            class="text-white" title="LinkedIn de Jonathan Lucas"><i
+                                class="fab fa-linkedin fa-lg"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <h5 class="text-uppercase mb-4">Fonte de Dados</h5>
+                    <p class="text-muted">
+                        Dados de jogos fornecidos pela <a href="https://rawg.io/apidocs" target="_blank" rel="noopener"
+                            class="text-white text-decoration-none">RAWG API</a>.
+                        Um agradecimento especial à RAWG.io pela disponibilidade dos dados para projetos como este.
+                    </p>
+                </div>
+
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <h5 class="text-uppercase mb-4">Navegação Rápida</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white text-decoration-none">Início</a></li>
+                        <li><a href="#jogos-populares" class="text-white text-decoration-none">Jogos Populares</a></li>
+                        <li><a href="#novos-lancamentos" class="text-white text-decoration-none">Novos Lançamentos</a>
+                        </li>
+                        <li><a href="login.html" class="text-white text-decoration-none">Minha Conta</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <h5 class="text-uppercase mb-4">Explore por:</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white text-decoration-none">Gêneros (ex: Ação)</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Plataformas (ex: PC)</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Desenvolvedores</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Editoras</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <hr class="bg-secondary my-4">
+
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="text-muted mb-0">&copy; 2025 JM Games. Todos os direitos reservados. Projeto de Portfólio.
+                    </p>
+                </div>
             </div>
         </div>
     </footer>
@@ -153,11 +215,13 @@
         </div>
     </div>
 
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasFavoritos" aria-labelledby="offcanvasFavoritosLabel">
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasFavoritos"
+        aria-labelledby="offcanvasFavoritosLabel">
         <div class="offcanvas-header bg-warning text-white">
             <h5 class="offcanvas-title" id="offcanvasFavoritosLabel"><i class="bi bi-heart-fill"></i> Seus Favoritos
             </h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
             <ul id="favoritos-lista" class="list-group mb-3">
@@ -168,7 +232,7 @@
             </div>
         </div>
     </div>
-    
+
     <div aria-live="polite" aria-atomic="true" class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100">
         <div id="toastContainer" class="toast-container">
         </div>

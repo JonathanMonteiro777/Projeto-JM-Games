@@ -1,107 +1,175 @@
 /* ============================================================================
-   main.css - Estilos Principais, Responsividade, Acessibilidade e Temas
-   Este arquivo contém as media queries para diferentes tamanhos de tela,
-   estilos para acessibilidade (preferências do usuário, focus states),
-   regras de impressão e o tema Dark Mode. Ele deve ser carregado por último.
-============================================================================ */
+ * @file main.css
+ * @description Contém estilos de animações, responsividade (media queries),
+ * acessibilidade (preferências do usuário, estados de foco), regras de
+ * impressão e o tema Dark Mode. Este arquivo deve ser carregado por último
+ * para garantir que suas regras tenham a maior especificidade.
+ * @version 1.0.0
+ ============================================================================ */
 
 /* --- 1. ANIMAÇÕES E FEEDBACK VISUAL --- */
+/**
+ * @section Animations and Visual Feedback
+ * @description Define keyframes e estilos para animações de validação de
+ * formulário e estados de carregamento.
+ */
 
-/* Feedback de Validação de Formulário */
+/**
+ * @animation Form Validation Feedback
+ * @description Estilos para campos de formulário quando a validação é bem-sucedida.
+ */
 .form-input.is-valid {
+    /** Cor da borda para indicar sucesso. */
     border-color: var(--bs-success);
+    /** Animação de pulso para feedback visual. */
     animation: pulse-success 0.5s ease;
 }
 
+/**
+ * @animation Form Validation Feedback
+ * @description Estilos para campos de formulário quando a validação falha.
+ */
 .form-input.is-invalid {
+    /** Cor da borda para indicar erro. */
     border-color: var(--bs-danger);
+    /** Animação de "shake" para feedback visual. */
     animation: shake 0.5s ease;
 }
 
+/**
+ * @keyframes pulse-success
+ * @description Animação de pulso para o estado de sucesso.
+ */
 @keyframes pulse-success {
     0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.4); }
     70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
     100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
 }
 
+/**
+ * @keyframes shake
+ * @description Animação de tremor para o estado de erro.
+ */
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
     25% { transform: translateX(-5px); }
     75% { transform: translateX(5px); }
 }
 
-/* Estado de Carregamento (Formulários) */
+/**
+ * @animation Loading State (Forms)
+ * @description Estilos para indicar o estado de carregamento de um formulário.
+ */
 .form-loading {
+    /** Posição relativa para o pseudo-elemento de spinner. */
     position: relative;
-    pointer-events: none; /* Desabilita interações durante o loading */
+    /** Desabilita interações durante o estado de carregamento. */
+    pointer-events: none;
+    /** Reduz a opacidade do formulário para indicar o estado. */
     opacity: 0.7;
 }
 
 .form-loading::after {
+    /** Conteúdo vazio para criar o spinner. */
     content: '';
+    /** Posição absoluta para o spinner. */
     position: absolute;
+    /** Centraliza o spinner verticalmente. */
     top: 50%;
+    /** Centraliza o spinner horizontalmente. */
     left: 50%;
+    /** Largura do spinner. */
     width: 20px;
+    /** Altura do spinner. */
     height: 20px;
+    /** Ajusta a margem para centralizar o spinner. */
     margin: -10px 0 0 -10px;
+    /** Borda para criar a forma do spinner. */
     border: 2px solid var(--bs-primary);
+    /** Torna a parte superior da borda transparente para criar o efeito de rotação. */
     border-top-color: transparent;
+    /** Arredonda o spinner para um círculo. */
     border-radius: 50%;
+    /** Animação de rotação contínua. */
     animation: spin 1s linear infinite;
 }
 
+/**
+ * @keyframes spin
+ * @description Animação de rotação para spinners.
+ */
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
 
 /* --- 2. RESPONSIVIDADE (MEDIA QUERIES) --- */
+/**
+ * @section Responsiveness (Media Queries)
+ * @description Define ajustes de estilo para diferentes tamanhos de tela,
+ * garantindo a adaptabilidade do layout e componentes.
+ */
 
-/* Tablet (max-width: 768px) */
+/**
+ * @media Tablet
+ * @description Estilos para telas de tablet (até 768px de largura).
+ */
 @media (max-width: 768px) {
+    /** Reduz a altura máxima das imagens de banner. */
     #section-banners img {
         max-height: 350px;
     }
 
+    /** Ajustes de tamanho de fonte para títulos. */
     h1 { font-size: 2rem; }
     h2 { font-size: 1.5rem; }
     h3 { font-size: 1.3rem; }
     h4 { font-size: 1.1rem; }
     h5 { font-size: 1rem; }
 
+    /** Reduz a altura máxima das imagens de seções como "Novidades" e "Mais Vendidos". */
     #section-novidades img,
     #section-vendidos img {
         max-height: 180px;
     }
 
+    /** Ajustes de tamanho de fonte para elementos de acordeão. */
     .accordion-button,
     .accordion-body {
         font-size: 1rem;
     }
 
+    /** Reduz o preenchimento do rodapé. */
     footer {
         padding: 15px;
     }
 
+    /** Adiciona margem horizontal para contêineres de formulário. */
     .form-container {
         margin: 0 1rem;
     }
 
+    /** Ajusta o preenchimento grande para tablets. */
     .p-xl {
-        padding: 1.5rem; /* Ajuste para p-xl em tablets */
+        padding: 1.5rem;
     }
 }
 
-/* Mobile (max-width: 576px) */
+/**
+ * @media Mobile
+ * @description Estilos para telas de celular (até 576px de largura).
+ */
 @media (max-width: 576px) {
+    /** Reduz a altura da logo no cabeçalho. */
     header .navbar-brand img {
         height: 50px;
     }
 
+    /** Reduz a altura máxima das imagens de banner. */
     #section-banners img {
         max-height: 250px;
     }
 
+    /** Ajustes de tamanho de fonte para texto principal e títulos. */
     .lead { font-size: 0.8rem; }
     h1 { font-size: 1.8rem; }
     h2 { font-size: 1.3rem; }
@@ -110,36 +178,44 @@
     h5 { font-size: 0.9rem; }
     p { font-size: 0.850rem; }
 
+    /** Reduz a altura máxima das imagens de seções como "Novidades" e "Mais Vendidos". */
     #section-novidades img,
     #section-vendidos img {
         max-height: 160px;
     }
 
+    /** Ajustes de tamanho de fonte para elementos de acordeão. */
     .accordion-button,
     .accordion-body {
         font-size: 0.9rem;
     }
 
+    /** Reduz o preenchimento do rodapé. */
     footer {
         padding: 10px;
     }
 
+    /** Ajuste de tamanho de fonte para benefícios de membro. */
     #beneficios-membro {
         font-size: 0.9rem;
     }
 
+    /** Ajuste de tamanho de fonte para o botão de cadastro. */
     #botao-cadastrar button {
         font-size: 0.9rem;
     }
 
+    /** Ajuste de tamanho de fonte para informações de segurança e privacidade. */
     #seguranca-privacidade span {
         font-size: 1rem;
     }
 
+    /** Ajusta o preenchimento grande para celulares. */
     .p-xl {
-        padding: 1rem; /* Ajuste para p-xl em mobiles pequenos */
+        padding: 1rem;
     }
 
+    /** Ajusta a margem inferior para espaçamentos. */
     .spacing-lg {
         margin-bottom: 1.5rem;
     }
@@ -148,43 +224,59 @@
         margin-bottom: 2rem;
     }
 
+    /** Ajustes de preenchimento e margem para contêineres de formulário. */
     .form-container {
         padding: 1.5rem !important;
         margin: 0 0.5rem;
     }
 
+    /** Ajustes de preenchimento e tamanho de fonte para botões gamer. */
     .btn-gamer {
         padding: 0.6rem 1.2rem;
         font-size: 0.9rem;
     }
 
+    /** Ajustes de preenchimento para cards de benefício e segurança. */
     .benefit-card,
     .security-card {
         padding: 1.5rem !important;
     }
 
+    /** Ajustes de tamanho de fonte para ícones em cards de benefício e segurança. */
     .benefit-card i,
     .security-card i {
         font-size: 2rem !important;
     }
 
+    /** Ajustes de preenchimento e tamanho de fonte para inputs de formulário. */
     .form-input {
         padding: 0.6rem 0.8rem;
         font-size: 1rem;
     }
 
+    /** Ajustes de tamanho de fonte para rótulos de formulário. */
     .form-label {
         font-size: 0.9rem;
     }
 }
 
 /* --- 3. ACESSIBILIDADE --- */
+/**
+ * @section Accessibility
+ * @description Define estilos para melhorar a acessibilidade da interface,
+ * incluindo a preferência do usuário por movimento reduzido e estados de foco.
+ */
 
-/* Desabilitar animações para usuários com preferência por movimento reduzido */
+/**
+ * @media Prefers Reduced Motion
+ * @description Desabilita animações para usuários com preferência por movimento reduzido.
+ */
 @media (prefers-reduced-motion: reduce) {
+    /** Remove transições de elementos com classes de transição. */
     .transition-fast,
     .transition-normal,
     .transition-slow,
+    /** Remove transições de cards e botões. */
     .product-hover,
     .benefit-card,
     .security-card,
@@ -194,31 +286,43 @@
         animation: none !important;
     }
 
+    /** Remove transformações de hover para elementos que se movem. */
     .product-hover:hover,
     .benefit-card:hover,
     .security-card:hover {
         transform: none !important;
     }
 
+    /** Ajusta a animação do spinner para ser estática. */
     .form-loading::after {
         animation: none !important;
-        border-right-color: var(--bs-primary) !important;
+        border-right-color: var(--bs-primary) !important; /* Torna a borda visível */
     }
 }
 
-/* Estados de Foco para Acessibilidade (todos os elementos interativos) */
+/**
+ * @component Focus States
+ * @description Define um estilo de contorno claro para elementos interativos
+ * quando estão em foco, melhorando a navegabilidade por teclado.
+ */
 .btn-gamer:focus,
 .form-input:focus,
 .toggle-password:focus,
 .accordion-button:focus,
 #voltar-topo:focus {
+    /** Contorno para indicar foco, com cor primária. */
     outline: 2px solid var(--bs-primary);
+    /** Deslocamento do contorno para fora do elemento. */
     outline-offset: 2px;
 }
 
 /* --- 4. IMPRESSÃO --- */
+/**
+ * @section Print
+ * @description Estilos otimizados para a impressão da página.
+ */
 @media print {
-    /* Remove sombras para impressão limpa */
+    /** Remove sombras para uma impressão mais limpa. */
     .shadow-light,
     .shadow-medium,
     .shadow-strong,
@@ -227,15 +331,16 @@
         box-shadow: none !important;
     }
 
-    /* Ajusta botões para fundo sólido e texto visível */
+    /** Ajusta botões para ter fundo sólido e texto visível na impressão. */
     .btn-gamer {
         background: var(--bs-primary) !important;
         color: white !important;
+        /** Garante que as cores de fundo sejam impressas. */
         -webkit-print-color-adjust: exact;
-        color-adjust: exact;
+        print-color-adjust: exact;
     }
 
-    /* Esconde elementos não essenciais na impressão */
+    /** Esconde elementos não essenciais ou interativos na impressão. */
     #voltar-topo,
     header .navbar,
     footer,
@@ -243,14 +348,22 @@
         display: none !important;
     }
 
-    /* Pode ajustar tamanhos de fonte para melhor legibilidade na impressão */
+    /** Ajusta o tamanho da fonte do corpo para melhor legibilidade na impressão. */
     body {
         font-size: 12pt;
     }
 }
 
 /* --- 5. DARK MODE (Futuro - baseado em preferência do sistema) --- */
+/**
+ * @section Dark Mode
+ * @description Define estilos para o tema escuro, ativado pela preferência
+ * do sistema do usuário (prefers-color-scheme: dark).
+ */
 @media (prefers-color-scheme: dark) {
+    /**
+     * @description Sobrescrita de variáveis CSS para o tema escuro.
+     */
     :root {
         --bs-body-bg: #1a1a1a;
         --bs-body-color: #ffffff;
@@ -258,6 +371,9 @@
         --bs-dark: #ffffff;
     }
 
+    /**
+     * @description Estilos específicos para componentes no Dark Mode.
+     */
     .form-container {
         background: #2d2d2d !important;
         color: white;
@@ -279,6 +395,7 @@
         border-color: #4d4d4d;
         color: white;
     }
+
     .card-title {
         color: white;
     }
@@ -286,6 +403,7 @@
     .navbar {
         background-color: #1a1a1a !important;
     }
+
     .navbar-nav .nav-link {
         color: white !important;
     }
