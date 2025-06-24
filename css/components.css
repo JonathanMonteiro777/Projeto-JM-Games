@@ -1,0 +1,207 @@
+/* ============================================================================
+   components.css - Estilos de Componentes Reutilizáveis
+   Define a aparência de elementos UI que se repetem no site, como botões,
+   cards de produtos, formulários e cards de benefícios/segurança.
+============================================================================ */
+
+/* Botões */
+.btn-gamer {
+    background: var(--gradient-primary);
+    border: none;
+    color: white; /* Cor do texto deve ser branca para contraste com o gradiente primário */
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--form-border-radius);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-gamer:hover {
+    /* Versão mais escura do gradiente para hover.
+       Certifique-se de que o #1557b0 (azul escuro) e #d49c00 (amarelo escuro)
+       ainda funcionem bem como "versões escuras" do seu primário/secundário.
+       Você pode criar uma nova variável para isso se quiser mais controle. */
+    background: linear-gradient(135deg, darken(var(--bs-primary), 10%), darken(var(--bs-info), 10%)); /* Exemplo usando funções CSS se disponíveis, ou defina um gradiente fixo */
+    background: linear-gradient(135deg, #1557b0, #0aa6c2); /* Exemplo: um pouco mais escuro que primary e info */
+    transform: translateY(-2px);
+    /* A sombra precisa se destacar no fundo claro.
+       Usar rgba(0, 0, 0, 0.3) ou uma sombra baseada no primário para um efeito mais suave. */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Sombra mais sutil para o tema claro */
+}
+
+.btn-gamer:active {
+    transform: translateY(0);
+}
+
+/* Cards de Produto */
+.product-card {
+    height: 100%;
+    border-radius: var(--form-border-radius);
+    transition: all 0.3s ease;
+    /* Usar borda para definir o card. O bg-light ou bg-white no HTML já define o fundo. */
+    border: 1px solid var(--bs-light); /* Borda sutil para o tema claro */
+    background-color: var(--bs-light); /* Fundo do card claro */
+    color: var(--bs-body-color); /* Cor do texto padrão do card */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08); /* Sombra suave para card no tema claro */
+}
+
+.product-hover:hover {
+    transform: translateY(-5px);
+    /* Sombra mais pronunciada no hover, ainda adequada para fundo claro. */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Imagens de Produto e Banner */
+/* Mantive o ajuste para .img-produto e .card-img-top conforme discutido acima */
+.img-produto {
+    height: 100px;
+    object-fit: cover;
+    border-radius: var(--form-border-radius) var(--form-border-radius) 0 0;
+}
+
+.img-banner {
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: var(--form-border-radius);
+}
+
+/* Formulários */
+.form-container {
+    /* Já está usando var(--bs-body-bg) no HTML, aqui podemos garantir ou definir um fundo específico se for diferente do body */
+    background: var(--bs-light); /* Fundo claro para o container do formulário */
+    border-radius: var(--form-border-radius);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Sombra suave */
+}
+
+.form-container:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Sombra um pouco mais forte no hover */
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-input {
+    border-radius: var(--form-border-radius);
+    border: 2px solid var(--bs-gray-300, #dee2e6); /* Usar uma cor de borda Bootstrap padrão ou variável customizada */
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+    color: var(--bs-dark); /* Garante que o texto digitado seja escuro */
+    background-color: var(--bs-white, #fff); /* Fundo do input claro */
+}
+
+.form-input:focus {
+    border-color: var(--form-focus-color);
+    box-shadow: var(--form-shadow-focus);
+    transform: translateY(-1px);
+}
+
+.form-label {
+    color: var(--bs-dark); /* Labels devem ser escuras para contraste */
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+/* Campo de Senha com Toggle */
+.toggle-password {
+    border-left: none;
+    /* Se o tema é claro, talvez a cor do botão seja dark ou secondary */
+    background-color: var(--bs-light); /* Fundo claro para o botão de toggle */
+    color: var(--bs-dark); /* Ícone/texto do botão escuro */
+}
+
+.toggle-password:hover {
+    background-color: var(--bs-gray-200, #e9ecef); /* Levemente mais escuro no hover */
+    border-color: var(--bs-primary);
+}
+
+/* Cards de Benefícios e Segurança */
+.benefit-card,
+.security-card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background-color: var(--bs-light); /* Fundo claro para os cards de benefício/segurança */
+    color: var(--bs-body-color); /* Texto escuro */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Sombra suave */
+}
+
+.benefit-card:hover {
+    transform: translateY(-3px);
+    /* Sombra com tom primário, mais suave para o tema claro */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.security-card:hover {
+    transform: translateY(-3px);
+    /* Sombra mais forte no hover, adequada para o tema claro */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* No seu arquivo CSS (ex: style.css) -> Estes estavam no components.css, deixei aqui */
+
+.game-card-link {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); /* Sombra mais suave */
+    border-radius: var(--form-border-radius); /* Garante que o card inteiro tenha o arredondamento */
+}
+
+/* Efeito de zoom no card inteiro ao passar o mouse */
+.game-card-link:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Sombra mais intensa no hover */
+}
+
+.card-link-overlay {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+.view-details-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* Use 'calc(100% - Xpx)' ou ajuste para que cubra a imagem e talvez um pouco do body superior */
+    /* Para cobrir a imagem inteira, você pode basear isso na altura da imagem definida em .card-img-top */
+    height: 220px; /* Ajuste para ser a mesma altura de .card-img-top */
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 2;
+    pointer-events: none;
+    border-radius: var(--form-border-radius) var(--form-border-radius) 0 0; /* Herda o border-radius da parte superior do card */
+}
+
+/* Exibe o overlay de "Ver Detalhes" no hover do card */
+.game-card-link:hover .view-details-overlay {
+    opacity: 1;
+}
+
+/* Para garantir que a imagem não seja distorcida e cubra o espaço */
+.card-img-top {
+    width: 100%; /* Garante que a imagem ocupe toda a largura disponível no card */
+    height: 220px; /* Ajuste a altura conforme a necessidade do seu design e para evitar cortes */
+    object-fit: cover; /* Recorta a imagem para cobrir o espaço, mantendo a proporção */
+    border-radius: var(--form-border-radius) var(--form-border-radius) 0 0; /* Arredonda apenas os cantos superiores */
+}
+
+/* Ajustes para o card-body se houver espaço extra */
+.card-body {
+    padding-bottom: 0 !important;
+    background-color: var(--bs-light); /* Fundo claro para o corpo do card */
+    color: var(--bs-dark); /* Texto escuro para o corpo do card */
+}

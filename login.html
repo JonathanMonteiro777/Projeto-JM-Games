@@ -3,20 +3,26 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JM Games - login</title>
+    <title>JM Games - Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/estilo.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="css/_variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
     <header>
-        <!-- cabeçalho menu de navegação -->
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg bg-gradient-dark shadow-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html"><img src="img/logo.png" alt="logo"></a>
+                <a class="navbar-brand" href="index.html">
+                    <img src="img/logo.png" alt="logo" class="transition-fast">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -25,7 +31,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Promoções</a>
+                            <a class="nav-link" href="index.html">Início</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Promoções</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Console</a>
@@ -33,159 +42,215 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Jogos</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="login.html">Login</a>
+                        <li class="nav-item" id="loginNavItem">
+                            <a class="nav-link active" aria-current="page" href="login.html" id="loginLink">Login</a>
+                        </li>
+                        <li class="nav-item" id="logoutNavItem" style="display: none;">
+                            <a class="nav-link" href="#" id="logoutButton">Sair</a>
                         </li>
                     </ul>
                     <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="O que deseja buscar"
+                        <input class="form-control me-2 transition-fast" type="search" placeholder="O que deseja buscar"
                             aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit"> Buscar</button>
+                        <button class="btn btn-gamer" type="submit">Buscar</button>
                     </form>
                 </div>
             </div>
         </nav>
     </header>
 
-    <main>
-        <!-- formulário de login -->
-        <section id="form-login">
-
-            <h1>Login</h1>
-
+    <main class="my-5"> <section id="login-section" class="container rounded shadow-medium">
+            <div class="text-center p-4"> <h1 class="fw-bold spacing-lg text-primary"> Faça seu Login </h1>
+            </div>
             <div class="d-flex justify-content-center">
-                <form method="post" action="" id="login">
-                    <p>
-                        <!-- nome -->
-                        <label for="usuario">Nome: </label>
-                        <input id="usuario-login" name="-login-usuario" required="required" type="text"
-                            placeholder="Insira o seu usuário" class="form-control" />
-                    </p>
-                    <p>
-                        <!-- senha -->
-                        <label for="senha">Senha: </label>
-                        <input id="senha-login" name="senha" required="required" type="password"
-                            placeholder="Insira a sua senha" class="form-control" />
-                    </p>
-                    <p>
-                        <input type="button" value="login" class="btn btn-primary" id="bt-login" onclick="login()" />
-                    </p>
-                </form>
-            </div>
-        </section>
+                <div class="form-container shadow-light rounded p-4 bg-white" style="max-width: 400px; width: 100%;">
+                    <form method="post" action="" id="loginForm">
+                        <div class="form-group spacing-md">
+                            <label for="loginEmail" class="form-label fw-semibold">
+                                <i class="bi bi-person-fill me-2 text-primary"></i>E-mail:
+                            </label>
+                            <input id="loginEmail" name="login-email" required type="email"
+                                placeholder="Insira o seu e-mail" class="form-control form-input transition-fast" />
+                            <div class="invalid-feedback">
+                                <i class="bi bi-exclamation-triangle-fill me-1"></i>Por favor, insira um e-mail válido.
+                            </div>
+                            <div class="valid-feedback">
+                                <i class="bi bi-check-circle-fill me-1"></i>E-mail válido!
+                            </div>
+                        </div>
 
-        <!-- formulário de cadastro -->
-        <section id="form-cadastro">
+                        <div class="form-group spacing-md">
+                            <label for="loginPassword" class="form-label fw-semibold">
+                                <i class="bi bi-lock-fill me-2 text-primary"></i>Senha:
+                            </label>
+                            <div class="input-group">
+                                <input id="loginPassword" name="login-password" required type="password"
+                                    placeholder="Insira a sua senha"
+                                    class="form-control form-input transition-fast" />
+                                <button class="btn btn-outline-secondary toggle-password transition-fast" type="button"
+                                    data-target="loginPassword" title="Mostrar/ocultar senha">
+                                    <i class="bi bi-eye-slash"></i>
+                                </button>
+                            </div>
+                            <div class="invalid-feedback">
+                                <i class="bi bi-exclamation-triangle-fill me-1"></i>Por favor, insira sua senha.
+                            </div>
+                            <div class="valid-feedback">
+                                <i class="bi bi-check-circle-fill me-1"></i>Senha válida!
+                            </div>
+                        </div>
 
-            <div id="botao-cadastrar">
-                <button type="button" class="btn btn-info">Não é cadastrado ainda? Cadastre-se</button>
-            </div>
-            <div id="form-cadastrar">
+                        <div class="d-grid gap-2 spacing-md">
+                            <button type="submit" class="btn btn-gamer btn-lg">
+                                <i class="bi bi-box-arrow-in-right me-2"></i>Entrar
+                            </button>
+                        </div>
 
-                <h1>Criar minha conta</h1>
-                <p>Informe os seus dados abaixo para criar sua conta.</p>
-
-                <div class="d-flex justify-content-center">
-                    <form method="post" action="" id="login">
-                        <p>
-                            <label for="usuario">Usuário: </label>
-                            <input id="usuario-cadastro" name="usuario" required="required" type="text"
-                                placeholder="ex. nome de usuário" class="form-control" />
-                        </p>
-                        <p>
-                            <label for="email">E-mail: </label>
-                            <input id="email" name="email" required="required" type="email"
-                                placeholder="seu@email.com.br" class="form-control" />
-                        </p>
-                        <p>
-                            <label for="senha">Senha: </label>
-                            <input id="senha-cadastro" name="senha" required="required" type="password"
-                                placeholder="mínimo de 6 caracteres" class="form-control" />
-                        </p>
-                        <p>
-                            <input type="button" value="Cadastrar" class="btn btn-primary" id="bt-cadastrar"
-                                onclick="cadastro()" />
-                        </p>
+                        <div class="text-center spacing-lg">
+                            <hr class="my-3">
+                            <p class="text-muted">Ainda não tem conta?</p>
+                            <button type="button" class="btn btn-outline-success btn-lg transition-normal"
+                                id="showRegisterLink">
+                                <i class="bi bi-person-plus-fill me-2"></i>Criar Conta
+                            </button>
+                        </div>
                     </form>
                 </div>
-
             </div>
         </section>
 
-        <!-- section-linguagens -->
-        <section id="section-linguagens" class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2 class="text-center">Desenvolvimento da Página de Login</h2>
 
-                    <p class="text-center">A página de login foi desenvolvida utilizando as seguintes tecnologias:</p>
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <strong>HTML:</strong> Estrutura básica da página, com a criação dos formulários de login e
-                            cadastro.
-                            Utilizando tags como <code>form</code>, <code>label</code>, <code>input</code>, entre
-                            outras, para estruturar os campos de entrada e interações básicas.
-                        </li>
-                        <li class="list-group-item">
-                            <strong>CSS:</strong> Estilização da página, utilizando o framework
-                            <strong>Bootstrap</strong> para a responsividade e um design moderno.
-                            Foram utilizadas classes como <code>d-flex</code>, <code>justify-content-center</code>,
-                            <code>form-control</code> e <code>btn</code> para layout e aparência.
-                            Também é possível personalizar o estilo adicional com um arquivo CSS externo (como
-                            <code>estilo.css</code>).
-                        </li>
-                        <li class="list-group-item">
-                            <strong>JavaScript:</strong> Interação com o usuário. As funções <code>login()</code> e
-                            <code>cadastro()</code> são responsáveis pela simulação de autenticação e registro de
-                            usuários, respectivamente.
-                            Elas são chamadas ao clicar nos botões "Login" e "Cadastrar", usando o atributo
-                            <code>onclick</code>. Não há integração com banco de dados neste projeto.
-                        </li>
-                        <li class="list-group-item">
-                            <strong>jQuery:</strong> Biblioteca JavaScript utilizada para manipular o DOM de forma mais
-                            simples e rápida.
-                            Está presente para controlar a exibição dos formulários de login/cadastro e o botão "Voltar
-                            ao Topo", usando seletores e eventos com facilidade.
-                        </li>
-                        <li class="list-group-item">
-                            <strong>Bootstrap:</strong> Utilizado via CDN, é o framework principal de estilização visual
-                            e responsividade.
-                            Com ele, garantimos que a interface se adapte a diferentes tamanhos de tela e mantenha uma
-                            aparência moderna e consistente.
-                        </li>
-                    </ul>
+        <section id="register-section" class="container rounded shadow-medium" style="display: none;">
+            <div class="text-center p-4"> <h1 class="fw-bold spacing-md text-primary"> Criar Minha Conta </h1>
+                <p class="lead text-muted spacing-md">
+                    Informe os seus dados abaixo para criar sua conta e começar a jogar!
+                </p>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="form-container shadow-light rounded p-4 bg-white"
+                    style="max-width: 450px; width: 100%;">
+                    <form method="post" action="" id="registerForm">
+                        <div class="form-group spacing-md">
+                            <label for="registerName" class="form-label fw-semibold">
+                                <i class="bi bi-person-badge-fill me-2 text-primary"></i>Nome de Usuário:
+                            </label>
+                            <input id="registerName" name="register-name" required type="text"
+                                placeholder="ex. gamer123" class="form-control form-input transition-fast" />
+                            <div class="invalid-feedback">
+                                <i class="bi bi-exclamation-triangle-fill me-1"></i>Por favor, insira seu nome de
+                                usuário.
+                            </div>
+                            <div class="valid-feedback">
+                                <i class="bi bi-check-circle-fill me-1"></i>Nome de usuário válido!
+                            </div>
+                        </div>
 
-                    <p class="text-center mt-4">
-                        Este projeto é uma introdução ao desenvolvimento web com foco em front-end, ideal para quem está
-                        começando a praticar HTML, CSS, JavaScript e jQuery, além de incorporar o uso de frameworks como
-                        Bootstrap.
-                    </p>
+
+                        <div class="form-group spacing-md">
+                            <label for="registerEmail" class="form-label fw-semibold">
+                                <i class="bi bi-envelope-fill me-2 text-primary"></i>E-mail:
+                            </label>
+                            <input id="registerEmail" name="register-email" required type="email"
+                                placeholder="seu@email.com" class="form-control form-input transition-fast" />
+                            <div class="invalid-feedback">
+                                <i class="bi bi-exclamation-triangle-fill me-1"></i>Por favor, insira um e-mail válido.
+                            </div>
+                            <div class="valid-feedback">
+                                <i class="bi bi-check-circle-fill me-1"></i>E-mail válido!
+                            </div>
+                        </div>
+
+                        <div class="form-group spacing-md">
+                            <label for="registerPassword" class="form-label fw-semibold">
+                                <i class="bi bi-shield-lock-fill me-2 text-primary"></i>Senha:
+                            </label>
+                            <div class="input-group">
+                                <input id="registerPassword" name="register-password" required type="password"
+                                    placeholder="mínimo de 6 caracteres"
+                                    class="form-control form-input transition-fast" />
+                                <button class="btn btn-outline-secondary toggle-password transition-fast" type="button"
+                                    data-target="registerPassword" title="Mostrar/ocultar senha">
+                                    <i class="bi bi-eye-slash"></i>
+                                </button>
+                            </div>
+                            <div class="invalid-feedback">
+                                <i class="bi bi-exclamation-triangle-fill me-1"></i>A senha deve ter no mínimo 6
+                                caracteres.
+                            </div>
+                            <div class="valid-feedback">
+                                <i class="bi bi-check-circle-fill me-1"></i>Senha válida!
+                            </div>
+                        </div>
+
+                        <div class="form-group spacing-md">
+                            <label for="registerConfirmPassword" class="form-label fw-semibold">
+                                <i class="bi bi-check-circle-fill me-2 text-primary"></i>Confirmar Senha:
+                            </label>
+                            <div class="input-group">
+                                <input id="registerConfirmPassword" name="confirm-password" required type="password"
+                                    placeholder="Confirme sua senha"
+                                    class="form-control form-input transition-fast" />
+                                <button class="btn btn-outline-secondary toggle-password transition-fast" type="button"
+                                    data-target="registerConfirmPassword" title="Mostrar/ocultar senha">
+                                    <i class="bi bi-eye-slash"></i>
+                                </button>
+                            </div>
+                            <div class="invalid-feedback">
+                                <i class="bi bi-exclamation-triangle-fill me-1"></i>As senhas não coincidem.
+                            </div>
+                            <div class="valid-feedback">
+                                <i class="bi bi-check-circle-fill me-1"></i>Senhas coincidem!
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 spacing-lg">
+                            <button type="submit" class="btn btn-gamer btn-lg">
+                                <i class="bi bi-rocket-takeoff-fill me-2"></i>Criar Conta
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
+
+            <div class="text-center mt-4"> <button type="button" class="btn btn-outline-secondary btn-lg spacing-lg transition-normal"
+                    id="showLoginLink">
+                    <i class="bi bi-arrow-left-circle-fill me-2"></i>Voltar ao Login
+                </button>
+            </div>
         </section>
-
-
     </main>
 
-    <!-- botão voltar ao topo -->
-    <button id="voltar-topo" type="button" class="btn btn-outline-primary" onclick="topo()">&uarr; Voltar ao
-        topo</button>
+    <button id="voltar-topo" type="button" class="btn btn-primary shadow-medium" onclick="topo()"
+        title="Voltar ao topo">
+        <i class="bi bi-arrow-up-circle-fill"></i>
+    </button>
 
-    <!-- rodapé -->
-    <footer>
-        <p>Desenvolvido por JM Games</p>
+    <footer class=" text-white text-center py-3 mt-5">
+        <div class="container">
+            <p class="fw-bold mb-0">Desenvolvido por Jonathan Monteiro &copy; 2025</p>
+            <p class="fw-bold mb-0">Todos os direitos reservados à JM Games.</p>
+
+            <p class="mb-0 mt-2">Dados fornecidos por <a href="https://rawg.io/" target="_blank" rel="noopener"
+                    class="text-white text-decoration-underline">RAWG.io</a></p>
+            <div class="social-icons mt-2">
+                <a href="https://www.linkedin.com/in/jonathan-lucas-34684a1a4" class="text-white mx-2 transition-fast"
+                    title="LinkedIn"><i class="bi bi-linkedin fs-4"></i></a>
+                <a href="https://www.instagram.com/jonathanlucas777/" class="text-white mx-2 transition-fast"
+                    title="Instagram"><i class="bi bi-instagram fs-4"></i></a>
+                <a href="https://wa.me/5537991042878" class="text-white mx-2 transition-fast" title="WhatsApp"><i
+                        class="bi bi-whatsapp fs-4"></i></a>
+            </div>
+        </div>
     </footer>
-
-
 </body>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
     crossorigin="anonymous"></script>
-
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
     crossorigin="anonymous"></script>
-<script type="text/javascript" src="js/jquery-script.js"></script>
-
-<script src="js/script.js"></script>
+<script src="js/jquery-script.js"></script>
+<script type="module" src="js/login-page.js"></script>
+<script type="module" src="js/main.js"></script>
 
 </html>

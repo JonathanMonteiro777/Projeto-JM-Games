@@ -6,65 +6,115 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JM Games</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap"
+    rel="stylesheet">
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-  <link rel="stylesheet" href="css/estilo.css">
-
-
-
+  <link rel="stylesheet" href="css/_variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/main.css">
 </head>
 
-<body class="main-container">
-  <!-- cabeçalho -->
+<body class="bg-light text-dark">
   <header>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-primary shadow-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="index.html"><img src="img/logo.png" alt="logo"></a>
+        <a class="navbar-brand" href="index.html">
+          <img src="img/logo.png" alt="logo" class="transition-fast">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Promoções</a>
+              <a class="nav-link text-white active" aria-current="page" href="index.html">Início</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#">Populares</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#">Lançamentos</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link text-white" href="login.html" id="loginLink">Entrar</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Console</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Jogos</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="login.html">Login</a>
+              <a class="nav-link text-white" href="#" id="logoutButton" style="display: none;">Sair</a>
             </li>
           </ul>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="O que deseja buscar" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit"> Buscar</button>
-          </form>
+
+          <ul class="navbar-nav mb-2 mb-lg-0 ms-lg-2">
+            <li class="nav-item">
+              <a class="nav-link position-relative text-white" href="#" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasCarrinho" aria-controls="offcanvasCarrinho">
+                <i class="bi bi-cart fs-4"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                  id="cart-item-count">
+                  0
+                  <span class="visually-hidden">itens no carrinho</span>
+                </span>
+              </a>
+            </li>
+            <li class="nav-item ms-2"> <a class="nav-link position-relative text-white" href="#"
+                data-bs-toggle="offcanvas" data-bs-target="#offcanvasFavoritos" aria-controls="offcanvasFavoritos">
+                <i class="bi bi-heart fs-4"></i> <span
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning"
+                  id="favorite-item-count">
+                  0 <span class="visually-hidden">itens favoritos</span>
+                </span>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
   </header>
-  <!-- conteúdo principal -->
+
   <main>
 
-    <!-- section-banners -->
-    <section id="section-banners" class="container-fluid">
-
-      <div id="carouselExample" class="carousel slide">
+    <section id="section-banners" class="container-fluid shadow-medium">
+      <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active"
+            aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="img/banner1.PNG" class="d-block w-100" alt="Venha comprar na nossa Loja">
+            <img src="img/banner-1.PNG" class="d-block w-100 img-banner" alt="Explore e Encontre seus Jogos Favoritos">
+            <div class="carousel-caption d-none d-md-block text-white">
+              <h5>Milhares de Jogos ao seu Alcance!</h5>
+              <p class="text-lg">Use nossa busca avançada e filtros para encontrar seu próximo vício.</p>
+            </div>
           </div>
           <div class="carousel-item">
-            <img src="img/banner2.PNG" class="d-block w-100" alt="Promoção de produtos">
+            <img src="img/banner-2.jpg" class="d-block w-100 img-banner" alt="Descubra Novidades e Destaques">
+            <div class="carousel-caption d-none d-md-block text-white">
+              <h5>Novidades Diárias!</h5>
+              <p class="text-lg">Explore os últimos lançamentos e os jogos mais comentados do momento.</p>
+            </div>
           </div>
           <div class="carousel-item">
-            <img src="img/banner3.PNG" class="d-block w-100" alt="Várias novidades de produtos">
+            <img src="img/banner-3.jpg" class="d-block w-100 img-banner" alt="Sua Jornada Gamer Começa Aqui">
+            <div class="carousel-caption d-none d-md-block text-whitw">
+              <h5>Filtre por Gênero e Plataforma!</h5>
+              <p class="text-lg">Encontre exatamente o que procura, de RPG a Ação, para PC, PlayStation e mais.</p>
+            </div>
           </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
@@ -78,139 +128,296 @@
       </div>
     </section>
 
-    
-    <!-- section-apresentacao -->
-    <section id="section-apresentacao" class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <h2 class="text-center">Sua porta de entrada para o mundo dos games!</h2>
-          <p class="text-center">Bem-vindo à JM Games, sua loja online completa para encontrar os melhores jogos,
-            consoles e acessórios! Aqui você encontra tudo o que precisa para ter uma experiência de jogo incrível. </p>
-          <h3 class="text-center">Navegue pelo nosso carrossel interativo!</h3>
-          <p class="text-center">Explore nossas ofertas e novidades imperdíveis através do nosso carrossel interativo,
-            com imagens e textos que te levarão direto para o mundo dos games. Descubra os lançamentos mais quentes,
-            promoções exclusivas e muito mais! Clique nas setas para navegar entre as ofertas e encontre o que você
-            procura.</p>
-        </div>
-      </div>
-
-      <div class="row mt-4">
-        <div class="col-md-12">
-          <h3 class="text-center">Por que escolher a JM Games?</h3>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item text-center">🎮 <strong>Catálogo completo:</strong> Títulos para PlayStation,
-              Xbox, Nintendo e PC.</li>
-            <li class="list-group-item text-center">🚀 <strong>Entrega rápida:</strong> Enviamos seu pedido em até 24
-              horas úteis!</li>
-            <li class="list-group-item text-center">💳 <strong>Pagamento facilitado:</strong> Parcelamento sem juros no
-              cartão ou desconto no pix.</li>
-            <li class="list-group-item text-center">🛡️ <strong>Compra segura:</strong> Ambiente 100% protegido com
-              criptografia SSL.</li>
-            <li class="list-group-item text-center">📞 <strong>Suporte personalizado:</strong> Atendimento via WhatsApp,
-              e-mail e chat.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="row mt-4">
-        <div class="col-md-12 text-center">
-          <h4>📢 Aproveite agora e garanta os melhores jogos com desconto exclusivo de lançamento!</h4>
-          <a href="#section-vendidos" class="btn btn-success mt-3">Ver Promoções</a>
+    <section id="section-ranking" class="container-fluid py-5 bg-light">
+      <div class="container">
+        <h1 class="text-center fw-bold mb-4 text-primary">Jogos em Destaque</h1>
+        <div id="ranking-games-container" class="row justify-content-center">
         </div>
       </div>
     </section>
 
-
-    <!-- section-vendidos -->
-<section id="section-vendidos" class="container-fluid py-5 bg-light">
-  <div class="container">
-    <h2 class="text-center mb-4">🔥 OS MAIS VENDIDOS 🔥</h2>
-    <p class="text-center mb-5">
-      Estes são os jogos preferidos da galera! Atualizamos nossa lista com base nas vendas e avaliações dos nossos clientes.
-      Garanta já o seu antes que acabe!
-    </p>
-
-    <div class="card-group">
-      <div class="card mx-2 border border-primary">
-        <img src="img/jogo1.PNG" class="card-img-top" alt="Descrição da foto">
-        <div class="card-body text-center">
-          <h5 class="card-title">Jogo 1</h5>
-          <p class="card-text">Jogo do ano com gráficos incríveis e jogabilidade envolvente.</p>
-          <p class="preco fw-bold text-success">R$ 98,00</p>
-          <p class="text-warning">⭐⭐⭐⭐☆ (4.5/5)</p>
-          <a href="#" class="btn btn-primary">Comprar</a>
-        </div>
-      </div>
-
-      <div class="card mx-2 border border-primary">
-        <img src="img/jogo2.PNG" class="card-img-top" alt="Descrição da foto">
-        <div class="card-body text-center">
-          <h5 class="card-title">Jogo 2</h5>
-          <p class="card-text">Uma continuação épica com novos desafios e modos multiplayer.</p>
-          <p class="preco fw-bold text-success">R$ 143,99</p>
-          <p class="text-warning">⭐⭐⭐⭐⭐ (5/5)</p>
-          <a href="#" class="btn btn-primary">Comprar</a>
-        </div>
-      </div>
-
-      <div class="card mx-2 border border-primary">
-        <img src="img/jogo3.PNG" class="card-img-top" alt="Descrição da foto">
-        <div class="card-body text-center">
-          <h5 class="card-title">Jogo 3</h5>
-          <p class="card-text">Aventura intensa em um mundo aberto cheio de segredos.</p>
-          <p class="preco fw-bold text-success">R$ 115,00</p>
-          <p class="text-warning">⭐⭐⭐⭐☆ (4.3/5)</p>
-          <a href="#" class="btn btn-primary">Comprar</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="text-center mt-5">
-      <a href="#section-catalogo" class="btn btn-outline-dark">Ver Todos os Produtos</a>
-    </div>
-  </div>
-</section>
-
-    <!-- section-linguagens -->
-    <section id="section-linguagens" class="container">
+    <section id="beneficios-membro" class="container p-xl bg-primary rounded shadow-medium text-white">
       <div class="row">
-        <div class="col-md-12">
-          <h2 class="text-center">Desenvolvimento da Página Inicial</h2>
+        <div class="col-md-10 mx-auto text-center">
+          <h2 class="spacing-lg"> Descubra as Vantagens da JM Games! </h2>
+          <p class="lead spacing-md">
+            Explore um universo de jogos e personalize sua experiência. No JM Games, você tem:
+          </p>
 
-          <p class="text-center">A página inicial foi desenvolvida utilizando:</p>
-          <ul class="list-group">
-            <li class="list-group-item"><strong>HTML:</strong> Estrutura básica da página, com a criação
-              das seções de apresentação, carrossel de banners, "Os Mais Vendidos" e sobre o
-              desenvolvimento. Utilizando tags como `section`, `div`, `h1`, `p`, `img`, `ul`, `li`,
-              `a`, etc.</li>
-            <li class="list-group-item"><strong>CSS:</strong> Estilização da página, utilizando
-              Bootstrap para a responsividade e um design moderno. Classes como `container`, `row`,
-              `col-md-12`, `text-center`, `card`, `card-group`, `card-img-top`, `card-body`, `btn`,
-              `btn-primary`, etc., foram utilizadas para formatar os elementos.</li>
-            <li class="list-group-item"><strong>JavaScript:</strong> Interação com o usuário, incluindo
-              a
-              implementação do carrossel (utilizando o Bootstrap Carousel) e o botão "Voltar ao
-              Topo".
-            </li>
-          </ul>
+          <div class="row row-cols-1 row-cols-md-2 g-3 spacing-lg">
+            <div class="col">
+              <div class="benefit-card p-3 rounded shadow-light bg-light h-100 transition-fast text-dark">
+                <i class="bi bi-search fs-1 text-primary mb-2"></i>
+                <h5 class="fw-bold">Busca Avançada</h5>
+                <p class="text-sm">Encontre rapidamente qualquer jogo por nome, gênero ou plataforma.</p>
+              </div>
+            </div>
+            <div class="col">
+              <div class="benefit-card p-3 rounded shadow-light bg-light h-100 transition-fast text-dark">
+                <i class="bi bi-bookmark-star-fill fs-1 text-warning mb-2"></i>
+                <h5 class="fw-bold">Favoritos Personalizados</h5>
+                <p class="text-sm">Salve os jogos que mais te interessam para acessar depois.</p>
+              </div>
+            </div>
+            <div class="col">
+              <div class="benefit-card p-3 rounded shadow-light bg-light h-100 transition-fast text-dark">
+                <i class="bi bi-filter-circle-fill fs-1 text-info mb-2"></i>
+                <h5 class="fw-bold">Filtros Inteligentes</h5>
+                <p class="text-sm">Refine sua pesquisa por gênero, plataforma, avaliação e mais.</p>
+              </div>
+            </div>
+            <div class="col">
+              <div class="benefit-card p-3 rounded shadow-light bg-light h-100 transition-fast text-dark">
+                <i class="bi bi-collection-fill fs-1 text-success mb-2"></i>
+                <h5 class="fw-bold">Biblioteca em Crescimento</h5>
+                <p class="text-sm">Acesso a um catálogo atualizado diariamente pela API RAWG.</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="spacing-lg lead">
+            <strong>Comece sua jornada gamer agora!</strong> A JM Games é o seu portal para o mundo dos jogos.
+          </p>
         </div>
       </div>
     </section>
 
+    <section id="seguranca-privacidade" class="container p-xl rounded shadow-medium bg-white text-dark">
+      <div class="row">
+        <div class="col-md-10 mx-auto text-center">
+          <h2 class="spacing-md"> Dados Confiáveis da API RAWG.io </h2>
+          <p class="lead spacing-md">
+            Na JM Games, a informação é a chave. Conte com dados precisos e atualizados diretamente da fonte:
+          </p>
 
+          <div class="row row-cols-1 row-cols-md-3 g-3 spacing-lg">
+            <div class="col">
+              <div class="security-card p-4 rounded shadow-light bg-info text-dark h-100 transition-fast">
+                <i class="bi bi-database-fill fs-1 mb-3"></i>
+                <h5 class="fw-bold">Base de Dados Abrangente</h5>
+                <p class="text-sm">Milhares de jogos, históricos e detalhes.</p>
+              </div>
+            </div>
+            <div class="col">
+              <div class="security-card p-4 rounded shadow-light bg-info text-dark h-100 transition-fast">
+                <i class="bi bi-clock-history fs-1 mb-3"></i>
+                <h5 class="fw-bold">Atualizações Constantes</h5>
+                <p class="text-sm">Novos jogos e informações em tempo real.</p>
+              </div>
+            </div>
+            <div class="col">
+              <div class="security-card p-4 rounded shadow-light bg-info text-dark h-100 transition-fast">
+                <i class="bi bi-lightbulb-fill fs-1 mb-3"></i>
+                <h5 class="fw-bold">Informações Detalhadas</h5>
+                <p class="text-sm">Dados técnicos, avaliações, plataformas e muito mais.</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="spacing-lg">
+            Todos os dados de jogos, imagens e informações são fornecidos pela <a href="https://rawg.io/"
+              target="_blank" rel="noopener" class="text-primary text-decoration-underline">RAWG.io</a>.
+            <br>
+            <a href="#" class="text-secondary text-decoration-underline transition-fast">
+              <i class="bi bi-info-circle-fill me-1"></i>Saiba mais sobre a RAWG.io
+            </a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="container p-xl bg-light text-dark">
+      <h2 class="text-center mb-4 text-primary">Dúvidas Frequentes sobre a JM Games</h2>
+      <div class="accordion shadow-light" id="faqAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faqHeading1">
+            <button class="accordion-button transition-fast" type="button" data-bs-toggle="collapse"
+              data-bs-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1">
+              O que é a JM Games?
+            </button>
+          </h2>
+          <div id="faqCollapse1" class="accordion-collapse collapse show" aria-labelledby="faqHeading1"
+            data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              A JM Games é uma plataforma de busca e descoberta de jogos, utilizando a API da RAWG.io para fornecer
+              informações detalhadas sobre milhares de títulos. Nosso objetivo é ajudar você a encontrar seu próximo
+              jogo favorito de forma rápida e eficiente.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faqHeading2">
+            <button class="accordion-button collapsed transition-fast" type="button" data-bs-toggle="collapse"
+              data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+              De onde vêm os dados dos jogos?
+            </button>
+          </h2>
+          <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faqHeading2"
+            data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Todos os dados sobre jogos, como títulos, descrições, imagens, plataformas e gêneros, são obtidos
+              diretamente da <a href="https://rawg.io/" target="_blank" rel="noopener">API RAWG.io</a>, uma das maiores
+              bases de dados de jogos do mundo.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faqHeading3">
+            <button class="accordion-button collapsed transition-fast" type="button" data-bs-toggle="collapse"
+              data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+              Como faço para buscar um jogo?
+            </button>
+          </h2>
+          <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faqHeading3"
+            data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Use a barra de busca no topo da página para digitar o nome do jogo. Você também pode utilizar os filtros
+              por gênero e plataforma para refinar sua pesquisa e encontrar exatamente o que procura.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faqHeading4">
+            <button class="accordion-button collapsed transition-fast" type="button" data-bs-toggle="collapse"
+              data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
+              Posso adicionar jogos aos favoritos?
+            </button>
+          </h2>
+          <div id="faqCollapse4" class="accordion-collapse collapse" aria-labelledby="faqHeading4"
+            data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Sim! Ao lado de cada card de jogo, você encontrará um botão de coração. Clique nele para adicionar o jogo
+              à sua lista de favoritos e acessá-lo facilmente a qualquer momento através do ícone de coração no
+              cabeçalho.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faqHeading5">
+            <button class="accordion-button collapsed transition-fast" type="button" data-bs-toggle="collapse"
+              data-bs-target="#faqCollapse5" aria-expanded="false" aria-controls="faqCollapse5">
+              A JM Games vende jogos?
+            </button>
+          </h2>
+          <div id="faqCollapse5" class="accordion-collapse collapse" aria-labelledby="faqHeading5"
+            data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Não, a JM Games é uma plataforma de busca e informação. Não realizamos vendas diretas de jogos. Nosso
+              objetivo
+              é te ajudar a descobrir e organizar suas pesquisas de jogos. O carrinho e a funcionalidade de "compra" são
+              exemplos de UX para um projeto de portfólio.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
+  <button id="voltar-topo" type="button" class="btn btn-primary shadow-medium" onclick="scrollToTop()"
+    title="Voltar ao topo">
+    <i class="bi bi-arrow-up"></i>
+  </button>
 
-  <button id="voltar-topo" type="button" class="btn btn-outline-primary" onclick="topo()">&uarr; Voltar ao topo</button>
-
-  <!-- rodapé -->
   <footer>
-    <p>Desenvolvido por Jonatnha Monteiro</p>
+    <div class="container py-5">
+      <div class="row">
+
+        <div class="col-md-3 col-sm-6 mb-4">
+          <h5 class="text-uppercase mb-4">JM Games</h5>
+          <p class="text-muted">
+            Um projeto de portfólio que simula uma loja virtual de games,
+            desenvolvido por [Seu Nome/Link para Portfólio].
+            Focado em JavaScript moderno, UX/UI e integração de API.
+          </p>
+          <div class="social-links mt-3">
+            <a href="https://github.com/JonathanMonteiro777" target="_blank" rel="noopener" class="text-white me-2" title="GitHub de Jonathan Monteiro"><i
+                class="fab fa-github fa-lg"></i></a>
+            <a href="https://www.linkedin.com/in/jonathan-lucas-34684a1a4" target="_blank" rel="noopener" class="text-white" title="LinkedIn de Jonathan Lucas"><i
+                class="fab fa-linkedin fa-lg"></i></a>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-4">
+          <h5 class="text-uppercase mb-4">Fonte de Dados</h5>
+          <p class="text-muted">
+            Dados de jogos fornecidos pela <a href="https://rawg.io/apidocs" target="_blank" rel="noopener"
+              class="text-white text-decoration-none">RAWG API</a>.
+            Um agradecimento especial à RAWG.io pela disponibilidade dos dados para projetos como este.
+          </p>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-4">
+          <h5 class="text-uppercase mb-4">Navegação Rápida</h5>
+          <ul class="list-unstyled">
+            <li><a href="index.html" class="text-white text-decoration-none">Início</a></li>
+            <li><a href="#jogos-populares" class="text-white text-decoration-none">Jogos Populares</a></li>
+            <li><a href="#novos-lancamentos" class="text-white text-decoration-none">Novos Lançamentos</a></li>
+            <li><a href="login.html" class="text-white text-decoration-none">Minha Conta</a></li>
+          </ul>
+        </div>
+
+        <div class="col-md-3 col-sm-6 mb-4">
+          <h5 class="text-uppercase mb-4">Explore por:</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white text-decoration-none">Gêneros (ex: Ação)</a></li>
+            <li><a href="#" class="text-white text-decoration-none">Plataformas (ex: PC)</a></li>
+            <li><a href="#" class="text-white text-decoration-none">Desenvolvedores</a></li>
+            <li><a href="#" class="text-white text-decoration-none">Editoras</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <hr class="bg-secondary my-4">
+
+      <div class="row">
+        <div class="col-12 text-center">
+          <p class="text-muted mb-0">&copy; 2025 JM Games. Todos os direitos reservados. Projeto de Portfólio.</p>
+        </div>
+      </div>
+    </div>
   </footer>
 
-
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCarrinho" aria-labelledby="offcanvasCarrinhoLabel">
+    <div class="offcanvas-header bg-primary text-white">
+      <h5 class="offcanvas-title" id="offcanvasCarrinhoLabel"><i class="bi bi-cart"></i> Seu Carrinho</h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body bg-light text-dark">
+      <ul id="carrinho-lista" class="list-group mb-3">
+        <li class="list-group-item text-center">Seu carrinho está vazio.</li>
+      </ul>
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h6 class="mb-0">Total:</h6>
+        <h4 class="mb-0 text-success">R$ <span id="carrinho-total">0.00</span></h4>
+      </div>
+      <div class="d-grid gap-2">
+        <button class="btn btn-gamer">Finalizar Compra</button>
+        <button class="btn btn-outline-danger" id="btn-limpar-carrinho">Limpar Carrinho</button>
+      </div>
+    </div>
+  </div>
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasFavoritos" aria-labelledby="offcanvasFavoritosLabel">
+    <div class="offcanvas-header bg-warning text-white">
+      <h5 class="offcanvas-title" id="offcanvasFavoritosLabel"><i class="bi bi-heart-fill"></i> Seus Favoritos</h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body bg-light text-dark">
+      <ul id="favoritos-lista" class="list-group mb-3">
+        <li class="list-group-item text-center">Nenhum item favorito ainda.</li>
+      </ul>
+      <div class="d-grid gap-2">
+        <button class="btn btn-outline-warning" id="btn-limpar-favoritos">Limpar Favoritos</button>
+      </div>
+    </div>
+  </div>
+  <div aria-live="polite" aria-atomic="true" class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100">
+    <div id="toastContainer" class="toast-container">
+    </div>
+  </div>
 </body>
-<script src="js/script.js"></script>
+
+<script type="module" src="js/main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 

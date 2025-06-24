@@ -1,0 +1,41 @@
+/* ============================================================================
+   _variables.css - Variáveis CSS Globais
+   Contém todas as variáveis de cores, tipografia, gradientes e configurações
+   básicas que são reutilizadas em todo o projeto.
+============================================================================ */
+
+:root {
+    /* Cores */
+    --bs-primary: #1a73e8; /* Azul primário */
+    --bs-primary-rgb: 26, 115, 232;
+    --bs-secondary: #f4b400; /* Amarelo secundário */
+    --bs-secondary-rgb: 244, 180, 0;
+    --bs-success: #28a745;
+    --bs-danger: #dc3545;
+    --bs-warning: #ffc107;
+    --bs-info: #0dcaf0;
+
+    --bs-light: #f8f9fa;
+    --bs-dark: #212529; 
+
+    /* Invertendo as cores principais do corpo */
+    --bs-body-color: var(--bs-dark); /* Cor do texto do corpo - agora escuro */
+    --bs-body-bg: var(--bs-light); /* Cor de fundo do corpo - agora claro */
+
+    /* Tipografia */
+    --bs-font-sans-serif: 'Open Sans', sans-serif;
+    --bs-body-font-family: var(--bs-font-sans-serif);
+    --bs-heading-font-family: 'Montserrat', sans-serif;
+
+    /* Gradientes (ajustados para o novo tema) */
+    --gradient-primary: linear-gradient(135deg, var(--bs-primary), var(--bs-info));
+    --gradient-light: linear-gradient(135deg, var(--bs-light), #e9ecef);
+    --gradient-dark: linear-gradient(135deg, var(--bs-dark), #495057); /* Novo gradiente escuro */
+
+
+    /* Formulários */
+    --form-border-radius: 8px;
+    --form-focus-color: var(--bs-primary);
+    --form-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --form-shadow-focus: 0 0 0 3px rgba(26, 115, 232, 0.25);
+}

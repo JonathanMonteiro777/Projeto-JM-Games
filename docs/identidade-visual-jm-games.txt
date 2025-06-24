@@ -1,0 +1,415 @@
+================================================================================
+🎮 IDENTIDADE VISUAL COMPLETA - JM GAMES
+================================================================================
+Desenvolvido por: Jonathan Monteiro
+Data: Junho 2025
+Versão: 1.0
+Framework Base: Bootstrap 5.2.2
+================================================================================
+
+📋 ÍNDICE
+================================================================================
+1. CONCEITO GERAL
+2. PALETA DE CORES
+3. TIPOGRAFIA
+4. COMPONENTES VISUAIS
+5. CLASSES UTILITÁRIAS
+6. EFEITOS E ANIMAÇÕES
+7. RESPONSIVIDADE
+8. ACESSIBILIDADE
+9. GUIA DE USO
+10. ESTRUTURA DE ARQUIVOS
+
+================================================================================
+1. CONCEITO GERAL
+================================================================================
+
+TEMA: Gaming Profissional Moderno
+PÚBLICO-ALVO: Gamers de 16-35 anos
+PERSONALIDADE DA MARCA: Confiável, Moderna, Dinâmica, Tecnológica
+
+PRINCÍPIOS DE DESIGN:
+- Manter Bootstrap como base sólida
+- Adicionar identidade gamer sem exageros
+- Priorizar usabilidade e performance
+- Garantir acessibilidade total
+- Responsividade em todos os dispositivos
+
+FILOSOFIA:
+"Evolução, não revolução" - Melhorar o que já funciona bem no Bootstrap,
+adicionando elementos visuais que remetem ao universo gamer de forma elegante.
+
+================================================================================
+2. PALETA DE CORES
+================================================================================
+
+🎨 CORES PRIMÁRIAS:
+--bs-primary: #1a73e8 (Azul Google - Confiança e Tecnologia)
+--bs-primary-rgb: 26, 115, 232
+--bs-secondary: #f4b400 (Amarelo Dourado - Energia e Conquista)
+--bs-secondary-rgb: 244, 180, 0
+
+🎨 CORES DE SISTEMA:
+--bs-success: #28a745 (Verde - Sucesso/Confirmação)
+--bs-danger: #dc3545 (Vermelho - Erro/Alerta)
+--bs-warning: #ffc107 (Amarelo - Atenção)
+--bs-info: #0dcaf0 (Ciano - Informação)
+
+🎨 CORES NEUTRAS:
+--bs-light: #f8f9fa (Fundo Claro Geral)
+--bs-dark: #212529 (Texto Principal)
+--bs-body-color: var(--bs-dark)
+--bs-body-bg: var(--bs-light)
+
+🎨 GRADIENTES:
+Primário: linear-gradient(135deg, #1a73e8, #f4b400)
+Claro: linear-gradient(135deg, #f8f9fa, #e9ecef)
+
+🎨 APLICAÇÃO DAS CORES:
+- Azul Primário: Botões principais, links, elementos de destaque
+- Amarelo Secundário: Acentos, preços, call-to-actions
+- Verde: Confirmações, sucessos, segurança
+- Vermelho: Erros, alertas críticos
+- Neutros: Textos, fundos, estrutura geral
+
+================================================================================
+3. TIPOGRAFIA
+================================================================================
+
+📝 FONTES PRINCIPAIS:
+--bs-font-sans-serif: 'Open Sans', sans-serif (Corpo do texto)
+--bs-body-font-family: var(--bs-font-sans-serif)
+--bs-heading-font-family: 'Montserrat', sans-serif (Títulos)
+
+📝 HIERARQUIA TIPOGRÁFICA:
+H1: 2rem (mobile: 1.8rem) - Títulos principais
+H2: 1.5rem (mobile: 1.3rem) - Seções importantes
+H3: 1.3rem (mobile: 1.1rem) - Subsecções
+H4: 1.1rem (mobile: 1rem) - Títulos menores
+H5: 1rem (mobile: 0.9rem) - Detalhes
+Body: 1rem (mobile: 0.85rem) - Texto corrido
+Lead: 1.1rem (mobile: 0.8rem) - Texto destacado
+
+📝 CLASSES UTILITÁRIAS DE TEXTO:
+.text-sm: 0.875rem - Textos pequenos
+.text-lg: 1.125rem - Textos grandes
+.text-price: 1.25rem, font-weight: 700 - Preços em destaque
+
+📝 CARACTERÍSTICAS:
+- Open Sans: Legibilidade excelente, moderna, amigável
+- Montserrat: Geométrica, impactante, ideal para títulos
+- Line-height: 1.6 para melhor leitura
+- Letter-spacing em botões: 0.5px para destaque
+
+================================================================================
+4. COMPONENTES VISUAIS
+================================================================================
+
+🔘 BOTÕES:
+
+.btn-gamer:
+- Background: Gradiente azul-amarelo
+- Padding: 0.75rem 1.5rem
+- Border-radius: 8px
+- Font-weight: 600
+- Text-transform: uppercase
+- Letter-spacing: 0.5px
+- Hover: Escurece gradiente + translateY(-2px)
+- Box-shadow no hover: 0 6px 12px rgba(26, 115, 232, 0.3)
+
+Estados dos Botões:
+- Normal: Gradiente padrão
+- Hover: Gradiente escuro + elevação
+- Active: Sem elevação
+- Focus: Outline azul para acessibilidade
+
+📦 CARDS:
+
+.product-card:
+- Height: 100% (cards uniformes)
+- Border-radius: 8px
+- Transition: all 0.3s ease
+- Border: 1px solid var(--bs-primary)
+
+.product-hover:
+- Hover: translateY(-5px)
+- Box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15)
+
+.benefit-card / .security-card:
+- Padding: 1.5rem-4rem (responsivo)
+- Background: white/colorido
+- Hover: translateY(-3px) + sombra aumentada
+- Ícones grandes (fs-1) para impacto visual
+
+🖼️ IMAGENS:
+
+.img-produto:
+- Height: 220px (180px mobile, 160px small mobile)
+- Object-fit: cover
+- Border-radius superior: 8px
+
+.img-banner:
+- Max-height: 500px (350px tablet, 250px mobile)
+- Object-fit: cover
+- Border-radius: 8px
+
+📝 FORMULÁRIOS:
+
+.form-container:
+- Background: white
+- Border-radius: 8px
+- Padding: 1.5rem-4rem (responsivo)
+- Box-shadow sutil
+- Hover: sombra aumentada
+
+.form-input:
+- Border: 2px solid #e9ecef
+- Border-radius: 8px
+- Padding: 0.75rem 1rem
+- Focus: border azul + sombra colorida + translateY(-1px)
+
+.form-group:
+- Margin-bottom responsivo
+- Labels com ícones Bootstrap Icons
+
+================================================================================
+5. CLASSES UTILITÁRIAS
+================================================================================
+
+📏 ESPAÇAMENTOS:
+.spacing-sm: margin-bottom: 0.5rem
+.spacing-md: margin-bottom: 1rem
+.spacing-lg: margin-bottom: 2rem
+.spacing-xl: margin-bottom: 3rem
+
+.p-sm: padding: 0.5rem
+.p-md: padding: 1rem
+.p-lg: padding: 1.5rem
+.p-xl: padding: 2rem (responsivo)
+
+⚡ TRANSIÇÕES:
+.transition-fast: all 0.2s ease
+.transition-normal: all 0.3s ease
+.transition-slow: all 0.5s ease
+
+🌟 SOMBRAS:
+.shadow-light: 0 2px 4px rgba(0, 0, 0, 0.1)
+.shadow-medium: 0 4px 8px rgba(0, 0, 0, 0.15)
+.shadow-strong: 0 8px 16px rgba(0, 0, 0, 0.2)
+
+🎨 FUNDOS:
+.bg-gradient-light: linear-gradient(135deg, #f8f9fa, #e9ecef)
+.bg-gradient-primary: linear-gradient(135deg, var(--bs-primary), var(--bs-secondary))
+
+================================================================================
+6. EFEITOS E ANIMAÇÕES
+================================================================================
+
+🎭 HOVER EFFECTS:
+
+Produtos:
+- Cards: translateY(-5px) + sombra
+- Imagens: scale sutil (futuro)
+- Botões: translateY(-2px) + sombra colorida
+
+Formulários:
+- Inputs: translateY(-1px) + sombra colorida
+- Containers: sombra aumentada
+- Botões: gradiente escuro + elevação
+
+🎬 ANIMAÇÕES:
+
+@keyframes pulse-success:
+- Usado em inputs válidos
+- Pulso verde de confirmação
+
+@keyframes shake:
+- Usado em inputs inválidos
+- Balanço horizontal de erro
+
+@keyframes spin:
+- Estados de loading
+- Rotação contínua
+
+🔄 TRANSIÇÕES:
+
+Padrão: all 0.3s ease
+Rápidas: all 0.2s ease (inputs, hovers simples)
+Lentas: all 0.5s ease (animações complexas)
+
+Propriedades animadas:
+- transform (translateY, scale)
+- box-shadow
+- background
+- border-color
+- opacity
+
+================================================================================
+7. RESPONSIVIDADE
+================================================================================
+
+📱 BREAKPOINTS (Bootstrap padrão):
+- xs: <576px (Mobile pequeno)
+- sm: ≥576px (Mobile)
+- md: ≥768px (Tablet)
+- lg: ≥992px (Desktop)
+- xl: ≥1200px (Desktop grande)
+
+📐 ADAPTAÇÕES POR DISPOSITIVO:
+
+MOBILE (<576px):
+- Logo: 50px altura
+- Banners: 250px altura máxima
+- Produtos: 160px altura
+- Tipografia reduzida (H1: 1.8rem)
+- Padding reduzido (.p-xl: 1rem)
+- Formulários: padding 1.5rem
+- Botões: padding menor
+
+TABLET (768px):
+- Logo: mantém 70px
+- Banners: 350px altura máxima
+- Produtos: 180px altura
+- Tipografia intermediária
+- Padding intermediário
+
+DESKTOP (>992px):
+- Tamanhos padrão
+- Efeitos hover completos
+- Espaçamentos generosos
+
+🔧 TÉCNICAS RESPONSIVAS:
+- CSS Grid e Flexbox
+- Object-fit para imagens
+- Viewport units quando apropriado
+- Media queries mobile-first
+- Containers fluidos
+
+================================================================================
+8. ACESSIBILIDADE
+================================================================================
+
+♿ PRINCÍPIOS IMPLEMENTADOS:
+
+CONTRASTE:
+- Textos: mínimo 4.5:1
+- Elementos grandes: mínimo 3:1
+- Estados de foco claramente visíveis
+
+NAVEGAÇÃO:
+- Focus states em todos elementos interativos
+- Outline: 2px solid var(--bs-primary)
+- Outline-offset: 2px
+- Ordem lógica de tabulação
+
+MOVIMENTO:
+- @media (prefers-reduced-motion: reduce)
+- Desabilita animações para usuários sensíveis
+- Mantém funcionalidade sem movimento
+
+SEMÂNTICA:
+- HTML5 semântico (header, main, section, footer)
+- Labels associados aos inputs
+- Alt text em imagens
+- ARIA labels quando necessário
+
+TIPOGRAFIA:
+- Tamanhos mínimos respeitados
+- Line-height adequado (1.6)
+- Fonte mínima 16px em mobile (evita zoom iOS)
+
+================================================================================
+9. GUIA DE USO
+================================================================================
+
+🚀 IMPLEMENTAÇÃO BÁSICA:
+
+1. Incluir Bootstrap 5.2.2
+2. Incluir Bootstrap Icons
+3. Incluir estilo.css personalizado
+4. Usar classes Bootstrap como base
+5. Adicionar classes utilitárias quando necessário
+
+📝 EXEMPLOS DE USO:
+
+Botão Padrão:
+<button class="btn btn-gamer">
+    <i class="bi bi-cart-plus me-2"></i>Comprar
+</button>
+
+Card de Produto:
+<div class="card product-card shadow-medium border border-primary product-hover transition-normal">
+    <img src="..." class="card-img-top img-produto" alt="...">
+    <div class="card-body text-center d-flex flex-column">
+        <h5 class="card-title fw-bold">Título</h5>
+        <p class="card-text flex-grow-1">Descrição...</p>
+        <p class="text-price text-success">R$ 99,90</p>
+        <a href="#" class="btn btn-gamer mt-auto">Comprar</a>
+    </div>
+</div>
+
+Seção com Espaçamento:
+<section class="container p-xl">
+    <h2 class="text-center spacing-lg">Título da Seção</h2>
+    <div class="row">...</div>
+</section>
+
+Formulário:
+<div class="form-container shadow-light rounded p-4 bg-white">
+    <div class="form-group spacing-md">
+        <label class="form-label fw-semibold">
+            <i class="bi bi-person-fill me-2 text-primary"></i>Nome:
+        </label>
+        <input class="form-control form-input transition-fast" type="text">
+    </div>
+    <button class="btn btn-gamer btn-lg">Enviar</button>
+</div>
+
+🎯 BOAS PRÁTICAS:
+
+1. SEMPRE usar Bootstrap como base
+2. Adicionar classes utilitárias para personalização
+3. Manter hierarquia de espaçamentos consistente
+4. Usar ícones Bootstrap Icons para consistência
+5. Testar em todos os breakpoints
+6. Validar acessibilidade
+7. Otimizar performance
+
+❌ O QUE EVITAR:
+
+1. Sobrescrever classes Bootstrap diretamente
+2. Usar !important desnecessariamente
+3. Criar estilos inline
+4. Ignorar responsividade
+5. Esquecer estados de foco
+6. Usar cores fora da paleta
+7. Quebrar a hierarquia tipográfica
+
+================================================================================
+10. ESTRUTURA DE ARQUIVOS
+================================================================================
+
+📁 ORGANIZAÇÃO:
+
+projeto/
+├── css/
+│   └── estilo.css (Estilos personalizados)
+├── js/
+│   ├── script.js (JavaScript principal)
+│   └── jquery-script.js (Scripts jQuery)
+├── img/
+│   ├── logo.png
+│   ├── banners/
+│   └── produtos/
+├── index.html (Página principal)
+├── login.html (Página de login)
+└── identidade-visual-jm-games.txt (Este arquivo)
+
+📋 DEPENDÊNCIAS EXTERNAS:
+
+CDN Bootstrap 5.2.2:
+https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css
+https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js
+
+CDN Bootstrap Icons:
+https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap
