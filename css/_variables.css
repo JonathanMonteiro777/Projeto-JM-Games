@@ -11,23 +11,37 @@
  * acessíveis em todo o documento.
  */
 :root {
-    /* --- Cores --- */
     /**
      * @group Colors
      * @description Variáveis de cores baseadas nas paletas do Bootstrap,
      * adaptadas para o tema do projeto JM Games.
      */
-    --bs-primary: #1a73e8; /* Azul primário */
-    --bs-primary-rgb: 26, 115, 232; /** Componentes RGB do azul primário. */
-    --bs-secondary: #f4b400; /* Amarelo secundário */
-    --bs-secondary-rgb: 244, 180, 0; /** Componentes RGB do amarelo secundário. */
+    --primary-color: #1a73e8; /** Azul primário do tema. */
+    --primary-color-dark: #1557b0; /** Versão mais escura do azul primário para hover/active. */
+    --primary-rgb: 26, 115, 232; /** Componentes RGB do azul primário. */
+
+    --secondary-color: #f4b400; /** Amarelo secundário do tema. */
+    --secondary-color-dark: #d49f00; /** Versão mais escura do amarelo secundário para hover/active. */
+    --secondary-rgb: 244, 180, 0; /** Componentes RGB do amarelo secundário. */
+
+    /* Mapeamento das cores do tema para as variáveis padrão do Bootstrap */
+    --bs-primary: var(--primary-color);
+    --bs-primary-rgb: var(--primary-rgb);
+    --bs-secondary: var(--secondary-color);
+    --bs-secondary-rgb: var(--secondary-rgb);
+
     --bs-success: #28a745; /** Cor para feedback de sucesso. */
     --bs-danger: #dc3545; /** Cor para feedback de erro ou perigo. */
     --bs-warning: #ffc107; /** Cor para feedback de aviso. */
     --bs-info: #0dcaf0; /** Cor para informações ou destaques secundários. */
 
     --bs-light: #f8f9fa; /** Cor clara padrão. */
-    --bs-dark: #212529;  /** Cor escura padrão. */
+    --bs-dark: #212529; /** Cor escura padrão. */
+    --bs-gray-200: #e9ecef; /** Tom de cinza claro (usado em hover de elementos light). */
+    --bs-gray-300: #dee2e6; /** Tom de cinza médio-claro (para bordas, por exemplo). */
+    --bs-gray-400: #ced4da; /** Outro tom de cinza para bordas/ícones. */
+    --bs-gray-700: #495057; /** Tom de cinza escuro (para texto secundário, por exemplo). */
+
 
     /**
      * @description Definições de cores principais para o corpo do documento.
@@ -35,8 +49,7 @@
      */
     --bs-body-color: var(--bs-dark); /** Cor do texto do corpo (padrão escuro). */
     --bs-body-bg: var(--bs-light); /** Cor de fundo do corpo (padrão claro). */
-
-    /* --- Tipografia --- */
+    
     /**
      * @group Typography
      * @description Variáveis para definir famílias de fontes globais.
@@ -45,12 +58,11 @@
     --bs-body-font-family: var(--bs-font-sans-serif); /** Família de fonte aplicada ao corpo do documento. */
     --bs-heading-font-family: 'Montserrat', sans-serif; /** Família de fonte aplicada aos títulos (h1-h6). */
 
-    /* --- Gradientes --- */
     /**
      * @group Gradients
      * @description Variáveis para definir gradientes de fundo reutilizáveis.
      */
-    --gradient-primary: linear-gradient(135deg, var(--bs-primary), var(--bs-info)); /** Gradiente primário (azul para info). */
+    --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--bs-info)); /** Gradiente primário (azul para info). */
     --gradient-light: linear-gradient(135deg, var(--bs-light), #e9ecef); /** Gradiente claro. */
     --gradient-dark: linear-gradient(135deg, var(--bs-dark), #495057); /** Gradiente escuro. */
 
@@ -60,7 +72,7 @@
      * @description Variáveis para configurações visuais de elementos de formulário.
      */
     --form-border-radius: 8px; /** Raio da borda padrão para campos de formulário. */
-    --form-focus-color: var(--bs-primary); /** Cor da borda ao focar em um campo de formulário. */
+    --form-focus-color: var(--primary-color); /** Cor da borda ao focar em um campo de formulário. */
     --form-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /** Sombra padrão para elementos de formulário. */
-    --form-shadow-focus: 0 0 0 3px rgba(26, 115, 232, 0.25); /** Sombra ao focar em um campo de formulário. */
+    --form-shadow-focus: 0 0 0 3px rgba(var(--primary-rgb), 0.25); /** Sombra ao focar em um campo de formulário. */
 }

@@ -1,105 +1,121 @@
 # 🎮 JM Games: Seu Portal para o Universo Gamer! 🚀
 
-Visão geral da JM Games em desktop
+![Preview em desktop](/img/preview-desktop.jpeg)
 
-Demonstração da responsividade e interatividade em dispositivos móveis
+![Preview em dispositivos móveis](/img/preview-mobile.png)
 
 ---
 
 ## 📄 Sobre o Projeto
 
-Este projeto é uma simulação de e-commerce de games online, desenvolvido como atividade prática da fase de **Front-End** do curso de **Desenvolvimento Web FullStack do SENAI**. Ele demonstra a aplicação de **HTML, CSS (com Bootstrap 5) e JavaScript/jQuery** para criar uma experiência de usuário (UX) interativa, intuitiva e totalmente responsiva.
+Este projeto é uma simulação avançada de **e-commerce de games online**, desenvolvido como parte do curso de **Desenvolvimento Web FullStack do SENAI**. Ele é uma demonstração prática da minha proficiência em **HTML5, CSS3 (com Bootstrap 5) e JavaScript (ESM - Módulos ES)**, focando na criação de uma experiência de usuário (UX) interativa, intuitiva e **totalmente responsiva**.
 
-O site foi construído com base em um processo completo de desenvolvimento, que incluiu **briefing com cliente, prototipação em baixa e alta fidelidade com Figma**, e a subsequente **codificação fornt-end**. Meu objetivo foi traduzir o design em uma interface funcional e visualmente atraente, focando na usabilidade e na adaptabilidade para diferentes dispositivos.
+O site foi construído seguindo um processo de desenvolvimento completo, que incluiu **briefing com cliente, prototipação em baixa e alta fidelidade com Figma**, e a subsequente **codificação front-end**. Meu principal objetivo foi traduzir o design em uma interface funcional e visualmente atraente, com forte ênfase na **usabilidade**, **modularidade do código** e **adaptabilidade impecável** para qualquer dispositivo.
 
-## ✨ Funcionalidades Principais
+---
 
-### Página Home
+## ✨ Funcionalidades Principais Implementadas
 
-- **Carrocel Interativo de Banners:** Apresenta promoções e destaques de jogos de forma dinâmica.
-- **Navegação Intuitiva:** Menu superior com links para "Promoções", "Console", "Jogos" e "Login", facilitando a exploração do site.
+### Módulos Essenciais (Core Features)
+
+- **Sistema de Autenticação (Login/Cadastro) Robusto:**
+  - Formulários de Login e Cadastro unificados, com alternância dinâmica em `login.html`.
+  - **`AuthManager` completo**: Gerencia login, cadastro, validação de formulários (com `validationUtils.js`), e persistência segura via localStorage.
+  - Atualiza dinamicamente a interface da navbar com base no status do usuário.
+- **Carrinho de Compras Completo:**
+  - **`CarrinhoManager` funcional**: Permite adicionar, remover, atualizar quantidade de itens e calcular o total. Todos os dados são persistidos via localStorage.
+  - Integração no `index.html` com botões "Adicionar ao Carrinho" e um offcanvas dedicado para exibição e gerenciamento do carrinho.
+- **Sistema de Favoritos Abrangente:**
+  - **`FavoritosManager` funcional**: Permite adicionar e remover jogos da lista de favoritos, com persistência via localStorage.
+  - Integração no `index.html` com botões "Adicionar aos Favoritos" e um offcanvas para visualização e gerenciamento dos favoritos.
+
+### Interatividade e Conteúdo Dinâmico
+
+- **Sistema de Busca e Filtragem Avançado com Paginação (RAWG API):**
+  - **`BuscaManager` centralizado**: Gerencia a busca de jogos por texto livre, filtros por gênero e plataforma (via menu hambúrguer), e a navegação por paginação.
+  - Integração profunda com a **API RAWG (`rawgApi.js`)** para dados de jogos em tempo real.
+  - Exibição de **Loading States** (spinners) e mensagens de "Nenhum resultado encontrado".
+  - A paginação permite navegar eficientemente por grandes volumes de resultados.
+- **Página de Detalhes do Produto (`detalhes.html`):**
+  - Exibe informações detalhadas de jogos, enriquecidas com uma **galeria de screenshots interativa**.
+- **Notificações Toast:**
+  - Função `showToast` (`domUtils.js`) para feedback visual claro e instantâneo ao usuário em todas as ações (adição/remoção de itens, login/logout, etc.).
+- **Carrossel Interativo de Banners:** Apresenta promoções e destaques de jogos de forma dinâmica na página inicial.
 - **Destaque de Produtos:** Seções dedicadas a "Novidades" e "Mais Vendidos" exibem cards de produtos com imagem, descrição, preço e botão "Comprar".
-- **Botão "Voltar ao Topo":** Navegação rápida e conveniente para o início da página.
+- **Botão "Voltar ao Topo":** Navegação rápida e conveniente para o início da página em todas as páginas relevantes.
 
-### Página de Login & Cadastro  
+### Qualidade de Código e Experiência do Usuário
 
-- **Formulário de Login:** Permite a entrada de credenciais do usuário.
-- **Validação de Login:** Simulação de verificação de usuário e senha para feedback imediato.
-- **Interface de Cadastro:** Botão dedicado que revela um formulário de cadastro de usuário.
-- **Formulário de Cadastro:** Permite a criação de novas contas, com validação de campos.
-- **Feedback de Cadastro:** Simulação de registro bem-sucedido com alerta e redirecionamento para a página inicial.
-- **Botão "Voltar ao Topo":** Disponível também na página de login para melhor usabilidade.
+- **Modularização Completa do JavaScript (ES Modules):** Código organizado em classes e módulos (ex: `AuthManager`, `BuscaManager`, `CarrinhoManager`, `FavoritosManager`, `rawgApi.js`, `domUtils.js`, `helpers.js`, `validationUtils.js`), promovendo reusabilidade, manutenibilidade e escalabilidade.
+- **Validação de Formulários:** Implementada de forma robusta, garantindo a integridade dos dados inseridos pelo usuário.
+- **Estilização Profissional:**
+  - **Design System Customizado:** Utilização de variáveis CSS (`_variables.css`) para cores e tipografia, garantindo consistência e facilidade de manutenção.
+  - **Paleta de cores:** `#1a73e8` (azul Google) e `#f4b400` (amarelo Google) para uma identidade visual moderna e profissional.
+  - **Tipografia:** `Open Sans` (corpo) e `Montserrat` (títulos) para harmonia visual.
+  - Componentes visuais limpos e modernos: cards, botões, formulários.
+  - **Hover effects e transições** suaves para uma experiência interativa.
+- **Responsividade Robusta:**
+  - **Ajustes finos nas `media queries`** para garantir que todos os elementos (textos, imagens, cards, botões) se adaptem perfeitamente a diferentes tamanhos de tela (desktop, tablet e mobile), proporcionando uma **experiência fluida em qualquer dispositivo**.
+  - **Otimização de Imagens:** Implementação de `object-fit` e `max-height` com breakpoints para garantir que as imagens dos produtos e banners se ajustem visualmente sem distorções.
 
-### Novidades Recentes
-
-- **Melhorias no design:** A interface foi aprimorada com a adição de novas seções, incluindo a apresentação do site e mais informações sobre os produtos mais vendidos.
-- **Responsividade:** A responsividade foi otimizada para oferecer uma experiência mais fluída em dispositivos móveis e desktops.
-
-- **Integração do Carrossel Interativo:** O carrossel foi reformulado para proporcionar uma navegação mais intuitiva pelas promoções e novidades da loja.
-
-## 🚀 Otimizações e Melhorias Recentes
-
-Com o objetivo de aprimorar este projeto para o meu portfólio, realizei diversas otimizações focadas em **boas práticas de Front-End e experiência do usuário**:
-
-- **Design Aprimorado:** Refinamento da interface visual, incluindo uma paleta de cores estratégicas e tipografia moderna, que transmitem a energia e a tecnologia do universo gamer.
-- **Responsividade Robusta:** Ajustes finos nas **media queries** para garantir que todos os elementos — textos, imagens, cards de produtos e botões — se adaptem perfeitamente a diferentes tamanhos de tela (desktop, tablet e mobile), proporcionando uma experiência fluida em qualquer dispositivo
-- **Otimização de Imagens:** Implementação de `object-fit` e `max-height` com breakpoints para garantir que as imagens dos produtos e banners se ajustem visualmente sem distorções, independentemente do tamanho da tela.
-- **Refatoração CSS:** Organização do código CSS com variáveis e agrupamento de media queries para maior manutenibilidade e padronização.
-- **Interatividade com jQuery:** Melhoria no controle do carrossel e feedback visual dos formulários para uma interação mais dinâmica e intuitiva.
-
-## ✅ **FUNCIONALIDADES JÁ IMPLEMENTADAS:**
-
-- Sistema de cores com variáveis CSS
-- Tipografia responsiva
-- Layout responsivo (768px e 576px breakpoints)
-- Componentes visuais: cards, botões, formulários
-- Hover effects e transições
-- **Modularização completa do JavaScript (utilizando ES6 Modules)**
-- **Sistema de Login e Cadastro funcional (com validação e persistência básica no localStorage)**
-- Funcionalidade de "Voltar ao Topo"
-- Notificações Toast para feedback ao usuário
+---
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **HTML5:** Estruturação semântica de todo o conteúdo do site.
+- **HTML5:** Estruturação semântica e acessível de todo o conteúdo do site.
 - **CSS3:** Estilização completa da interface, com foco em:
-  - **Bootstrap 5:** Framework para construção rápida de layouts responsivos e componentes pré-estilizados.
+  - **Bootstrap 5:** Framework amplamente utilizado para construção rápida de layouts responsivos e componentes pré-estilizados.
   - **Design System Customizado:** Aplicação de variáveis CSS para cores e tipografia, garantindo consistência e facilidade de manutenção.
-- **JavaScript (ES6+):** Implementação de lógica para interatividade do usuário, como:
-  - **jQuery:** Biblioteca para manipulação eficiente do DOM, validação de formulários (Login e Cadastro), controle do carrossel de banners e a funcionalidade do botão "Voltar ao Topo".
+- **JavaScript (ESM - ES6 Modules):** Implementação de toda a lógica interativa e funcional do lado do cliente, incluindo:
+  - **Organização em Classes e Módulos:** `AuthManager`, `BuscaManager`, `CarrinhoManager`, `FavoritosManager`, etc.
+  - **Integração com RAWG API:** Consumo de dados de jogos em tempo real.
+  - **Manipulação do DOM** e gestão de eventos.
 - **Google Fonts:** Para a tipografia moderna (`Montserrat` para títulos, `Open Sans` para o corpo do texto).
 - **Bootstrap Icons:** Para ícones visuais que enriquecem a interface.
-- **Git & GitHub:** Controle de versão e hospedagem do repositório.
-- **Figma:** Ferramenta utilizada nas etapas de prototipação (baixa e alta fidelidade) e design de interface.
+- **Git & GitHub:** Essenciais para controle de versão, colaboração e hospedagem do repositório.
+- **Figma:** Ferramenta fundamental utilizada nas etapas de prototipação (baixa e alta fidelidade) e design de interface.
+
+---
 
 ## ⚙️ Como Rodar o Projeto Localmente
 
 1. Clone o repositório:
 
-- `git clone https://github.com/JonathanMonteiro21/jm-games.git`
+    ```bash
+    git clone [https://github.com/JonathanMonteiro777/jm-games.git](https://github.com/JonathanMonteiro777/jm-games.git)
+    ```
 
 2. Navegue até o diretório do projeto:
 
-- `cd jm-games`
+    ```bash
+    cd jm-games
+    ```
 
 3. Abra o arquivo `index.html` no seu navegador web de preferência.
 
+---
+
 ## 💡 Desafios e Aprendizados
 
-Este projeto foi uma oportunidade valiosa para aprofundar meus conhecimentos em desenvolvimento Front-End responsivo. O principal desafio foi garantir que o layout se adaptasse perfeitamente a todas as telas, especialmente as nuances de tamanho de texto e imagem em dispositivos móveis, o que me levou a aprofundar no uso de media queries e nas boas práticas de otimização de imagem.
+Este projeto foi uma oportunidade valiosa para aprofundar meus conhecimentos em desenvolvimento Front-End moderno e responsivo. Os principais desafios incluíram:
 
-A experiência de seguir o ciclo completo, do briefing à prototipação no Figma e depois à codificação, reforçou a importância do planejamento e do design thinking na criação de interfaces amigáveis e eficientes.
+- **Consumo e Gestão de APIs:** Integrar e gerenciar dados de uma API externa (RAWG), incluindo paginação, filtros e tratamento de estados de carregamento.
+- **Modularização de Código:** Estruturar um projeto JavaScript em módulos e classes para garantir escalabilidade, reusabilidade e fácil manutenção.
+- **Delegação de Eventos:** Implementar uma estratégia eficiente para lidar com eventos em elementos dinamicamente criados, otimizando a performance.
+- **Responsividade Abrangente:** Garantir que o layout se adaptasse perfeitamente a *todas* as telas, desde desktops de alta resolução até dispositivos móveis, refinando o uso de media queries e otimização de imagens.
+
+A experiência de seguir o ciclo completo, do briefing e prototipação no Figma à codificação com um foco intenso em modularidade e UX, reforçou a importância do planejamento e do design thinking na criação de interfaces amigáveis e eficientes.
+
+---
 
 ## 📧 Contato
 
-**Jonathan Monteiro**
+### Jonathan Monteiro
 
 - [LinkedIn](https://www.linkedin.com/in/jonathan-lucas-34684a1a4)
-- Email: jonathanlucas777@gmail.com
-
+- Email: <jonathanlucas777@gmail.com>
 
 **Observações:**
 
-- As funcionalidades de login e cadastro são apenas simulações e não estão conectadas a um banco de dados.
-- O projeto está em constante desenvolvimento e pode ser aprimorado com novas funcionalidades.
-- Novas seções de apresentação e melhorias no design da página Home foram implementadas recentemente.
+- As funcionalidades de login e cadastro são simulações front-end e não estão conectadas a um banco de dados real.
+- O projeto está em constante desenvolvimento e novas funcionalidades e melhorias de performance estão planejadas.

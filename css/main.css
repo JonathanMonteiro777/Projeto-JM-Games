@@ -7,6 +7,11 @@
  * @version 1.0.0
  ============================================================================ */
 
+/* --- Adicionado: Previne scroll horizontal em todo o corpo --- */
+body {
+    overflow-x: hidden;
+}
+
 /* --- 1. ANIMAÇÕES E FEEDBACK VISUAL --- */
 /**
  * @section Animations and Visual Feedback
@@ -19,7 +24,6 @@
  * @description Estilos para campos de formulário quando a validação é bem-sucedida.
  */
 .form-input.is-valid {
-    /** Cor da borda para indicar sucesso. */
     border-color: var(--bs-success);
     /** Animação de pulso para feedback visual. */
     animation: pulse-success 0.5s ease;
@@ -110,301 +114,195 @@
  */
 
 /**
- * @media Tablet
- * @description Estilos para telas de tablet (até 768px de largura).
+ * @media Extra Small Devices (Smartphones - portrait < 576px)
+ * @description Estilos para telas de celular pequenas.
  */
-@media (max-width: 768px) {
-    /** Reduz a altura máxima das imagens de banner. */
-    #section-banners img {
-        max-height: 350px;
+@media (max-width: 575.98px) { /* Bootstrap's XS breakpoint */
+    header .navbar-brand img {
+        height: 45px; /* Ligeiramente menor para telas muito pequenas */
     }
 
-    /** Ajustes de tamanho de fonte para títulos. */
-    h1 { font-size: 2rem; }
-    h2 { font-size: 1.5rem; }
-    h3 { font-size: 1.3rem; }
+    /* Títulos */
+    h1 { font-size: 1.8rem; }
+    h2 { font-size: 1.4rem; }
+    h3 { font-size: 1.2rem; }
     h4 { font-size: 1.1rem; }
     h5 { font-size: 1rem; }
+    h6 { font-size: 0.9rem; }
+    p, .lead { font-size: 0.9rem; } /* Ajuste de tamanho de fonte para parágrafos e lead */
 
-    /** Reduz a altura máxima das imagens de seções como "Novidades" e "Mais Vendidos". */
-    #section-novidades img,
-    #section-vendidos img {
-        max-height: 180px;
-    }
-
-    /** Ajustes de tamanho de fonte para elementos de acordeão. */
-    .accordion-button,
-    .accordion-body {
-        font-size: 1rem;
-    }
-
-    /** Reduz o preenchimento do rodapé. */
-    footer {
-        padding: 15px;
-    }
-
-    /** Adiciona margem horizontal para contêineres de formulário. */
-    .form-container {
-        margin: 0 1rem;
-    }
-
-    /** Ajusta o preenchimento grande para tablets. */
-    .p-xl {
-        padding: 1.5rem;
-    }
-}
-
-/**
- * @media Mobile
- * @description Estilos para telas de celular (até 576px de largura).
- */
-@media (max-width: 576px) {
-    /** Reduz a altura da logo no cabeçalho. */
-    header .navbar-brand img {
-        height: 50px;
-    }
-
-    /** Reduz a altura máxima das imagens de banner. */
+    /* Imagens de Banners */
     #section-banners img {
-        max-height: 250px;
+        max-height: 300px; /* Reduz ainda mais para caber melhor */
     }
 
-    /** Ajustes de tamanho de fonte para texto principal e títulos. */
-    .lead { font-size: 0.8rem; }
-    h1 { font-size: 1.8rem; }
-    h2 { font-size: 1.3rem; }
-    h3 { font-size: 1.1rem; }
-    h4 { font-size: 1rem; }
-    h5 { font-size: 0.9rem; }
-    p { font-size: 0.850rem; }
-
-    /** Reduz a altura máxima das imagens de seções como "Novidades" e "Mais Vendidos". */
-    #section-novidades img,
-    #section-vendidos img {
-        max-height: 160px;
+    /* Imagens de Cards de Produtos */
+    .card-img-top {
+        height: 150px; 
+        object-fit: cover; 
     }
 
-    /** Ajustes de tamanho de fonte para elementos de acordeão. */
-    .accordion-button,
-    .accordion-body {
-        font-size: 0.9rem;
+    /* --- Ajuste de Cards de Jogos para telas muito pequenas --- */
+    #games-container .col { 
+        max-width: 100%;
     }
 
-    /** Reduz o preenchimento do rodapé. */
-    footer {
-        padding: 10px;
+    .card {
+        width: 100%; /* Garante que o card ocupe toda a largura disponível */
+        margin-bottom: 1rem; /* Adiciona um espaço entre os cards empilhados */
     }
 
-    /** Ajuste de tamanho de fonte para benefícios de membro. */
-    #beneficios-membro {
-        font-size: 0.9rem;
-    }
 
-    /** Ajuste de tamanho de fonte para o botão de cadastro. */
-    #botao-cadastrar button {
-        font-size: 0.9rem;
-    }
-
-    /** Ajuste de tamanho de fonte para informações de segurança e privacidade. */
-    #seguranca-privacidade span {
-        font-size: 1rem;
-    }
-
-    /** Ajusta o preenchimento grande para celulares. */
-    .p-xl {
-        padding: 1rem;
-    }
-
-    /** Ajusta a margem inferior para espaçamentos. */
-    .spacing-lg {
-        margin-bottom: 1.5rem;
-    }
-
-    .spacing-xl {
-        margin-bottom: 2rem;
-    }
-
-    /** Ajustes de preenchimento e margem para contêineres de formulário. */
-    .form-container {
-        padding: 1.5rem !important;
-        margin: 0 0.5rem;
-    }
-
-    /** Ajustes de preenchimento e tamanho de fonte para botões gamer. */
-    .btn-gamer {
+    /* Botões Gerais */
+    .btn-gamer { 
         padding: 0.6rem 1.2rem;
         font-size: 0.9rem;
     }
 
-    /** Ajustes de preenchimento para cards de benefício e segurança. */
-    .benefit-card,
-    .security-card {
+    /* --- Botões de Busca e Filtro --- */
+    .btn-search,
+    .btn-filter {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.7rem; 
+        min-width: unset;       /* Garante que não haja largura mínima */
+        width: auto;            /* Permite que a largura se ajuste ao conteúdo */
+        height: auto;           /* Permite que a altura se ajuste ao conteúdo */
+        white-space: nowrap;    /* Impede que o texto quebre */
+    }
+    /* ajusta o tamanho do ícone */
+    .btn-search i,
+    .btn-filter i {
+        font-size: 0.9rem; /* Tamanho do ícone menor */
+    }
+    /* Ocultar o texto "Pesquisar" no botão de busca em telas muito pequenas, deixando apenas o ícone */
+    #searchButton .bi-search + span {
+        display: none;
+    }
+
+
+    /* Seções e Contêineres */
+    .container, .container-fluid {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
+    .py-5 { /* Reduz o padding vertical geral em seções */
+        padding-top: 2.5rem !important;
+        padding-bottom: 2.5rem !important;
+    }
+
+    /* Formulários */
+    .form-container {
         padding: 1.5rem !important;
+        margin: 0 0.5rem;
     }
-
-    /** Ajustes de tamanho de fonte para ícones em cards de benefício e segurança. */
-    .benefit-card i,
-    .security-card i {
-        font-size: 2rem !important;
-    }
-
-    /** Ajustes de preenchimento e tamanho de fonte para inputs de formulário. */
     .form-input {
         padding: 0.6rem 0.8rem;
-        font-size: 1rem;
+        font-size: 0.9rem;
+    }
+    .form-label {
+        font-size: 0.85rem;
     }
 
-    /** Ajustes de tamanho de fonte para rótulos de formulário. */
+    /* Cards de Benefícios e Segurança */
+    .benefit-card,
+    .security-card {
+        padding: 1.25rem !important; /* Um pouco menos de padding */
+    }
+    .benefit-card i,
+    .security-card i {
+        font-size: 2rem !important; /* Mantém ícones visíveis */
+    }
+
+    /* Footer */
+    footer {
+        padding: 1rem 0.75rem;
+        font-size: 0.8em;
+    }
+}
+
+/**
+ * @media Small Devices (Smartphones - landscape and tablets - portrait < 768px)
+ * @description Estilos para telas de tablet (até 767.98px de largura).
+ */
+@media (max-width: 767.98px) { /* Bootstrap's SM breakpoint */
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.8rem; }
+    h3 { font-size: 1.5rem; }
+    h4 { font-size: 1.3rem; }
+    h5 { font-size: 1.1rem; }
+    h6 { font-size: 1rem; }
+
+    /* Banners */
+    #section-banners img {
+        max-height: 300px;
+    }
+
+    /* --- Adicionado: Ajuste de Cards de Jogos para telas pequenas --- */
+    #games-container .col {
+        max-width: 50%;
+    }
+    .card {
+        width: 100%; /* Garante que o card ocupe toda a largura da sua coluna */
+    }
+
+    /* Botões Gerais */
+    .btn-gamer {
+        padding: 0.7rem 1.4rem;
+        font-size: 0.95rem;
+    }
+
+    /* --- Botões de Busca e Filtro (Ajustes) --- */
+    .btn-search,
+    .btn-filter {
+        padding: 0.4rem 0.7rem;
+        font-size: 0.3rem;
+        min-width: unset;
+        width: auto;
+        height: auto;
+        white-space: nowrap;
+    }
+    .btn-search i,
+    .btn-filter i {
+        font-size: 1.1rem; /* Tamanho do ícone ajustado */
+    }
+    .bi-search + span {
+        display: none;
+    }
+
+    /* Formulários */
+    .form-container {
+        margin: 0 1rem;
+    }
+    .form-input {
+        padding: 0.7rem 0.9rem;
+        font-size: 0.95rem;
+    }
     .form-label {
         font-size: 0.9rem;
     }
-}
 
-/* --- 3. ACESSIBILIDADE --- */
-/**
- * @section Accessibility
- * @description Define estilos para melhorar a acessibilidade da interface,
- * incluindo a preferência do usuário por movimento reduzido e estados de foco.
- */
-
-/**
- * @media Prefers Reduced Motion
- * @description Desabilita animações para usuários com preferência por movimento reduzido.
- */
-@media (prefers-reduced-motion: reduce) {
-    /** Remove transições de elementos com classes de transição. */
-    .transition-fast,
-    .transition-normal,
-    .transition-slow,
-    /** Remove transições de cards e botões. */
-    .product-hover,
-    .benefit-card,
-    .security-card,
-    .form-container,
-    .btn-gamer {
-        transition: none !important;
-        animation: none !important;
-    }
-
-    /** Remove transformações de hover para elementos que se movem. */
-    .product-hover:hover,
-    .benefit-card:hover,
-    .security-card:hover {
-        transform: none !important;
-    }
-
-    /** Ajusta a animação do spinner para ser estática. */
-    .form-loading::after {
-        animation: none !important;
-        border-right-color: var(--bs-primary) !important; /* Torna a borda visível */
+    /* Footer */
+    footer {
+        padding: 1.25rem 1rem;
+        font-size: 0.85em;
     }
 }
 
 /**
- * @component Focus States
- * @description Define um estilo de contorno claro para elementos interativos
- * quando estão em foco, melhorando a navegabilidade por teclado.
+ * @media Medium Devices (Tablets - landscape and small desktops < 992px)
+ * @description Estilos para telas de dispositivos médios.
  */
-.btn-gamer:focus,
-.form-input:focus,
-.toggle-password:focus,
-.accordion-button:focus,
-#voltar-topo:focus {
-    /** Contorno para indicar foco, com cor primária. */
-    outline: 2px solid var(--bs-primary);
-    /** Deslocamento do contorno para fora do elemento. */
-    outline-offset: 2px;
-}
-
-/* --- 4. IMPRESSÃO --- */
-/**
- * @section Print
- * @description Estilos otimizados para a impressão da página.
- */
-@media print {
-    /** Remove sombras para uma impressão mais limpa. */
-    .shadow-light,
-    .shadow-medium,
-    .shadow-strong,
-    .card,
-    .form-container {
-        box-shadow: none !important;
+@media (max-width: 991.98px) { /* Bootstrap's MD breakpoint */
+     /* Imagens de Banners */
+    #section-banners img {
+        max-height: 400px; 
     }
 
-    /** Ajusta botões para ter fundo sólido e texto visível na impressão. */
-    .btn-gamer {
-        background: var(--bs-primary) !important;
-        color: white !important;
-        /** Garante que as cores de fundo sejam impressas. */
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-    }
-
-    /** Esconde elementos não essenciais ou interativos na impressão. */
-    #voltar-topo,
-    header .navbar,
-    footer,
-    .form-group .toggle-password {
-        display: none !important;
-    }
-
-    /** Ajusta o tamanho da fonte do corpo para melhor legibilidade na impressão. */
-    body {
-        font-size: 12pt;
+    /* Imagens de Cards de Produtos */
+    .card-img-top {
+        height: 220px; 
+        object-fit: cover; 
     }
 }
 
-/* --- 5. DARK MODE (Futuro - baseado em preferência do sistema) --- */
-/**
- * @section Dark Mode
- * @description Define estilos para o tema escuro, ativado pela preferência
- * do sistema do usuário (prefers-color-scheme: dark).
- */
-@media (prefers-color-scheme: dark) {
-    /**
-     * @description Sobrescrita de variáveis CSS para o tema escuro.
-     */
-    :root {
-        --bs-body-bg: #1a1a1a;
-        --bs-body-color: #ffffff;
-        --bs-light: #2d2d2d;
-        --bs-dark: #ffffff;
-    }
-
-    /**
-     * @description Estilos específicos para componentes no Dark Mode.
-     */
-    .form-container {
-        background: #2d2d2d !important;
-        color: white;
-    }
-
-    .form-input {
-        background: #3d3d3d;
-        border-color: #4d4d4d;
-        color: white;
-    }
-
-    .form-input:focus {
-        background: #3d3d3d;
-        color: white;
-    }
-
-    .card {
-        background-color: #2d2d2d;
-        border-color: #4d4d4d;
-        color: white;
-    }
-
-    .card-title {
-        color: white;
-    }
-
-    .navbar {
-        background-color: #1a1a1a !important;
-    }
-
-    .navbar-nav .nav-link {
-        color: white !important;
-    }
-}

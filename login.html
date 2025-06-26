@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JM Games - Login</title>
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -18,25 +19,22 @@
 
 <body>
     <header class="header-login">
-    <nav class="navbar navbar-expand-lg bg-primary shadow-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">
-                <img src="img/logo.png" alt="logo JM Games" class="transition-fast">
-            </a>
+        <nav class="navbar navbar-expand-lg shadow-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">
+                    <img src="img/logo.png" alt="logo JM Games" class="transition-fast">
+                </a>
 
-            <div class="d-flex ms-auto">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Ajuda</a>
-                    </li>
-                    <li class="nav-item ms-3"> <a class="nav-link text-white" href="index.html">Voltar para Início</a>
-                    </li>
-                </ul>
+                <div class="d-flex ms-auto">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"> <a class="nav-link text-dark" href="index.html">Voltar para Início</a>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
-            
-            </div>
-    </nav>
-</header>
+        </nav>
+    </header>
 
     <main class="my-5">
         <section id="login-section" class="container rounded shadow-medium">
@@ -103,9 +101,6 @@
         <section id="register-section" class="container rounded shadow-medium" style="display: none;">
             <div class="text-center p-4">
                 <h1 class="fw-bold spacing-md text-primary"> Criar Minha Conta </h1>
-                <p class="lead text-muted spacing-md">
-                    Informe os seus dados abaixo para criar sua conta e começar a jogar!
-                </p>
             </div>
             <div class="d-flex justify-content-center">
                 <div class="form-container shadow-light rounded p-4 bg-white" style="max-width: 450px; width: 100%;">
@@ -210,26 +205,24 @@
 
                 <div class="col-md-3 col-sm-6 mb-4">
                     <h5 class="text-uppercase mb-4">JM Games</h5>
-                    <p class="text-muted">
+                    <p class="text-white">
                         Um projeto de portfólio que simula uma loja virtual de games,
-                        desenvolvido por [Seu Nome/Link para Portfólio].
+                        desenvolvido por Jonathan Monteiro.
                         Focado em JavaScript moderno, UX/UI e integração de API.
                     </p>
                     <div class="social-links mt-3">
                         <a href="https://github.com/JonathanMonteiro777" target="_blank" rel="noopener"
-                            class="text-white me-2" title="GitHub de Jonathan Monteiro"><i
-                                class="fab fa-github fa-lg"></i></a>
+                            class="text-white text-decoration-none me-2" title="GitHub de Jonathan Monteiro">GitHub</a>
                         <a href="https://www.linkedin.com/in/jonathan-lucas-34684a1a4" target="_blank" rel="noopener"
-                            class="text-white" title="LinkedIn de Jonathan Lucas"><i
-                                class="fab fa-linkedin fa-lg"></i></a>
+                            class="text-white text-decoration-none" title="LinkedIn de Jonathan Monteiro">LinkedIn</a>
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 mb-4">
                     <h5 class="text-uppercase mb-4">Fonte de Dados</h5>
-                    <p class="text-muted">
+                    <p class="text-white">
                         Dados de jogos fornecidos pela <a href="https://rawg.io/apidocs" target="_blank" rel="noopener"
-                            class="text-white text-decoration-none">RAWG API</a>.
+                            class="text-secondary text-decoration-none">RAWG API</a>.
                         Um agradecimento especial à RAWG.io pela disponibilidade dos dados para projetos como este.
                     </p>
                 </div>
@@ -238,8 +231,9 @@
                     <h5 class="text-uppercase mb-4">Navegação Rápida</h5>
                     <ul class="list-unstyled">
                         <li><a href="index.html" class="text-white text-decoration-none">Início</a></li>
-                        <li><a href="#jogos-populares" class="text-white text-decoration-none">Jogos Populares</a></li>
-                        <li><a href="#novos-lancamentos" class="text-white text-decoration-none">Novos Lançamentos</a>
+                        <li><a href="#filterPopularGames" class="text-white text-decoration-none">Jogos Populares</a>
+                        </li>
+                        <li><a href="#filterNewReleases" class="text-white text-decoration-none">Novos Lançamentos</a>
                         </li>
                         <li><a href="login.html" class="text-white text-decoration-none">Minha Conta</a></li>
                     </ul>
@@ -248,10 +242,10 @@
                 <div class="col-md-3 col-sm-6 mb-4">
                     <h5 class="text-uppercase mb-4">Explore por:</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-white text-decoration-none">Gêneros (ex: Ação)</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">Plataformas (ex: PC)</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">Desenvolvedores</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">Editoras</a></li>
+                        <li><a href="#filtersModal" class="text-white text-decoration-none">Gêneros (ex: Ação)</a></li>
+                        <li><a href="#filtersModal" class="text-white text-decoration-none">Plataformas (ex: PC)</a>
+                        </li>
+                        <li><a href="#searchContainer" class="text-white text-decoration-none">Pesquisar Jogos</a></li>
                     </ul>
                 </div>
 
@@ -267,15 +261,12 @@
             </div>
         </div>
     </footer>
-</body>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-    crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
-    crossorigin="anonymous"></script>
-<script src="js/jquery-script.js"></script>
-<script type="module" src="js/login-page.js"></script>
-<script type="module" src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+    <script type="module" src="js/login-page.js"></script>
+    <script type="module" src="js/main.js"></script>
+</body>
 
 </html>

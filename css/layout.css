@@ -5,36 +5,27 @@
  * @version 1.0.0
  ============================================================================ */
 
-/* --- Header (Navbar) --- */
 /**
  * @section Header
  * @description Estilos para a barra de navegação e elementos do cabeçalho.
  */
 header .navbar-brand img {
-    /** Altura máxima da logo na barra de navegação. */
     height: 70px;
-    /** Largura automática para manter a proporção da logo. */
     width: auto;
-    /** Garante que a logo não exceda a largura do seu contêiner. */
     max-width: 100%;
 }
 
-/* --- Section: Banners --- */
 /**
  * @section Banners
  * @description Estilos para a seção de banners, garantindo que as imagens
  * ocupem o espaço corretamente.
  */
 #section-banners img {
-    /** Altura máxima para as imagens dos banners. */
     max-height: 500px;
-    /** Garante que a imagem preencha o contêiner sem distorção, cortando o excesso. */
-    object-fit: cover;
-    /** A imagem ocupa a largura total do seu contêiner. */
+    object-fit: cover; 
     width: 100%;
 }
 
-/* --- Section: Login/Register Forms --- */
 /**
  * @section Formulários de Autenticação
  * @description Estilos para as seções de login e cadastro, centralizando o
@@ -42,41 +33,30 @@ header .navbar-brand img {
  */
 #login-section,
 #register-section {
-    /** Garante que as seções ocupem no mínimo 60% da altura da viewport. */
-    min-height: 60vh;
-    /** Transforma a seção em um contêiner flexbox. */
+    background-color: var(--bs-gray-300);
+    min-height: 100vh;
     display: flex;
-    /** Organiza os itens filhos em uma coluna. */
     flex-direction: column;
-    /** Centraliza o conteúdo verticalmente dentro da seção. */
     justify-content: center;
 }
 
-/* --- Footer --- */
 /**
  * @section Footer
  * @description Estilos para o rodapé, controlando seu comportamento no layout.
  */
 footer {
-    /** Impede que o footer encolha, mantendo sua altura definida.
-     * Necessário quando o 'body' é um contêiner flexbox. */
+    /** Impede que o footer encolha, mantendo sua altura definida. */
     flex-shrink: 0;
-    /* Os estilos visuais (background, cores, fontes etc.) devem estar em components.css */
 }
 
-/* --- Go To Top Button --- */
 /**
  * @section Botão Voltar ao Topo
  * @description Estilos de posicionamento para o botão de rolagem "Voltar ao Topo".
  * Seus estilos visuais e de interação (hover, display) devem estar em components.css.
  */
 #voltar-topo {
-    /** Fixa o botão na viewport. */
     position: fixed;
-    /** Distância do botão em relação à parte inferior da viewport. */
     bottom: 20px;
-    /** Distância do botão em relação à borda direita da viewport. */
     right: 20px;
-    /** Garante que o botão esteja acima de outros elementos. */
     z-index: 1000;
 }

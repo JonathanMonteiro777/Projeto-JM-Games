@@ -1,30 +1,40 @@
-// js/pages/detalhes.js
+/**
+ * @file detalhes.js
+ * @description Script responsável por carregar e exibir os detalhes de um jogo específico,
+ * incluindo sua descrição, mídias (vídeo/screenshots), informações e jogos relacionados.
+ * Gerencia interações de adição ao carrinho e aos favoritos na página de detalhes.
+ * @version 1.0.0
+ */
 
 // --- IMPORTS ---
-import { fetchGameDetails, fetchGameScreenshots, fetchGames } from './services/rawgApi.js'; // Alterado para fetchGameDetails
+import { fetchGameDetails, fetchGameScreenshots, fetchGames } from './services/rawgApi.js';
 import { showToast, handleScrollToTopButton } from './utils/domUtils.js';
 import { CarrinhoManager } from './classes/CarrinhoManager.js';
-import { AuthManager } from './classes/AuthManager.js'; // Importado mas não usado no snippet, manter se usar em outro lugar
 import { FavoritosManager } from './classes/FavoritosManager.js';
 import { scrollToTop } from './utils/helpers.js';
 
-// --- Função reutilizável para criar um card de jogo relacionado ---
+// --- Funções Auxiliares ---
+
 /**
  * Cria um elemento HTML (card) para exibir um jogo relacionado.
- * @param {Object} game - O objeto do jogo a ser exibido no card.
- * @param {FavoritosManager} favoritosManagerInstance - Instância do FavoritosManager para verificar se o jogo está favoritado.
- * @returns {HTMLDivElement} O elemento div que contém o card do jogo.
+ * Inclui informações básicas, preço simulado e botões de ação (carrinho/favoritos).
+ *
+ * @param {object} game - O objeto do jogo a ser exibido no card, contendo propriedades como `id`, `name`, `background_image`, `released`, `rating`.
+ * @param {FavoritosManager} favoritosManagerInstance - Instância do `FavoritosManager` para verificar se o jogo já está favoritado.
+ * @returns {HTMLDivElement} O elemento `div` que contém o card do jogo.
  */
 function createGameCardForRelated(game, favoritosManagerInstance) {
     const placeholderImage = '../img/placeholder.PNG';
     const imageUrl = game.background_image || placeholderImage;
     const stars = '⭐'.repeat(Math.round(game.rating || 0));
+    // Preço simulado baseado no ID do jogo
+    const simulatedPrice = ((game.id % 100) + 50).toFixed(2);
 
     const cardCol = document.createElement('div');
     cardCol.classList.add('col-md-4', 'col-sm-6', 'mb-4');
     cardCol.innerHTML = `
         <div class="card h-100 shadow-light game-card-link">
-            <a href="detalhes.html?id=${game.id}" class="card-link-overlay">
+            <a href="detalhes.html?id=${game.id}" class="card-link-overlay" aria-label="Ver detalhes de ${game.name || 'nome do jogo'}">
                 <img src="${imageUrl}" class="card-img-top" alt="${game.name || 'nome do jogo'}">
                 <div class="card-body text-center d-flex flex-column">
                     <h5 class="card-title fw-bold">${game.name || 'Nome Desconhecido'}</h5>
@@ -32,9 +42,9 @@ function createGameCardForRelated(game, favoritosManagerInstance) {
                         Lançamento: ${game.released || 'N/A'}<br>
                         Avaliação: <span>${game.rating || 'N/A'}/5</span>
                     </p>
-                    <p class="text-price text-success">R$${((game.id % 100) + 50).toFixed(2)}</p>
+                    <p class="text-price text-success">R$${simulatedPrice}</p>
                     <p class="text-warning text-sm">
-                        ${stars} (${game.rating || 'N/A'}/5)
+                        ${stars}
                     </p>
                 </div>
                 <div class="view-details-overlay">Ver Detalhes</div>
@@ -43,16 +53,18 @@ function createGameCardForRelated(game, favoritosManagerInstance) {
                 <a href="#" class="btn btn-gamer flex-fill me-2 add-to-cart"
                     data-product-id="${game.id}"
                     data-product-name="${game.name}"
-                    data-product-price="${((game.id % 100) + 50).toFixed(2)}"
-                    data-product-image="${imageUrl}">
+                    data-product-price="${simulatedPrice}"
+                    data-product-image="${imageUrl}"
+                    aria-label="Adicionar ${game.name} ao carrinho">
                     <i class="bi bi-cart-plus-fill me-2"></i>
                     Adicionar
                 </a>
                 <button class="btn btn-outline-warning add-to-favorites"
                     data-product-id="${game.id}"
                     data-product-name="${game.name}"
-                    data-product-price="${((game.id % 100) + 50).toFixed(2)}"
-                    data-product-image="${imageUrl}">
+                    data-product-price="${simulatedPrice}"
+                    data-product-image="${imageUrl}"
+                    aria-label="${favoritosManagerInstance.isFavorited(game.id) ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}">
                     <i class="bi ${favoritosManagerInstance.isFavorited(game.id) ? 'bi-heart-fill' : 'bi-heart'}"></i>
                 </button>
             </div>
@@ -61,136 +73,135 @@ function createGameCardForRelated(game, favoritosManagerInstance) {
     return cardCol;
 }
 
-// --- Funções de manipulação de carrinho/favoritos para os cards relacionados e principal ---
 /**
  * Lida com o evento de clique para adicionar um produto ao carrinho.
+ * Extrai os dados do produto dos `dataset` do elemento e os passa para o `CarrinhoManager`.
  * Exibe um toast de sucesso ou erro.
- * @param {CarrinhoManager} carrinhoManager - Instância do CarrinhoManager.
+ *
+ * @param {CarrinhoManager} carrinhoManager - Instância do `CarrinhoManager`.
  * @param {Event} event - O objeto do evento de clique.
  */
 function handleAddToCart(carrinhoManager, event) {
-    const productId = event.currentTarget.dataset.productId;
-    const productName = event.currentTarget.dataset.productName;
-    const productPrice = parseFloat(event.currentTarget.dataset.productPrice);
-    const productImage = event.currentTarget.dataset.productImage;
+    const { productId, productName, productPrice, productImage } = event.currentTarget.dataset;
 
-    if (productId && productName && !isNaN(productPrice) && productImage) {
-        const product = { id: productId, name: productName, price: productPrice, image: productImage };
+    if (productId && productName && !isNaN(parseFloat(productPrice)) && productImage) {
+        const product = { id: productId, name: productName, price: parseFloat(productPrice), image: productImage };
         carrinhoManager.adicionarItem(product);
-        showToast(`"${product.name}" adicionado ao carrinho!`, 'success');
+        // O showToast já é chamado dentro do adicionarItem do CarrinhoManager,
+        // então esta linha é redundante e pode ser removida para evitar dois toasts.
+        // showToast(`"${product.name}" adicionado ao carrinho!`, 'success');
     } else {
-        console.error('Dados do produto incompletos para adicionar ao carrinho:', event.currentTarget.dataset);
+        console.error('Dados do produto incompletos ou inválidos para adicionar ao carrinho:', event.currentTarget.dataset);
         showToast('Erro: Dados do produto inválidos para o carrinho.', 'danger');
     }
 }
 
 /**
- * Lida com o evento de clique para adicionar/remover um produto dos favoritos.
- * Atualiza o ícone do coração e exibe um toast informativo.
- * @param {FavoritosManager} favoritosManager - Instância do FavoritosManager.
+ * Lida com o evento de clique para adicionar ou remover um produto da lista de favoritos.
+ * Extrai os dados do produto dos `dataset` do elemento, atualiza o `FavoritosManager` e o ícone do coração.
+ * Exibe um toast informativo.
+ *
+ * @param {FavoritosManager} favoritosManager - Instância do `FavoritosManager`.
  * @param {Event} event - O objeto do evento de clique.
  */
 function handleAddToWishlist(favoritosManager, event) {
-    const productId = event.currentTarget.dataset.productId;
-    const productName = event.currentTarget.dataset.productName;
-    const productImage = event.currentTarget.dataset.productImage;
+    const { productId, productName, productImage } = event.currentTarget.dataset;
 
     if (productId && productName && productImage) {
         const product = { id: productId, name: productName, image: productImage };
+        // adicionarRemoverItem retorna true se foi adicionado, false se foi removido
         const isNowFavorited = favoritosManager.adicionarRemoverItem(product);
 
         const heartIcon = event.currentTarget.querySelector('i.bi');
         if (heartIcon) {
             heartIcon.classList.toggle('bi-heart-fill', isNowFavorited);
             heartIcon.classList.toggle('bi-heart', !isNowFavorited);
+            // Atualiza o aria-label para acessibilidade
+            event.currentTarget.setAttribute('aria-label', `${isNowFavorited ? 'Remover dos favoritos' : 'Adicionar aos favoritos'} ${product.name}`);
         }
-        showToast(`"${product.name}" ${isNowFavorited ? 'adicionado' : 'removido'} dos favoritos!`, 'info');
+        // showToast já é chamado dentro do adicionarRemoverItem do FavoritosManager,
+        // então esta linha é redundante e pode ser removida para evitar dois toasts.
+        // showToast(`"${product.name}" ${isNowFavorited ? 'adicionado' : 'removido'} dos favoritos!`, 'info');
     } else {
-        console.error('Dados do produto incompletos para adicionar à lista de desejos:', event.currentTarget.dataset);
+        console.error('Dados do produto incompletos ou inválidos para adicionar/remover dos favoritos:', event.currentTarget.dataset);
         showToast('Erro: Dados do produto inválidos para favoritos.', 'danger');
     }
 }
 
 /**
- * Configura os event listeners para os botões "Comprar" e "Favoritar"
+ * Configura os event listeners para os botões de "Adicionar ao Carrinho" e "Adicionar aos Favoritos"
  * dentro de um contêiner HTML específico.
- * @param {HTMLElement} container - O elemento HTML onde os botões estão localizados.
- * @param {CarrinhoManager} carrinhoManager - Instância do CarrinhoManager.
- * @param {FavoritosManager} favoritosManager - Instância do FavoritosManager.
+ *
+ * @param {HTMLElement} container - O elemento HTML pai onde os botões estão localizados.
+ * @param {CarrinhoManager} carrinhoManager - Instância do `CarrinhoManager`.
+ * @param {FavoritosManager} favoritosManager - Instância do `FavoritosManager`.
  */
 function setupListeners(container, carrinhoManager, favoritosManager) {
+    // Escuta cliques em botões com as classes 'add-to-cart-details' (para o jogo principal)
+    // e 'add-to-cart' (para jogos relacionados nos cards)
     container.querySelectorAll('.add-to-cart-details, .add-to-cart').forEach(button => {
         button.addEventListener('click', (event) => handleAddToCart(carrinhoManager, event));
     });
 
+    // Escuta cliques em botões com as classes 'add-to-favorites-details' (para o jogo principal)
+    // e 'add-to-favorites' (para jogos relacionados nos cards)
     container.querySelectorAll('.add-to-favorites-details, .add-to-favorites').forEach(button => {
         button.addEventListener('click', (event) => handleAddToWishlist(favoritosManager, event));
     });
 }
 
-// --- Função para renderizar os detalhes do jogo principal ---
 /**
- * Renderiza os detalhes completos de um jogo na página, incluindo mídias (vídeo/imagem)
- * e informações detalhadas. Também configura a galeria de screenshots.
- * @param {Object} gameData - O objeto de detalhes do jogo retornado pela API RAWG.
- * @param {CarrinhoManager} carrinhoManager - Instância do CarrinhoManager para a funcionalidade do botão de compra.
- * @param {FavoritosManager} favoritosManager - Instância do FavoritosManager para a funcionalidade do botão de favoritos.
+ * Renderiza os detalhes completos de um jogo na página HTML.
+ * Isso inclui a exibição de mídias (vídeo/imagem principal), screenshots,
+ * informações detalhadas do jogo e botões de ação.
+ *
+ * @param {object} gameData - O objeto de detalhes do jogo, contendo dados da API RAWG,
+ * incluindo um array `screenshots` populado.
+ * @param {CarrinhoManager} carrinhoManager - Instância do `CarrinhoManager` para a funcionalidade do botão de compra.
+ * @param {FavoritosManager} favoritosManager - Instância do `FavoritosManager` para a funcionalidade do botão de favoritos.
  */
 function renderGameDetails(gameData, carrinhoManager, favoritosManager) {
     const detailsSection = document.getElementById('game-details-section');
     if (!detailsSection) {
-        console.error('ERRO: Seção de detalhes do jogo não encontrada no HTML.');
+        console.error('ERRO: Elemento #game-details-section não encontrado no HTML. Detalhes do jogo não podem ser renderizados.');
         return;
     }
 
-    console.log('TRACE: Iniciando renderGameDetails para o jogo:', gameData.name);
+    // Garante que `screenshots` é um array, mesmo que venha como `undefined` ou `null`
+    const screenshots = Array.isArray(gameData.screenshots) ? gameData.screenshots : [];
 
-     // NOVO LOG CRÍTICO AQUI: Stringify o objeto completo para ver todas as propriedades
-    console.log('TRACE: JSON completo de gameData DENTRO DE renderGameDetails:', JSON.stringify(gameData, null, 2)); 
-    console.log('TRACE: Valor de gameData.screenshots DENTRO DE renderGameDetails:', gameData.screenshots); 
-
-    // ESTE É O LOG MAIS IMPORTANTE AGORA! DEVE MOSTRAR UM ARRAY!
-    console.log('TRACE: Valor de gameData.screenshots DENTRO DE renderGameDetails:', gameData.screenshots); 
-
-    // *** GARANTIA DE QUE screenshots É UM ARRAY (AGORA REFERENCIANDO gameData.screenshots) ***
-    const screenshots = Array.isArray(gameData.screenshots) ? gameData.screenshots : []; 
-    console.log('TRACE: screenshots (após verificação de array):', screenshots);
-    console.log('TRACE: screenshots.length (após verificação de array):', screenshots.length);
-
-
-    const isFavorited = favoritosManager.isFavorited(gameData.id); 
-    const stars = '⭐'.repeat(Math.round(gameData.rating || 0)); 
+    const isFavorited = favoritosManager.isFavorited(gameData.id);
+    const stars = '⭐'.repeat(Math.round(gameData.rating || 0));
+    // Preço simulado para o jogo principal
+    const simulatedPrice = ((gameData.id % 100) + 50).toFixed(2);
 
     // Mídia principal (vídeo ou imagem de fundo)
     const mediaHTML = gameData.clip && gameData.clip.clip ? `
         <div class="game-media-container ratio ratio-16x9 mb-4 rounded shadow-lg overflow-hidden bg-dark">
-            <video controls preload="metadata" poster="${gameData.background_image || '../img/placeholder.jpg'}">
+            <video controls preload="metadata" poster="${gameData.background_image || '../img/placeholder.jpg'}" aria-label="Vídeo de gameplay de ${gameData.name}">
                 <source src="${gameData.clip.clip}" type="video/mp4">
                 Seu navegador não suporta a tag de vídeo.
             </video>
         </div>
     ` : `
         <div class="game-media-container mb-4 rounded shadow-lg overflow-hidden">
-            <img src="${gameData.background_image || '../img/placeholder.jpg'}" class="img-fluid w-100" alt="${gameData.name}">
+            <img src="${gameData.background_image || '../img/placeholder.jpg'}" class="img-fluid w-100" alt="Imagem principal de ${gameData.name}">
         </div>
     `;
 
     const hasScreenshots = screenshots.length > 0;
 
     // Galeria de screenshots (se houver)
-    // ESTE LOG TAMBÉM DEVE SER TRUE AGORA PARA JOGOS COM SCREENSHOTS
-    console.log('TRACE: gameData.screenshots existe e tem length > 0?', gameData.screenshots && gameData.screenshots.length > 0); 
-
     const screenshotsHTML = hasScreenshots ? `
         <div class="screenshots-gallery row g-2 mb-4">
             ${screenshots.slice(0, 4).map((screenshot, index) => `
                 <div class="col-6 col-md-3">
-                    <img src="${screenshot.image}" class="img-fluid rounded shadow-sm cursor-pointer" alt="Screenshot ${index + 1} de ${gameData.name}" data-bs-toggle="modal" data-bs-target="#screenshotModal" data-img-src="${screenshot.image}">
+                    <img src="${screenshot.image}" class="img-fluid rounded shadow-sm cursor-pointer" alt="Screenshot ${index + 1} de ${gameData.name}" data-bs-toggle="modal" data-bs-target="#screenshotModal" data-img-src="${screenshot.image}" role="button" tabindex="0" aria-label="Abrir screenshot ${index + 1} de ${gameData.name}">
                 </div>
             `).join('')}
         </div>
-        <button class="btn btn-outline-light d-block mx-auto mb-4" data-bs-toggle="modal" data-bs-target="#allScreenshotsModal">Ver todas as imagens</button>
-    ` : ''; // Se não houver screenshots, gera uma string vazia
+        <button class="btn btn-outline-light d-block mx-auto mb-4" data-bs-toggle="modal" data-bs-target="#allScreenshotsModal" aria-label="Ver todas as imagens do jogo ${gameData.name}">Ver todas as imagens</button>
+    ` : '';
 
     detailsSection.innerHTML = `
         <div class="container py-5 bg-dark text-white">
@@ -223,15 +234,17 @@ function renderGameDetails(gameData, carrinhoManager, favoritosManager) {
                         <button class="btn btn-gamer btn-lg flex-grow-1 add-to-cart-details"
                             data-product-id="${gameData.id}"
                             data-product-name="${gameData.name}"
-                            data-product-price="${((gameData.id % 100) + 50).toFixed(2)}"
-                            data-product-image="${gameData.background_image || '../img/placeholder.jpg'}">
-                            Comprar por R$${((gameData.id % 100) + 50).toFixed(2)}
+                            data-product-price="${simulatedPrice}"
+                            data-product-image="${gameData.background_image || '../img/placeholder.jpg'}"
+                            aria-label="Comprar ${gameData.name} por R$${simulatedPrice}">
+                            Comprar por R$${simulatedPrice}
                         </button>
                         <button class="btn btn-outline-warning btn-lg add-to-favorites-details"
                             data-product-id="${gameData.id}"
                             data-product-name="${gameData.name}"
-                            data-product-price="${((gameData.id % 100) + 50).toFixed(2)}"
-                            data-product-image="${gameData.background_image || '../img/placeholder.jpg'}">
+                            data-product-price="${simulatedPrice}"
+                            data-product-image="${gameData.background_image || '../img/placeholder.jpg'}"
+                            aria-label="${isFavorited ? 'Remover dos favoritos' : 'Adicionar aos favoritos'} ${gameData.name}">
                             <i class="bi ${isFavorited ? 'bi-heart-fill' : 'bi-heart'}"></i> Adicionar aos Favoritos
                         </button>
                     </div>
@@ -240,9 +253,8 @@ function renderGameDetails(gameData, carrinhoManager, favoritosManager) {
         </div>
     `;
 
-    // Adiciona event listeners para abrir screenshots em modal (se houver galeria)
+    // Lógica para o modal de screenshot individual
     if (hasScreenshots) {
-        console.log('TRACE: Entrou no bloco de screenshots. Tentando popular o modal de todas as imagens.');
         detailsSection.querySelectorAll('.screenshots-gallery img').forEach(img => {
             img.addEventListener('click', (event) => {
                 const modalImage = document.getElementById('screenshotModalImage');
@@ -251,31 +263,28 @@ function renderGameDetails(gameData, carrinhoManager, favoritosManager) {
                 }
             });
         });
-        // Lógica para o modal "Ver todas as imagens"
+
+        // Lógica para popular o modal "Ver todas as imagens"
         const allScreenshotsModalBody = document.getElementById('allScreenshotsModalBody');
         if (allScreenshotsModalBody) {
-             allScreenshotsModalBody.innerHTML = `
+            allScreenshotsModalBody.innerHTML = `
                 <div class="row g-2">
                     ${screenshots.map(screenshot => `
                         <div class="col-6 col-md-4 col-lg-3">
-                            <img src="${screenshot.image}" class="img-fluid rounded shadow-sm" alt="Screenshot">
+                            <img src="${screenshot.image}" class="img-fluid rounded shadow-sm" alt="Screenshot do jogo">
                         </div>
                     `).join('')}
                 </div>
             `;
         } else {
-            console.warn('AVISO: allScreenshotsModalBody não encontrado no DOM. O modal de todas as imagens pode não funcionar.');
+            console.warn('AVISO: Elemento #allScreenshotsModalBody não encontrado no DOM. O modal "Ver todas as imagens" pode não funcionar.');
         }
-    } else {
-        console.log('TRACE: Não há screenshots no array processado. A galeria e o botão "Ver todas as imagens" não serão exibidos.');
     }
 }
 
-// --- Lógica principal para carregar detalhes e jogos relacionados ---
+// --- Inicialização da Página ---
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log('TRACE: detalhes.js carregado. DOMContentLoaded.');
-
-    // --- Inicializa Gerenciadores ---
+    // --- Inicializa Gerenciadores de Estado ---
     const carrinho = new CarrinhoManager();
     const favoritos = new FavoritosManager();
 
@@ -283,63 +292,56 @@ document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const gameId = urlParams.get('id');
 
+    // Referências para elementos de UI de jogos relacionados
     const relatedGamesContainer = document.getElementById('related-games-container');
     const noRelatedGamesMessage = document.getElementById('no-related-games-message');
     const relatedGamesLoadingSpinner = document.getElementById('related-games-loading-spinner');
 
-
     if (!gameId) {
-        console.error('ERRO: ID do jogo não encontrado na URL.');
+        console.error('ERRO: ID do jogo não encontrado na URL. Redirecionando...');
         showToast('ERRO: ID do jogo não especificado. Volte para a página inicial e tente novamente.', 'danger');
-        setTimeout(() => {
-            window.location.href = 'index.html';
-        }, 3000);
+        setTimeout(() => { window.location.href = 'index.html'; }, 3000);
         return; // Sai da função se não houver ID
     }
 
-    console.log(`TRACE: ID do jogo obtido da URL: ${gameId}`);
-
     try {
-        // Buscar detalhes do jogo principal usando fetchGameDetails
-        const gameDetails = await fetchGameDetails(gameId); // Usando a função mais específica
-        console.log('DEBUG: Detalhes do jogo recebidos APÓS fetchGameDetails:', gameDetails);
-        console.log('TRACE: Detalhes do jogo recebidos:', gameDetails);
-
-        // Adicione esta chamada para buscar as screenshots separadamente
+        // --- Carregar e Renderizar Detalhes do Jogo Principal ---
+        const gameDetails = await fetchGameDetails(gameId);
+        // A busca por screenshots foi integrada na `fetchGameDetails` ou deve ser tratada como parte do `gameDetails` se a API retornar.
+        // Se a API RAWG fornecer screenshots em um endpoint separado e for necessário,
+        // a linha `gameDetails.screenshots = gameScreenshots;` estaria correta após um `await fetchGameScreenshots(gameId);`.
+        // Mantive a estrutura do seu código original que faz duas chamadas e atribui, o que é válido.
         const gameScreenshots = await fetchGameScreenshots(gameId);
-        
-        gameDetails.screenshots = gameScreenshots;
+        gameDetails.screenshots = gameScreenshots; // Atribui as screenshots ao objeto gameDetails
 
-        // Renderizar os detalhes do jogo na página
-        renderGameDetails(gameDetails, carrinho, favoritos); // Passando carrinho e favoritos
+        renderGameDetails(gameDetails, carrinho, favoritos);
 
-        // Configurar os listeners para os botões do jogo principal (e futuramente de outros elementos se necessário)
-        setupListeners(document, carrinho, favoritos); // Passamos 'document' para abranger todos os botões recém-renderizados
+        // Configurar listeners para os botões do jogo principal (que acabaram de ser renderizados)
+        setupListeners(document.getElementById('game-details-section'), carrinho, favoritos); // Passa a seção de detalhes para focar os listeners
 
-        // ----- Lógica para Jogos Relacionados -----
-        relatedGamesLoadingSpinner.style.display = 'block';
-        noRelatedGamesMessage.style.display = 'none';
+        // --- Carregar e Renderizar Jogos Relacionados ---
+        relatedGamesLoadingSpinner.style.display = 'block'; // Mostra spinner de carregamento
+        noRelatedGamesMessage.style.display = 'none'; // Esconde mensagem de "nenhum jogo"
         relatedGamesContainer.innerHTML = ''; // Limpa resultados anteriores
 
         if (!gameDetails || !gameDetails.genres || gameDetails.genres.length === 0) {
             noRelatedGamesMessage.style.display = 'block';
             noRelatedGamesMessage.querySelector('p').textContent = 'Nenhum gênero encontrado para este jogo, impossível buscar relacionados.';
-            relatedGamesLoadingSpinner.style.display = 'none'; // Esconde o spinner
-            return; // Não prossegue se não houver gênero
+            relatedGamesLoadingSpinner.style.display = 'none';
+            return;
         }
 
         const genresSlugs = gameDetails.genres.map(genre => genre.slug).join(',');
-
-        // Buscar jogos relacionados
         const relatedGamesParams = {
             genres: genresSlugs,
-            page_size: 16, // Quantos jogos relacionados mostrar
-            ordering: '-rating' // Ou '-released' para mais recentes
+            page_size: 16,
+            ordering: '-rating' // Ex: '-released' para mais recentes, ou '-rating' para melhores avaliados
         };
+
         const apiResponseForRelated = await fetchGames(relatedGamesParams);
         let relatedGames = apiResponseForRelated.results;
 
-        // Filtrar manualmente o jogo atual dos resultados para não mostrá-lo como relacionado
+        // Filtra o jogo atualmente exibido para não aparecer nos "relacionados"
         relatedGames = relatedGames.filter(game => String(game.id) !== String(gameId));
 
         if (relatedGames.length === 0) {
@@ -350,23 +352,31 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const gameCard = createGameCardForRelated(game, favoritos);
                 relatedGamesContainer.appendChild(gameCard);
             });
-
             // Configurar listeners para os botões dos jogos relacionados
             setupListeners(relatedGamesContainer, carrinho, favoritos);
         }
 
     } catch (error) {
-        console.error('ERRO: Não foi possível carregar os detalhes do jogo ou jogos relacionados:', error);
-        showToast('ERRO: Não foi possível carregar os detalhes do jogo ou jogos relacionados.', 'danger');
-        document.getElementById('game-details-section').innerHTML = '<p class="text-center text-white">Não foi possível carregar os detalhes deste jogo.</p>';
-        noRelatedGamesMessage.style.display = 'block';
-        noRelatedGamesMessage.querySelector('p').textContent = 'Ocorreu um erro ao carregar jogos relacionados.';
+        console.error('ERRO na lógica principal (detalhes ou relacionados):', error);
+        showToast('Ocorreu um erro ao carregar os detalhes do jogo ou jogos relacionados.', 'danger');
+        // Exibe uma mensagem de erro na seção de detalhes do jogo
+        const detailsSection = document.getElementById('game-details-section');
+        if (detailsSection) {
+            detailsSection.innerHTML = '<p class="text-center text-white py-5">Não foi possível carregar os detalhes deste jogo. Tente novamente mais tarde.</p>';
+        }
+        // Exibe uma mensagem de erro para jogos relacionados
+        if (noRelatedGamesMessage) {
+            noRelatedGamesMessage.style.display = 'block';
+            noRelatedGamesMessage.querySelector('p').textContent = 'Ocorreu um erro ao carregar jogos relacionados.';
+        }
     } finally {
-        // Garante que o spinner dos relacionados seja escondido no final, independentemente do resultado
-        relatedGamesLoadingSpinner.style.display = 'none';
+        // Garante que o spinner dos relacionados seja escondido no final
+        if (relatedGamesLoadingSpinner) {
+            relatedGamesLoadingSpinner.style.display = 'none';
+        }
     }
 
-    // --- Event Listeners Globais (para offcanvas da navbar e botão Voltar ao Topo) ---
+    // --- Event Listeners Globais (para o offcanvas da navbar e o botão Voltar ao Topo) ---
     const btnLimparCarrinho = document.getElementById('btn-limpar-carrinho');
     if (btnLimparCarrinho) {
         btnLimparCarrinho.addEventListener('click', () => {

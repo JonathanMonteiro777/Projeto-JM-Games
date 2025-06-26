@@ -5,7 +5,6 @@
  * @version 1.0.0
  ============================================================================ */
 
-/* --- Estilos Base --- */
 /**
  * @section Base Styles
  * @description Estilos fundamentais aplicados a elementos HTML e ao corpo do
@@ -18,13 +17,9 @@
  * e se comportem como um contêiner flexível em coluna, essencial para o sticky footer.
  */
 html, body {
-    /** Define a altura total como 100% da viewport. */
     height: 100%;
-    /** Remove margens padrão que podem causar barras de rolagem indesejadas. */
     margin: 0;
-    /** Transforma o body em um contêiner flexbox. */
     display: flex;
-    /** Organiza os elementos filhos (cabeçalho, conteúdo, rodapé) em uma coluna. */
     flex-direction: column;
 }
 
@@ -34,13 +29,9 @@ html, body {
  * de fonte, altura da linha, cor de fundo e cor de texto.
  */
 body {
-    /** Define a família de fonte padrão do corpo, utilizando variáveis CSS. */
     font-family: var(--bs-body-font-family);
-    /** Define a altura da linha para legibilidade. */
     line-height: 1.6;
-    /** Define a cor de fundo do corpo, utilizando variáveis CSS. */
     background-color: var(--bs-body-bg);
-    /** Define a cor do texto do corpo, utilizando variáveis CSS. */
     color: var(--bs-body-color);
 }
 
@@ -49,7 +40,6 @@ body {
  * @description Define a família de fonte para todos os títulos.
  */
 h1, h2, h3, h4, h5, h6 {
-    /** Define a família de fonte para os títulos, utilizando variáveis CSS. */
     font-family: var(--bs-heading-font-family);
 }
 
@@ -58,75 +48,64 @@ h1, h2, h3, h4, h5, h6 {
  * @description Estilo para destacar parágrafos com uma fonte ligeiramente maior.
  */
 .lead {
-    /** Aumenta o tamanho da fonte para parágrafos de destaque. */
     font-size: 1.1rem;
 }
 
-/* --- Classes Utilitárias --- */
 /**
  * @section Utility Classes
  * @description Conjunto de classes CSS reutilizáveis para aplicar estilos
  * comuns como espaçamento, transições, sombras e tipografia de forma rápida.
  */
 
-/* Espaçamento */
 /**
  * @group Spacing
  * @description Classes para aplicar margens e preenchimentos.
  */
-.spacing-sm { /** Margem inferior pequena. */ margin-bottom: 0.5rem; }
-.spacing-md { /** Margem inferior média. */ margin-bottom: 1rem; }
-.spacing-lg { /** Margem inferior grande. */ margin-bottom: 2rem; }
-.spacing-xl { /** Margem inferior extra grande. */ margin-bottom: 3rem; }
+.spacing-sm { margin-bottom: 0.5rem; }
+.spacing-md { margin-bottom: 1rem; }
+.spacing-lg { margin-bottom: 2rem; }
+.spacing-xl { margin-bottom: 3rem; }
 
-.p-sm { /** Preenchimento em todas as direções pequeno. */ padding: 0.5rem; }
-.p-md { /** Preenchimento em todas as direções médio. */ padding: 1rem; }
-.p-lg { /** Preenchimento em todas as direções grande. */ padding: 1.5rem; }
-.p-xl { /** Preenchimento em todas as direções extra grande. */ padding: 2rem; }
+.p-sm { padding: 0.5rem; }
+.p-md { padding: 1rem; }
+.p-lg { padding: 1.5rem; }
+.p-xl { padding: 2rem; }
 
-/* Transições */
 /**
  * @group Transitions
  * @description Classes para aplicar transições suaves a elementos.
  */
-.transition-fast { /** Transição rápida para todas as propriedades. */ transition: all 0.2s ease; }
-.transition-normal { /** Transição normal para todas as propriedades. */ transition: all 0.3s ease; }
-.transition-slow { /** Transição lenta para todas as propriedades. */ transition: all 0.5s ease; }
+.transition-fast {  transition: all 0.2s ease; }
+.transition-normal {  transition: all 0.3s ease; }
+.transition-slow {  transition: all 0.5s ease; }
 
-/* Sombras */
 /**
  * @group Shadows
  * @description Classes para aplicar sombras predefinidas a elementos.
  */
-.shadow-light { /** Sombra leve. */ box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
-.shadow-medium { /** Sombra média. */ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); }
-.shadow-strong { /** Sombra forte. */ box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); }
+.shadow-light { box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+.shadow-medium { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); }
+.shadow-strong { box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); }
 
-/* Texto */
 /**
  * @group Text
  * @description Classes para ajustar o tamanho e peso da fonte do texto.
  */
-.text-sm { /** Tamanho de fonte pequeno. */ font-size: 0.875rem; }
-.text-lg { /** Tamanho de fonte grande. */ font-size: 2.125rem; }
+.text-sm {font-size: 0.875rem; }
+.text-lg { font-size: 2.125rem; }
 .text-price {
-    /** Tamanho de fonte para exibição de preços. */
     font-size: 1.25rem;
-    /** Peso da fonte negrito para preços. */
     font-weight: 700;
 }
 
-/* Fundos com Gradiente */
 /**
  * @group Gradient Backgrounds
  * @description Classes para aplicar fundos com gradientes predefinidos.
  */
 .bg-gradient-light {
-    /** Fundo com gradiente claro, definido em variáveis. */
     background: var(--gradient-light);
 }
 
 .bg-gradient-primary {
-    /** Fundo com gradiente primário, definido em variáveis. */
     background: var(--gradient-primary);
 }

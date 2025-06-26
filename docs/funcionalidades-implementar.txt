@@ -152,11 +152,4 @@ DESTAQUE ESTAS FUNCIONALIDADES:
 - ✅ "Autenticação e validação de formulários client-side robusta"
 - ✅ "Design responsivo e interativo, focado na experiência do usuário"
 - ✅ "Acessibilidade (WCAG 2.1)" (se atingir este ponto)
-
 ================================================================================
-FRASES PARA O README:
-
-"Simulação completa de e-commerce front-end com JavaScript vanilla."
-"Integração avançada com a API RAWG para dados de jogos em tempo real."
-"Foco em UX/UI, responsividade e código limpo e modular (ES Modules)."
-"Funcionalidades como carrinho, favoritos, busca e paginação implementadas do zero."

@@ -6,6 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JM Games</title>
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -24,11 +26,12 @@
 </head>
 
 <body class="bg-light text-dark">
+
   <header>
-    <nav class="navbar navbar-expand-lg bg-primary shadow-light">
+    <nav class="navbar navbar-expand-lg shadow-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="index.html">
-          <img src="img/logo.png" alt="logo" class="transition-fast">
+          <img src="img/logo.png" alt="Logotipo JM Games" class="transition-fast">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,31 +39,27 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
             <li class="nav-item">
-              <a class="nav-link text-white active" aria-current="page" href="index.html">Início</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link text-white" href="#">Populares</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link text-white" href="#">Lançamentos</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link text-white" href="login.html" id="loginLink">Entrar</a>
+              <a class="nav-link text-dark active" aria-current="page" href="index.html">Início</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="#" id="logoutButton" style="display: none;">Sair</a>
+              <a class="nav-link text-dark" href="#">Populares</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-dark" href="#">Lançamentos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-dark" href="login.html" id="loginLink">Entrar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-dark" href="#" id="logoutButton" style="display: none;">Sair</a>
             </li>
           </ul>
-
           <ul class="navbar-nav mb-2 mb-lg-0 ms-lg-2">
             <li class="nav-item">
-              <a class="nav-link position-relative text-white" href="#" data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasCarrinho" aria-controls="offcanvasCarrinho">
+              <a class="nav-link position-relative text-dark" href="#" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasCarrinho" aria-controls="offcanvasCarrinho"
+                aria-label="Abrir carrinho de compras">
                 <i class="bi bi-cart fs-4"></i>
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
                   id="cart-item-count">
@@ -69,12 +68,15 @@
                 </span>
               </a>
             </li>
-            <li class="nav-item ms-2"> <a class="nav-link position-relative text-white" href="#"
-                data-bs-toggle="offcanvas" data-bs-target="#offcanvasFavoritos" aria-controls="offcanvasFavoritos">
-                <i class="bi bi-heart fs-4"></i> <span
-                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning"
+            <li class="nav-item">
+              <a class="nav-link position-relative text-dark" href="#" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasFavoritos" aria-controls="offcanvasFavoritos"
+                aria-label="Abrir lista de favoritos">
+                <i class="bi bi-heart fs-4"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning"
                   id="favorite-item-count">
-                  0 <span class="visually-hidden">itens favoritos</span>
+                  0
+                  <span class="visually-hidden">itens favoritos</span>
                 </span>
               </a>
             </li>
@@ -83,10 +85,8 @@
       </div>
     </nav>
   </header>
-
   <main>
-
-    <section id="section-banners" class="container-fluid shadow-medium">
+    <section id="section-banners" class="container-fluid shadow-medium py-5">
       <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active"
@@ -111,28 +111,30 @@
           </div>
           <div class="carousel-item">
             <img src="img/banner-3.jpg" class="d-block w-100 img-banner" alt="Sua Jornada Gamer Começa Aqui">
-            <div class="carousel-caption d-none d-md-block text-whitw">
+            <div class="carousel-caption d-none d-md-block text-white">
               <h5>Filtre por Gênero e Plataforma!</h5>
               <p class="text-lg">Encontre exatamente o que procura, de RPG a Ação, para PC, PlayStation e mais.</p>
             </div>
           </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev"
+          aria-label="Anterior">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Anterior</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next"
+          aria-label="Próximo">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Próximo</span>
         </button>
       </div>
     </section>
-
     <section id="search-filter-section" class="container-fluid py-5 bg-light">
       <div class="container">
         <div class="row mb-4 justify-content-center">
           <div class="col-lg-8 col-md-10 col-sm-12">
             <div class="input-group input-group-lg shadow-sm rounded-pill">
+              <label for="searchInput" class="visually-hidden">Buscar jogos por nome...</label>
               <input type="text" class="form-control border-0 rounded-pill ps-4" id="searchInput"
                 placeholder="Buscar jogos por nome..." aria-label="Buscar jogos">
               <button class="btn btn-primary rounded-pill pe-4" type="button" id="searchButton">
@@ -149,7 +151,8 @@
               <button type="button" class="btn btn-outline-primary" id="filterNewReleases">Novidades</button>
               <button type="button" class="btn btn-outline-primary" id="filterPopularGames">Populares</button>
             </div>
-            <button class="btn btn-secondary mb-2" type="button" data-bs-toggle="modal" data-bs-target="#filtersModal">
+            <button class="btn btn-secondary mb-2" type="button" data-bs-toggle="modal" data-bs-target="#filtersModal"
+              aria-label="Abrir mais filtros">
               <i class="bi bi-funnel me-2"></i> Mais Filtros
             </button>
           </div>
@@ -201,14 +204,14 @@
         </div>
       </div>
     </section>
-
-    <section class="container mt-4">
-      <div id="loading-spinner" class="text-center mt-5" style="display: none;">
+    <section id="game-results-section" class="container mt-4">
+      <div id="loading-spinner" class="text-center mt-5" style="display: none;" aria-live="polite" aria-busy="true">
         <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden">Carregando...</span>
+          <span class="visually-hidden">Carregando jogos...</span>
         </div>
         <p class="mt-2 text-muted">Carregando jogos...</p>
       </div>
+
       <div id="no-results-message" class="text-center mt-5" style="display: none;">
         <p class="alert alert-info">Use a barra de busca ou os filtros para encontrar jogos!</p>
       </div>
@@ -221,26 +224,7 @@
         </ul>
       </nav>
     </section>
-
-    <section class="container mt-4">
-      <div id="loading-spinner" class="text-center mt-5" style="display: none;">
-        <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden">Carregando...</span>
-        </div>
-        <p class="mt-2 text-muted">Carregando jogos...</p>
-      </div>
-    
-
-      <div id="game-results-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-4">
-      </div>
-
-      <nav aria-label="Navegação de Páginas" class="mt-4">
-        <ul class="pagination justify-content-center" id="pagination-controls">
-        </ul>
-      </nav>
-    </section>
-
-    <section id="beneficios-membro" class="container p-xl bg-primary rounded shadow-medium text-white">
+    <section id="benefict-store-section" class="container p-xl bg-primary rounded shadow-medium text-white">
       <div class="row">
         <div class="col-md-10 mx-auto text-center">
           <h2 class="spacing-lg"> Descubra as Vantagens da JM Games! </h2>
@@ -285,8 +269,7 @@
         </div>
       </div>
     </section>
-
-    <section id="seguranca-privacidade" class="container p-xl rounded shadow-medium bg-white text-dark">
+    <section id="info-api-section" class="container p-xl rounded shadow-medium bg-white text-dark">
       <div class="row">
         <div class="col-md-10 mx-auto text-center">
           <h2 class="spacing-md"> Dados Confiáveis da API RAWG.io </h2>
@@ -322,14 +305,14 @@
             Todos os dados de jogos, imagens e informações são fornecidos pela <a href="https://rawg.io/"
               target="_blank" rel="noopener" class="text-primary text-decoration-underline">RAWG.io</a>.
             <br>
-            <a href="#" class="text-secondary text-decoration-underline transition-fast">
+            <a href="https://rawg.io/apidocs" target="_blank" rel="noopener"
+              class="text-secondary text-decoration-underline transition-fast">
               <i class="bi bi-info-circle-fill me-1"></i>Saiba mais sobre a RAWG.io
             </a>
           </p>
         </div>
       </div>
     </section>
-
     <section id="faq" class="container p-xl bg-light text-dark">
       <h2 class="text-center mb-4 text-primary">Dúvidas Frequentes sobre a JM Games</h2>
       <div class="accordion shadow-light" id="faqAccordion">
@@ -407,8 +390,8 @@
             data-bs-parent="#faqAccordion">
             <div class="accordion-body">
               Não, a JM Games é uma plataforma de busca e informação. Não realizamos vendas diretas de jogos. Nosso
-              objetivo
-              é te ajudar a descobrir e organizar suas pesquisas de jogos. O carrinho e a funcionalidade de "compra" são
+              objetivo é te ajudar a descobrir e organizar suas pesquisas de jogos. O carrinho e a funcionalidade de
+              "compra" são
               exemplos de UX para um projeto de portfólio.
             </div>
           </div>
@@ -418,34 +401,33 @@
   </main>
 
   <button id="voltar-topo" type="button" class="btn btn-primary shadow-medium" onclick="scrollToTop()"
-    title="Voltar ao topo">
+    title="Voltar ao topo" aria-label="Voltar ao topo da página">
     <i class="bi bi-arrow-up"></i>
   </button>
-
   <footer>
     <div class="container py-5">
       <div class="row">
 
         <div class="col-md-3 col-sm-6 mb-4">
           <h5 class="text-uppercase mb-4">JM Games</h5>
-          <p class="text-muted">
+          <p class="text-white">
             Um projeto de portfólio que simula uma loja virtual de games,
-            desenvolvido por [Seu Nome/Link para Portfólio].
+            desenvolvido por Jonathan Monteiro.
             Focado em JavaScript moderno, UX/UI e integração de API.
           </p>
           <div class="social-links mt-3">
-            <a href="https://github.com/JonathanMonteiro777" target="_blank" rel="noopener" class="text-white me-2"
-              title="GitHub de Jonathan Monteiro"><i class="fab fa-github fa-lg"></i></a>
+            <a href="https://github.com/JonathanMonteiro777" target="_blank" rel="noopener"
+              class="text-white text-decoration-none me-2" title="GitHub de Jonathan Monteiro">GitHub</a>
             <a href="https://www.linkedin.com/in/jonathan-lucas-34684a1a4" target="_blank" rel="noopener"
-              class="text-white" title="LinkedIn de Jonathan Lucas"><i class="fab fa-linkedin fa-lg"></i></a>
+              class="text-white text-decoration-none" title="LinkedIn de Jonathan Monteiro">LinkedIn</a>
           </div>
         </div>
 
         <div class="col-md-3 col-sm-6 mb-4">
           <h5 class="text-uppercase mb-4">Fonte de Dados</h5>
-          <p class="text-muted">
+          <p class="text-white">
             Dados de jogos fornecidos pela <a href="https://rawg.io/apidocs" target="_blank" rel="noopener"
-              class="text-white text-decoration-none">RAWG API</a>.
+              class="text-secondary text-decoration-none">RAWG API</a>.
             Um agradecimento especial à RAWG.io pela disponibilidade dos dados para projetos como este.
           </p>
         </div>
@@ -454,8 +436,8 @@
           <h5 class="text-uppercase mb-4">Navegação Rápida</h5>
           <ul class="list-unstyled">
             <li><a href="index.html" class="text-white text-decoration-none">Início</a></li>
-            <li><a href="#jogos-populares" class="text-white text-decoration-none">Jogos Populares</a></li>
-            <li><a href="#novos-lancamentos" class="text-white text-decoration-none">Novos Lançamentos</a></li>
+            <li><a href="#filterPopularGames" class="text-white text-decoration-none">Jogos Populares</a></li>
+            <li><a href="#filterNewReleases" class="text-white text-decoration-none">Novos Lançamentos</a></li>
             <li><a href="login.html" class="text-white text-decoration-none">Minha Conta</a></li>
           </ul>
         </div>
@@ -463,10 +445,9 @@
         <div class="col-md-3 col-sm-6 mb-4">
           <h5 class="text-uppercase mb-4">Explore por:</h5>
           <ul class="list-unstyled">
-            <li><a href="#" class="text-white text-decoration-none">Gêneros (ex: Ação)</a></li>
-            <li><a href="#" class="text-white text-decoration-none">Plataformas (ex: PC)</a></li>
-            <li><a href="#" class="text-white text-decoration-none">Desenvolvedores</a></li>
-            <li><a href="#" class="text-white text-decoration-none">Editoras</a></li>
+            <li><a href="#filtersModal" class="text-white text-decoration-none">Gêneros (ex: Ação)</a></li>
+            <li><a href="#filtersModal" class="text-white text-decoration-none">Plataformas (ex: PC)</a></li>
+            <li><a href="#search-filter-section" class="text-white text-decoration-none">Pesquisar Jogos</a></li>
           </ul>
         </div>
 
@@ -481,11 +462,11 @@
       </div>
     </div>
   </footer>
-
   <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCarrinho" aria-labelledby="offcanvasCarrinhoLabel">
     <div class="offcanvas-header bg-primary text-white">
       <h5 class="offcanvas-title" id="offcanvasCarrinhoLabel"><i class="bi bi-cart"></i> Seu Carrinho</h5>
-      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+        aria-label="Fechar carrinho"></button>
     </div>
     <div class="offcanvas-body bg-light text-dark">
       <ul id="carrinho-lista" class="list-group mb-3">
@@ -504,7 +485,8 @@
   <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasFavoritos" aria-labelledby="offcanvasFavoritosLabel">
     <div class="offcanvas-header bg-warning text-white">
       <h5 class="offcanvas-title" id="offcanvasFavoritosLabel"><i class="bi bi-heart-fill"></i> Seus Favoritos</h5>
-      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+        aria-label="Fechar favoritos"></button>
     </div>
     <div class="offcanvas-body bg-light text-dark">
       <ul id="favoritos-lista" class="list-group mb-3">
@@ -519,10 +501,10 @@
     <div id="toastContainer" class="toast-container">
     </div>
   </div>
+  <script type="module" src="js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous"></script>
 </body>
-
-<script type="module" src="js/main.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
 </html>

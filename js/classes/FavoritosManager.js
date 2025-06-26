@@ -115,7 +115,7 @@ export class FavoritosManager {
                 <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px; border-radius: 5px;">
                 <div>
                     <strong class="d-block">${item.name}</strong>
-                    <span class="text-muted">R$ ${item.price.toFixed(2)}</span>
+                    <span class="text-muted">R$ ${item.price?.toFixed(2) || 'Preço indisponivel'}</span>
                 </div>
             </div>
             <button class="btn btn-danger btn-sm remove-favorite" data-product-id="${item.id}">
@@ -137,11 +137,6 @@ export class FavoritosManager {
                 this.removerItem(productId);
             });
         });
-
-        // Chama a função para atualizar o estado dos botões nos cards da página principal
-        // É importante fazer isso aqui para que, ao carregar a página ou mudar o carrinho,
-        // os botões nos cards reflitam o estado atual dos favoritos.
-        this.updateAllFavoriteButtonsUI();
     }
 
     /**

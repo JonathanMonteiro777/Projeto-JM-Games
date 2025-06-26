@@ -1,3 +1,11 @@
+/**
+ * @file BuscaManager.js
+ * @description Gerencia as funcionalidades de busca, filtragem e exibição de jogos
+ * utilizando a API RAWG. Inclui lógica para paginação e integração com
+ * os gerenciadores de carrinho e favoritos.
+ * @version 1.0.0
+ */
+
 import { fetchGames, fetchGenres, fetchPlatforms } from '../services/rawgApi.js';
 import { showToast } from '../utils/domUtils.js';
 import { CarrinhoManager } from './CarrinhoManager.js';
@@ -5,7 +13,7 @@ import { FavoritosManager } from './FavoritosManager.js';
 
 /**
  * @typedef {object} Game - Representa um objeto de jogo da API RAWG.
- * @property {string} id - O ID único do jogo.
+ * @property {number} id - O ID único do jogo.
  * @property {string} name - O nome do jogo.
  * @property {string} [background_image] - URL da imagem de fundo do jogo.
  * @property {string} [released] - Data de lançamento do jogo.
@@ -18,70 +26,74 @@ import { FavoritosManager } from './FavoritosManager.js';
  */
 export class SearchManager {
     /**
+     * Cria uma instância do SearchManager.
      * @param {CarrinhoManager} carrinhoManager - Instância do gerenciador de carrinho.
      * @param {FavoritosManager} favoritosManager - Instância do gerenciador de favoritos.
      */
     constructor(carrinhoManager, favoritosManager) {
-        /** @type {HTMLInputElement} Elemento do input de busca. */
+        /** @private @type {HTMLInputElement} Elemento do input de busca. */
         this.searchInput = document.getElementById('searchInput');
-        /** @type {HTMLButtonElement} Elemento do botão de busca. */
+        /** @private @type {HTMLButtonElement} Elemento do botão de busca. */
         this.searchButton = document.getElementById('searchButton');
-        /** @type {HTMLElement} Contêiner onde os resultados dos jogos são exibidos. */
+        /** @private @type {HTMLElement} Contêiner onde os resultados dos jogos são exibidos. */
         this.gameResultsContainer = document.getElementById('games-container');
-        /** @type {HTMLElement} Elemento de spinner de carregamento. */
+        /** @private @type {HTMLElement} Elemento de spinner de carregamento. */
         this.loadingSpinner = document.getElementById('loading-spinner');
-        /** @type {HTMLElement} Elemento da mensagem de "nenhum resultado encontrado". */
+        /** @private @type {HTMLElement} Elemento da mensagem de "nenhum resultado encontrado". */
         this.noResultsMessage = document.getElementById('no-results-message');
 
-        /** @type {HTMLButtonElement} Botão para filtrar por todos os jogos (filtro rápido). */
+        /** @private @type {HTMLButtonElement} Botão para filtrar por todos os jogos (filtro rápido). */
         this.filterAllGamesButton = document.getElementById('filterAllGames');
-        /** @type {HTMLButtonElement} Botão para filtrar por novos lançamentos (filtro rápido). */
+        /** @private @type {HTMLButtonElement} Botão para filtrar por novos lançamentos (filtro rápido). */
         this.filterNewReleasesButton = document.getElementById('filterNewReleases');
-        /** @type {HTMLButtonElement} Botão para filtrar por jogos mais populares (filtro rápido). */
+        /** @private @type {HTMLButtonElement} Botão para filtrar por jogos mais populares (filtro rápido). */
         this.filterPopularGamesButton = document.getElementById('filterPopularGames');
 
-        /** @type {HTMLElement} Contêiner para os checkboxes de gênero no modal. */
+        /** @private @type {HTMLElement} Contêiner para os checkboxes de gênero no modal. */
         this.genresFilterContainer = document.getElementById('genresFilterContainer');
-        /** @type {HTMLElement} Contêiner para os checkboxes de plataforma no modal. */
+        /** @private @type {HTMLElement} Contêiner para os checkboxes de plataforma no modal. */
         this.platformsFilterContainer = document.getElementById('platformsFilterContainer');
-        /** @type {HTMLButtonElement} Botão para limpar todos os filtros no modal. */
+        /** @private @type {HTMLButtonElement} Botão para limpar todos os filtros no modal. */
         this.clearFiltersButton = document.getElementById('clearFiltersButton');
-        /** @type {HTMLButtonElement} Botão para aplicar os filtros no modal. */
+        /** @private @type {HTMLButtonElement} Botão para aplicar os filtros no modal. */
         this.applyFiltersButton = document.getElementById('applyFiltersButton');
 
-        /** @type {CarrinhoManager} Gerenciador de carrinho. */
+        /** @private @type {CarrinhoManager} Gerenciador de carrinho. */
         this.carrinhoManager = carrinhoManager;
-        /** @type {FavoritosManager} Gerenciador de favoritos. */
+        /** @private @type {FavoritosManager} Gerenciador de favoritos. */
         this.favoritosManager = favoritosManager;
 
-        /** @type {HTMLElement} Contêiner dos controles de paginação. */
+        /** @private @type {HTMLElement} Contêiner dos controles de paginação. */
         this.paginationControls = document.getElementById('pagination-controls');
 
         // Estado da Paginação
-        /** @type {number} A página atual da busca. */
+        /** @private @type {number} A página atual da busca. */
         this.currentPage = 1;
-        /** @type {string|null} URL da próxima página da API. */
+        /** @private @type {string|null} URL da próxima página da API. */
         this.nextPageUrl = null;
-        /** @type {string|null} URL da página anterior da API. */
+        /** @private @type {string|null} URL da página anterior da API. */
         this.previousPageUrl = null;
-        /** @type {number} Contagem total de resultados da busca. */
+        /** @private @type {number} Contagem total de resultados da busca. */
         this.totalResultsCount = 0;
 
         // Estado dos parâmetros de busca
-        /** @type {Object.<string, any>} Parâmetros atuais para a requisição da API. */
+        /** @private @type {Object.<string, any>} Parâmetros atuais para a requisição da API. */
         this.currentSearchParams = {
             search: '',
             genres: '',
             platforms: '',
             ordering: '-rating', // Define um filtro padrão para a carga inicial (Populares)
-            page_size: 20,
+            page_size: 21,
             page: this.currentPage
         };
 
         // Estado dos filtros selecionados nos checkboxes do modal
+        /** @private @type {string[]} Gêneros selecionados no filtro do modal (slugs). */
         this.selectedGenres = [];
+        /** @private @type {string[]} Plataformas selecionadas no filtro do modal (slugs). */
         this.selectedPlatforms = [];
-        this.currentQuickOrdering = null; // Para controlar os filtros rápidos (Todos, Novidades, Populares)
+        /** @private @type {string|null} O filtro rápido de ordenação atualmente ativo. */
+        this.currentQuickOrdering = null; 
 
         this.initEventListeners();
         this.populateFilters(); // Popula os checkboxes de gênero e plataforma
@@ -92,7 +104,10 @@ export class SearchManager {
     }
 
     /**
-     * Inicializa todos os event listeners para os elementos da UI.
+     * Inicializa todos os event listeners para os elementos da UI gerenciados por esta classe.
+     * Os listeners para botões de "Adicionar ao Carrinho" e "Adicionar aos Favoritos"
+     * nos cards de jogos são gerenciados por delegação de eventos no `main.js`.
+     * @private
      */
     initEventListeners() {
         // Event listener para o input de busca (ao pressionar Enter)
@@ -101,7 +116,7 @@ export class SearchManager {
                 if (event.key === 'Enter') {
                     this.currentPage = 1;
                     this.currentSearchParams.search = this.searchInput.value.trim();
-                    // Ao fazer uma busca textual, limpamos outros filtros (rapidos e do modal)
+                    // Ao fazer uma busca textual, limpamos outros filtros (rápidos e do modal)
                     this.selectedGenres = [];
                     this.selectedPlatforms = [];
                     this.currentQuickOrdering = null;
@@ -117,7 +132,7 @@ export class SearchManager {
             this.searchButton.addEventListener('click', () => {
                 this.currentPage = 1;
                 this.currentSearchParams.search = this.searchInput.value.trim();
-                // Ao fazer uma busca textual, limpamos outros filtros (rapidos e do modal)
+                // Ao fazer uma busca textual, limpamos outros filtros (rápidos e do modal)
                 this.selectedGenres = [];
                 this.selectedPlatforms = [];
                 this.currentQuickOrdering = null;
@@ -148,7 +163,7 @@ export class SearchManager {
             this.applyFiltersButton.addEventListener('click', () => this.applyModalFilters());
         }
 
-        // Event listener para paginação (delegation)
+        // Event listener para paginação (delegação)
         if (this.paginationControls) {
             this.paginationControls.addEventListener('click', (e) => {
                 const target = e.target.closest('.page-link');
@@ -182,6 +197,7 @@ export class SearchManager {
      * Lida com o clique nos botões de filtro rápido (Todos, Novidades, Populares).
      * @param {string|null} ordering - O valor do parâmetro 'ordering' para a API.
      * @param {HTMLElement} clickedButton - O botão HTML que foi clicado.
+     * @private
      */
     handleQuickFilter(ordering, clickedButton) {
         this._resetQuickFilterButtons(); // Desativa todos os botões de filtro rápido
@@ -201,7 +217,7 @@ export class SearchManager {
             search: '', // Garante que a busca textual esteja limpa
             genres: '',
             platforms: '',
-            page_size: 20,
+            page_size: 21,
             page: 1,
             ordering: ordering // Define o novo ordenamento
         };
@@ -211,6 +227,7 @@ export class SearchManager {
 
     /**
      * Reseta a classe 'active' de todos os botões de filtro rápido.
+     * @private
      */
     _resetQuickFilterButtons() {
         this.filterAllGamesButton.classList.remove('active');
@@ -220,6 +237,7 @@ export class SearchManager {
 
     /**
      * Desmarca todos os checkboxes de gênero e plataforma no modal.
+     * @private
      */
     _uncheckAllModalFilters() {
         if (this.genresFilterContainer) {
@@ -231,7 +249,7 @@ export class SearchManager {
     }
 
     /**
-     * Aplica os filtros selecionados no modal.
+     * Aplica os filtros selecionados no modal de gênero e plataforma.
      */
     applyModalFilters() {
         this.selectedGenres = Array.from(this.genresFilterContainer.querySelectorAll('input[type="checkbox"]:checked'))
@@ -248,7 +266,7 @@ export class SearchManager {
         // Atualiza currentSearchParams com os novos filtros.
         this.currentSearchParams = {
             search: '', // Garante que a busca textual esteja limpa
-            page_size: 20,
+            page_size: 21,
             page: 1,
             genres: this.selectedGenres.join(','),
             platforms: this.selectedPlatforms.join(',')
@@ -285,7 +303,7 @@ export class SearchManager {
             genres: '',
             platforms: '',
             ordering: null, // Ao limpar, não há ordenação inicial ativa a menos que 'Todos' ative
-            page_size: 20,
+            page_size: 21,
             page: this.currentPage
         };
 
@@ -309,7 +327,7 @@ export class SearchManager {
             genres: '',
             platforms: '',
             ordering: '-rating', // Carrega jogos mais populares por padrão
-            page_size: 20,
+            page_size: 21,
             page: 1
         };
         this.currentPage = 1;
@@ -322,6 +340,7 @@ export class SearchManager {
 
     /**
      * Popula os containers de checkboxes de gênero e plataforma com dados da API.
+     * @private
      */
     async populateFilters() {
         // Carrega os gêneros
@@ -393,7 +412,7 @@ export class SearchManager {
 
         if (this.currentSearchParams.search) {
             params.search = this.currentSearchParams.search;
-            // Se houver busca textual, remove os filtros de gênero, plataforma e ordenação
+            // Se houver busca textual, remove os filtros de gênero, plataforma e ordenação,
             // pois a busca textual na API RAWG geralmente ignora esses parâmetros.
             delete params.genres;
             delete params.platforms;
@@ -430,6 +449,8 @@ export class SearchManager {
             } else {
                 this.hideNoResultsMessage();
                 this.renderGames(games);
+                // CHAVE: Após renderizar os novos cards, atualize o estado de todos os botões de favoritos.
+                this.favoritosManager.updateAllFavoriteButtonsUI(); 
             }
             this.renderPaginationControls(); // Renderiza paginação
         } catch (error) {
@@ -444,6 +465,7 @@ export class SearchManager {
 
     /**
      * Exibe o spinner de carregamento e oculta a mensagem de "nenhum resultado".
+     * @private
      */
     showLoading() {
         if (this.loadingSpinner) {
@@ -454,6 +476,7 @@ export class SearchManager {
 
     /**
      * Oculta o spinner de carregamento.
+     * @private
      */
     hideLoading() {
         if (this.loadingSpinner) {
@@ -464,6 +487,7 @@ export class SearchManager {
     /**
      * Exibe a mensagem de "nenhum resultado encontrado".
      * @param {string} message - A mensagem a ser exibida.
+     * @private
      */
     showNoResultsMessage(message) {
         if (this.noResultsMessage) {
@@ -477,6 +501,7 @@ export class SearchManager {
 
     /**
      * Oculta a mensagem de "nenhum resultado encontrado".
+     * @private
      */
     hideNoResultsMessage() {
         if (this.noResultsMessage) {
@@ -486,6 +511,7 @@ export class SearchManager {
 
     /**
      * Limpa os resultados dos jogos da tela.
+     * @private
      */
     clearResults() {
         if (this.gameResultsContainer) {
@@ -495,6 +521,7 @@ export class SearchManager {
 
     /**
      * Renderiza os controles de paginação (anterior, números de página, próximo).
+     * @private
      */
     renderPaginationControls() {
         this.paginationControls.innerHTML = ''; // Limpa para re-renderizar
@@ -586,8 +613,9 @@ export class SearchManager {
             this.gameResultsContainer.appendChild(gameCard);
         });
 
-        // Re-anexa listeners para adicionar ao carrinho/favoritos nos novos cards renderizados
-        this.attachCartAndWishListeners();
+        // NOTA: A anexação de listeners para "Adicionar ao Carrinho" e "Adicionar aos Favoritos"
+        // é agora tratada pelo event listener delegado no `document.body` em `main.js`.
+        // A função `attachCartAndWishListeners()` e os handlers diretos foram removidos.
     }
 
     /**
@@ -602,6 +630,10 @@ export class SearchManager {
         // Mantém as classes da versão antiga para responsividade individual do card
         cardCol.classList.add('col-md-4', 'col-sm-6', 'mb-4');
 
+        // Determina o estado inicial do ícone de favorito
+        const isFavorited = favoritosManager.isFavorited(game.id);
+        const heartIconClass = isFavorited ? 'bi-heart-fill' : 'bi-heart';
+
         cardCol.innerHTML = `
                 <div class="card h-100 shadow-light game-card-link">
                     <a href="pages/detalhes.html?id=${game.id}" class="card-link-overlay">
@@ -610,17 +642,17 @@ export class SearchManager {
                             <h5 class="card-title fw-bold">${game.name || 'Nome Desconhecido'}</h5>
                             <p class="card-text flex-grow-1">
                                 Lançamento: ${game.released || 'N/A'}<br>
-                                Avaliação: <span>${game.rating || 'N/A'}/5</span>
+                                Avaliação: <span>${game.rating?.toFixed(1) || 'N/A'}/5</span>
                             </p>
                             <p class="text-price text-success">R$${((game.id % 100) + 50).toFixed(2)}</p>
                             <p class="text-warning text-sm">
-                                ${stars} (${game.rating || 'N/A'}/5)
+                                ${stars} (${game.rating?.toFixed(1) || 'N/A'}/5)
                             </p>
                         </div>
                         <div class="view-details-overlay">Ver Detalhes</div>
                     </a>
-                    <div class="d-flex justify-content-around align-items-center mt-auto p-3 bg-light border-top">
-                        <a href="#" class="btn btn-gamer flex-fill me-2 add-to-cart"
+                    <div class="d-flex justify-content-around align-items-center mt-auto p-4 bg-light border-top">
+                        <a class="btn btn-gamer add-to-cart flex-fill me-2"
                             data-product-id="${game.id}"
                             data-product-name="${game.name}"
                             data-product-price="${((game.id % 100) + 50).toFixed(2)}"
@@ -633,111 +665,11 @@ export class SearchManager {
                             data-product-name="${game.name}"
                             data-product-price="${((game.id % 100) + 50).toFixed(2)}"
                             data-product-image="${game.background_image || 'img/placeholder.PNG'}">
-                            <i class="bi ${favoritosManager.isFavorited(game.id) ? 'bi-heart-fill' : 'bi-heart'}"></i>
+                            <i class="bi ${heartIconClass}"></i>
                         </button>
                     </div>
                 </div>
             `;
         return cardCol;
-    }
-
-    /**
-     * Anexa os event listeners para os botões "Adicionar ao Carrinho" e "Adicionar aos Favoritos"
-     * em todos os cards de jogos renderizados. Garante que listeners duplicados não sejam criados.
-     */
-    attachCartAndWishListeners() {
-        this.gameResultsContainer.querySelectorAll('.add-to-cart').forEach(button => {
-            // Remove o listener anterior se já foi anexado para evitar duplicação
-            if (button.handleAddToCartBound) {
-                button.removeEventListener('click', button.handleAddToCartBound);
-            }
-            // Anexa o novo listener e armazena a referência para futura remoção
-            const boundHandler = this.handleAddToCart.bind(this, this.carrinhoManager);
-            button.addEventListener('click', boundHandler);
-            button.handleAddToCartBound = boundHandler;
-        });
-
-        this.gameResultsContainer.querySelectorAll('.add-to-favorites').forEach(button => {
-            // Remove o listener anterior se já foi anexado para evitar duplicação
-            if (button.handleAddToWishlistBound) {
-                button.removeEventListener('click', button.handleAddToWishlistBound);
-            }
-            // Anexa o novo listener e armazena a referência para futura remoção
-            const boundHandler = this.handleAddToWishlist.bind(this, this.favoritosManager);
-            button.addEventListener('click', boundHandler);
-            button.handleAddToWishlistBound = boundHandler;
-
-            // Atualiza o ícone de coração com base no estado atual dos favoritos
-            const productId = button.dataset.productId;
-            const heartIcon = button.querySelector('i.bi');
-            if (heartIcon) {
-                if (this.favoritosManager.isFavorited(productId)) {
-                    heartIcon.classList.remove('bi-heart');
-                    heartIcon.classList.add('bi-heart-fill');
-                } else {
-                    heartIcon.classList.remove('bi-heart-fill');
-                    heartIcon.classList.add('bi-heart');
-                }
-            }
-        });
-    }
-
-    /**
-     * Lida com o evento de clique para adicionar um item ao carrinho.
-     * @param {CarrinhoManager} carrinhoManager - Instância do gerenciador de carrinho.
-     * @param {Event} event - O evento de clique.
-     */
-    handleAddToCart(carrinhoManager, event) {
-        event.preventDefault(); // Evita a navegação do link <a>
-        const productId = event.currentTarget.dataset.productId;
-        const productName = event.currentTarget.dataset.productName;
-        const productPrice = parseFloat(event.currentTarget.dataset.productPrice);
-        const productImage = event.currentTarget.dataset.productImage;
-
-        const product = {
-            id: productId,
-            name: productName,
-            price: productPrice,
-            image: productImage
-        };
-
-        carrinhoManager.adicionarItem(product);
-        showToast(`${product.name} adicionado ao carrinho!`, 'success');
-
-        // Dispara um evento personalizado para notificar que o carrinho foi atualizado
-        document.dispatchEvent(new CustomEvent('cartUpdated'));
-    }
-
-    /**
-     * Lida com o evento de clique para adicionar/remover um item dos favoritos.
-     * @param {FavoritosManager} favoritosManager - Instância do gerenciador de favoritos.
-     * @param {Event} event - O evento de clique.
-     */
-    handleAddToWishlist(favoritosManager, event) {
-        event.preventDefault();
-        const productId = event.currentTarget.dataset.productId;
-        const productName = event.currentTarget.dataset.productName;
-        const productPrice = parseFloat(event.currentTarget.dataset.productPrice);
-        const productImage = event.currentTarget.dataset.productImage;
-
-        const product = {
-            id: productId,
-            name: productName,
-            price: productPrice,
-            image: productImage
-        };
-
-        const isNowFavorited = favoritosManager.adicionarRemoverItem(product);
-
-        // Atualiza o ícone visualmente no botão que foi clicado
-        const icon = event.currentTarget.querySelector('i.bi');
-        if (icon) {
-            icon.classList.toggle('bi-heart-fill', isNowFavorited);
-            icon.classList.toggle('bi-heart', !isNowFavorited);
-        }
-        showToast(`${product.name} ${isNowFavorited ? 'adicionado' : 'removido'} dos favoritos!`, 'info');
-
-        // Dispara um evento personalizado para notificar que os favoritos foram atualizados
-        document.dispatchEvent(new CustomEvent('favoritesUpdated'));
     }
 }

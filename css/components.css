@@ -5,72 +5,83 @@
  * @version 1.0.0
  ============================================================================ */
 
-/* --- Botões --- */
 /**
- * @component Button
- * @description Estilos para botões gerais da aplicação com gradiente temático.
+ * @component Btn-gamer
+ * @description Estilo para botões de "Adicionar ao Carrinho" dentro dos cards.
  */
 .btn-gamer {
-    /** Fundo com gradiente primário definido nas variáveis. */
-    background: var(--gradient-primary);
-    /** Remove a borda padrão do botão. */
+    /* Herda estilos básicos do Bootstrap, como padding, font-size, etc. */
+    background: var(--gradient-primary); 
     border: none;
-    /** Cor do texto branca para contraste com o gradiente. */
-    color: white;
-    /** Peso da fonte semi-negrito. */
+    color: white; 
     font-weight: 600;
-    /** Preenchimento interno do botão. */
     padding: 0.75rem 1.5rem;
-    /** Raio da borda baseado na variável de formulário. */
     border-radius: var(--form-border-radius);
     /** Transição suave para todas as propriedades ao interagir. */
     transition: all 0.3s ease;
-    /** Converte o texto para maiúsculas. */
     text-transform: uppercase;
-    /** Espaçamento entre as letras. */
     letter-spacing: 0.5px;
+    background-size: 200% auto;
 }
 
 .btn-gamer:hover {
-    /** Gradiente mais escuro no hover para feedback visual. */
-    background: linear-gradient(135deg, #1557b0, #0aa6c2);
+    background: linear-gradient(135deg, #1557b0, #0aa6c2); 
     /** Eleva o botão ligeiramente para um efeito 3D. */
     transform: translateY(-2px);
-    /** Sombra para destacar o botão no hover. */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .btn-gamer:active {
-    /** Retorna o botão à posição original ao ser clicado. */
     transform: translateY(0);
 }
 
-/* --- Cards de Produto (Game Card) --- */
+/**
+ * @component AddToFavoritesButton
+ * @description Estilo para botões de "Adicionar aos Favoritos" dentro dos cards.
+ */
+.btn-add-to-favorites {
+    background-color: transparent;
+    border: 1px solid var(--bs-gray-400);
+    color: var(--bs-gray-700);
+    border-radius: var(--form-border-radius);
+    padding: 0.5rem 0.75rem; 
+    transition: all 0.3s ease;
+    display: inline-flex;
+    min-width: 40px; 
+    min-height: 40px;
+}
+
+.btn-add-to-favorites:hover {
+    background-color: rgba(var(--primary-rgb), 0.1); 
+    border-color: var(--primary-color);/
+}
+
+/* Estilo para o ícone de coração preenchido (quando já é favorito) */
+.btn-add-to-favorites .bi-heart-fill {
+    color: var(--secondary-color); 
+}
+/* No hover, o coração preenchido mantém sua cor secundária, mas o restante do botão pode mudar */
+.btn-add-to-favorites:hover .bi-heart-fill {
+    color: var(--secondary-color);
+}
+
 /**
  * @component ProductCard
  * @description Estilos para os cards de produtos (jogos) na listagem.
  */
 .product-card {
-    /** Garante que o card ocupe 100% da altura do seu contêiner flexível. */
+    
     height: 100%;
-    /** Raio da borda para o card. */
     border-radius: var(--form-border-radius);
-    /** Transição suave para todas as propriedades. */
     transition: all 0.3s ease;
-    /** Borda sutil para o card. */
-    border: 1px solid var(--bs-light);
-    /** Fundo claro para o card. */
-    background-color: var(--bs-light);
-    /** Cor do texto padrão para o conteúdo do card. */
+    border: 1px solid var(--bs-gray-300); 
+    background-color: var(--bs-body-bg); 
     color: var(--bs-body-color);
-    /** Sombra suave para o card. */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
 }
 
 .product-hover:hover {
-    /** Eleva o card ligeiramente no hover. */
     transform: translateY(-5px);
-    /** Sombra mais pronunciada no hover. */
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
@@ -80,55 +91,37 @@
  * efeitos de hover e overlay de detalhes.
  */
 .game-card-link {
-    /** Posição relativa para posicionamento absoluto de elementos filhos. */
     position: relative;
-    /** Esconde o conteúdo que excede o raio da borda. */
     overflow: hidden;
-    /** Transição suave para o efeito de zoom. */
     transition: transform 0.3s ease-in-out;
-    /** Indica que o elemento é clicável. */
     cursor: pointer;
-    /** Sombra para o card. */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-    /** Raio da borda para o card inteiro. */
     border-radius: var(--form-border-radius);
 }
 
 .game-card-link:hover {
-    /** Aplica um zoom no card inteiro no hover. */
     transform: scale(1.03);
-    /** Sombra mais intensa no hover. */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
 .card-link-overlay {
-    /** Remove sublinhado do link. */
     text-decoration: none;
     /** Herda a cor do texto do elemento pai. */
     color: inherit;
-    /** Garante que o link ocupe todo o espaço. */
     display: block;
-    /** Posição relativa para z-index. */
     position: relative;
     /** Garante que o overlay do link esteja acima de outros elementos básicos. */
     z-index: 1;
 }
 
 .view-details-overlay {
-    /** Posiciona o overlay absolutamente sobre o card. */
     position: absolute;
-    /** Ancorado no topo e à esquerda. */
     top: 0;
     left: 0;
-    /** Ocupa 100% da largura do card. */
     width: 100%;
-    /** Altura para cobrir a imagem superior do card. */
-    height: 220px; /* Ajuste para ser a mesma altura de .card-img-top */
-    /** Fundo semi-transparente escuro. */
+    height: 200px;
     background-color: rgba(0, 0, 0, 0.6);
-    /** Cor do texto branca. */
     color: white;
-    /** Utiliza flexbox para centralizar o texto. */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -148,7 +141,6 @@
 }
 
 .game-card-link:hover .view-details-overlay {
-    /** Exibe o overlay de "Ver Detalhes" no hover do card. */
     opacity: 1;
 }
 
@@ -157,264 +149,63 @@
  * @description Estilos para a imagem principal do card de produto.
  */
 .card-img-top {
-    /** Garante que a imagem ocupe toda a largura disponível no card. */
     width: 100%;
-    /** Altura fixa para a imagem do topo do card. */
-    height: 220px;
-    /** Recorta a imagem para cobrir o espaço, mantendo a proporção. */
+    height: 200px;
     object-fit: cover;
     /** Arredonda apenas os cantos superiores da imagem. */
     border-radius: var(--form-border-radius) var(--form-border-radius) 0 0;
 }
 
 /**
- * @component CardBody
- * @description Estilos para o corpo do card de produto.
- */
-.card-body {
-    /** Remove preenchimento inferior padrão do Bootstrap. */
-    padding-bottom: 0 !important;
-    /** Fundo claro para o corpo do card. */
-    background-color: var(--bs-light);
-    /** Texto escuro para o corpo do card. */
-    color: var(--bs-dark);
-}
-
-/* --- Imagens Diversas --- */
-/**
- * @component ImageProduct
- * @description Estilos para imagens de produto menores.
- */
-.img-produto {
-    /** Altura fixa para imagens menores de produto. */
-    height: 100px;
-    /** Garante que a imagem preencha o espaço sem distorção. */
-    object-fit: cover;
-    /** Arredonda apenas os cantos superiores. */
-    border-radius: var(--form-border-radius) var(--form-border-radius) 0 0;
-}
-
-/**
- * @component ImageBanner
- * @description Estilos para imagens de banner que podem aparecer como componentes (não seções inteiras).
- */
-.img-banner {
-    /** Altura máxima para imagens de banner. */
-    max-height: 500px;
-    /** Garante que a imagem preencha o espaço sem distorção. */
-    object-fit: cover;
-    /** Raio da borda para a imagem. */
-    border-radius: var(--form-border-radius);
-}
-
-/* --- Formulários --- */
-/**
- * @component FormContainer
- * @description Estilos para o contêiner principal dos formulários.
- */
-.form-container {
-    /** Fundo claro para o contêiner do formulário. */
-    background: var(--bs-light);
-    /** Raio da borda para o contêiner. */
-    border-radius: var(--form-border-radius);
-    /** Transição suave para todas as propriedades. */
-    transition: all 0.3s ease;
-    /** Sombra suave para o contêiner. */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.form-container:hover {
-    /** Sombra um pouco mais forte no hover. */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-}
-
-/**
- * @component FormGroup
- * @description Estilos para grupos de formulário (label + input).
- */
-.form-group {
-    /** Posição relativa para posicionamento de elementos internos (ex: ícones). */
-    position: relative;
-}
-
-/**
- * @component FormInput
- * @description Estilos para campos de entrada de formulário.
- */
-.form-input {
-    /** Raio da borda para o input. */
-    border-radius: var(--form-border-radius);
-    /** Borda com cor padrão do Bootstrap ou customizada. */
-    border: 2px solid var(--bs-gray-300, #dee2e6);
-    /** Preenchimento interno do input. */
-    padding: 0.75rem 1rem;
-    /** Transição suave. */
-    transition: all 0.3s ease;
-    /** Cor do texto digitado escura para contraste. */
-    color: var(--bs-dark);
-    /** Fundo do input claro. */
-    background-color: var(--bs-white, #fff);
-}
-
-.form-input:focus {
-    /** Cor da borda ao focar. */
-    border-color: var(--form-focus-color);
-    /** Sombra ao focar. */
-    box-shadow: var(--form-shadow-focus);
-    /** Eleva o input ligeiramente ao focar. */
-    transform: translateY(-1px);
-}
-
-/**
- * @component FormLabel
- * @description Estilos para rótulos de formulário.
- */
-.form-label {
-    /** Cor escura para as labels. */
-    color: var(--bs-dark);
-    /** Margem inferior. */
-    margin-bottom: 0.5rem;
-    /** Tamanho da fonte. */
-    font-size: 0.95rem;
-}
-
-/**
- * @component TogglePassword
- * @description Estilos para o botão de alternar visibilidade da senha.
- */
-.toggle-password {
-    /** Remove a borda esquerda para integrar visualmente com o input. */
-    border-left: none;
-    /** Fundo claro para o botão de toggle. */
-    background-color: var(--bs-light);
-    /** Cor do ícone/texto escura. */
-    color: var(--bs-dark);
-}
-
-.toggle-password:hover {
-    /** Fundo levemente mais escuro no hover. */
-    background-color: var(--bs-gray-200, #e9ecef);
-    /** Cor da borda no hover. */
-    border-color: var(--bs-primary);
-}
-
-/* --- Cards de Benefícios e Segurança --- */
-/**
  * @component BenefitCard
  * @description Estilos para cards que exibem benefícios ou recursos.
  */
 .benefit-card,
 .security-card {
-    /** Transição suave para todas as propriedades. */
     transition: all 0.3s ease;
-    /** Indica que o elemento é clicável. */
     cursor: pointer;
-    /** Fundo claro para os cards. */
-    background-color: var(--bs-light);
-    /** Texto escuro. */
-    color: var(--bs-body-color);
-    /** Sombra suave. */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .benefit-card:hover {
-    /** Eleva o card ligeiramente no hover. */
     transform: translateY(-3px);
-    /** Sombra no hover. */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
 }
 
 .security-card:hover {
-    /** Eleva o card ligeiramente no hover. */
     transform: translateY(-3px);
-    /** Sombra mais forte no hover. */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
 }
 
-
-/* --- Cores dos Badges --- */
-/**
- * @component Badge
- * @description Sobrescrita de estilos para badges Bootstrap com cores temáticas.
- */
-.badge.bg-primary {
-    /** Fundo com a cor primária do tema. */
-    background-color: var(--primary-color) !important;
-}
-
-.badge.bg-secondary {
-    /** Fundo com a cor secundária do tema. */
-    background-color: var(--secondary-color) !important;
-}
-
-/* --- Container de Mídia (Vídeo/Imagem Principal de Jogo) --- */
-/**
- * @component GameMediaContainer
- * @description Estilos para o contêiner principal de mídia em páginas de detalhes de jogo.
- */
-.game-media-container {
-    /** Garante que o contêiner não exceda a largura de seu pai. */
-    max-width: 100%;
-    /** Altura automática para manter proporção. */
-    height: auto;
-    /** Centraliza o contêiner horizontalmente. */
-    margin: 0 auto;
-    /** Borda com a cor primária do tema. */
-    border: 2px solid var(--primary-color);
-}
-
-.game-media-container video,
-.game-media-container img {
-    /** Remove espaço extra abaixo de elementos inline. */
-    display: block;
-    /** Ocupa 100% da largura e altura do contêiner. */
-    width: 100%;
-    height: 100%;
-    /** Garante que a mídia preencha o contêiner sem distorção. */
-    object-fit: cover;
-}
-
-/* --- Galeria de Screenshots --- */
 /**
  * @component ScreenshotsGallery
  * @description Estilos para as imagens dentro de uma galeria de screenshots.
  */
 .screenshots-gallery img {
-    /** Indica que a imagem é clicável. */
     cursor: pointer;
-    /** Transição suave para o efeito de transformação. */
     transition: transform 0.2s ease-in-out;
-    /** Borda sutil. */
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--bs-gray-400); 
 }
 
 .screenshots-gallery img:hover {
-    /** Aplica um leve zoom na imagem no hover. */
     transform: scale(1.05);
-    /** Muda a cor da borda no hover. */
     border-color: var(--secondary-color);
 }
 
-/* --- Lista de Informações do Jogo --- */
 /**
  * @component GameInfoList
  * @description Estilos para a lista de informações detalhadas de um jogo.
  */
 .game-info-list strong {
-    /** Cor amarela para os títulos das informações. */
     color: var(--secondary-color);
-    /** Largura mínima para alinhar os dois pontos. */
-    min-width: 120px;
-    /** Permite que `min-width` funcione corretamente. */
-    display: inline-block;
+    min-width: 150px;
+    
 }
 
 .game-info-list li {
-    /** Preenchimento inferior. */
     padding-bottom: 0.5rem;
     /** Borda inferior tracejada. */
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
-    /** Margem inferior. */
+    border-bottom: 1px dashed var(--bs-gray-400);
     margin-bottom: 0.5rem;
 }
 
@@ -424,121 +215,60 @@
     margin-bottom: 0;
 }
 
-/* --- Botões de Ação de Detalhes (Adicionar ao Carrinho/Favoritos) --- */
-/**
- * @component CallToActionButtons
- * @description Estilos para botões de ação em páginas de detalhes de itens.
- */
-.add-to-cart-details, .add-to-favorites-details {
-    /** Evita que o texto quebre em várias linhas. */
-    white-space: nowrap;
-}
-
-/* --- Ajustes para Modais (se precisar sobrescrever o Bootstrap) --- */
-/**
- * @component Modal
- * @description Estilos para o componente Modal, ajustando elementos visuais.
- */
-.modal-content {
-    /** Remove a borda padrão do modal. */
-    border: none;
-}
-
-.modal-header {
-    /** Borda inferior do cabeçalho do modal. */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* --- Estilos para o Footer --- */
 /**
  * @component Footer
  * @description Estilos visuais para o componente de rodapé da página.
- * @note Os estilos de posicionamento (flex-shrink) devem permanecer em layout.css.
  */
 footer {
-    /** Cor de fundo escura para contraste. */
-    background-color: #333;
-    /** Cor do texto claro. */
-    color: #f8f9fa;
-    /** Tamanho da fonte do texto do rodapé. */
+    background-color: #222;
     font-size: 0.9em;
 }
 
 footer h5 {
-    /** Cor primária para os títulos do rodapé. */
     color: var(--primary-color);
-    /** Fonte específica para os títulos do rodapé. */
-    font-family: 'Montserrat', sans-serif;
-    /** Peso da fonte negrito para os títulos. */
     font-weight: 700;
 }
 
-footer p.text-muted,
+footer p.text-white,
 footer .list-unstyled li a.text-white,
 footer .social-links a.text-white {
-    /** Cor do texto e links com um tom de branco mais suave. */
-    color: rgba(255, 255, 255, 0.7) !important;
-    /** Transição suave para a cor no hover. */
+    color: var(--bs-gray-400);
     transition: color 0.3s ease;
 }
 
 footer .list-unstyled li a.text-white:hover,
 footer .social-links a.text-white:hover {
-    /** Cor secundária no hover dos links. */
     color: var(--secondary-color) !important;
 }
 
-/* Opcional: Separador no Footer */
-footer hr.bg-secondary {
-    /** Cor da borda do separador. */
-    border-color: rgba(255, 255, 255, 0.2) !important;
-}
-
-/* --- Botão Voltar ao Topo --- */
 /**
  * @component GoToTopButton
  * @description Estilos visuais e de interação para o botão "Voltar ao Topo".
- * @note Os estilos de posicionamento (fixed, bottom, right) devem permanecer em layout.css.
  */
 #voltar-topo {
-    /** Largura e altura para o botão. */
     width: 50px;
     height: 50px;
-    /** Arredonda o botão para formar um círculo. */
     border-radius: 50%;
-    /** Escondido por padrão, controlado por JS. */
     display: none;
-    /** Opacidade inicial para transição, controlado por JS. */
     opacity: 0;
-    /** Transição suave para todas as propriedades. */
     transition: all 0.3s ease;
-    /* A cor de fundo é controlada pela classe Bootstrap 'btn-primary' no HTML */
 }
 
 #voltar-topo:hover {
-    /** Eleva o botão ligeiramente no hover. */
-    transform: translateY(-2px);
-    /** Sombra no hover. */
+    transform: translateY(-3px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* --- Toast Notifications --- */
 /**
  * @component ToastContainer
  * @description Estilos para o contêiner de notificações toast.
  */
 #toastContainer {
-    /** Garante que o contêiner esteja acima de outros elementos. */
     z-index: 1100;
-    /** Posição fixa na viewport. */
     position: fixed;
-    /** Distância do rodapé. */
     bottom: 20px;
-    /** Distância da direita. */
     right: 10px;
-    /** Preenchimento interno. */
     padding: 1rem;
-    /** Impede que os eventos de mouse interajam com o contêiner. */
     pointer-events: none;
 }
 
@@ -547,11 +277,8 @@ footer hr.bg-secondary {
  * @description Estilos para o corpo da notificação toast.
  */
 .toast .toast-body {
-    /** Tamanho da fonte do texto do toast. */
     font-size: 1rem;
-    /** Cor do texto baseada no tema. */
     color: var(--bs-body-color);
-    /** Peso da fonte. */
     font-weight: 500;
 }
 
@@ -560,6 +287,33 @@ footer hr.bg-secondary {
  * @description Estilos para a notificação toast individual.
  */
 .toast {
-    /** Largura mínima para o toast. */
     min-width: 280px;
+    background-color: var(--bs-body-bg);
+    border: 1px solid var(--bs-gray-300);
+}
+
+/** 
+ * @component Pagination
+ * @description Estilos para a navegação por páginas.
+ */
+.pagination .page-item .page-link {
+    background-color: var(--bs-gray-600);
+    color: var(--bs-dark);
+    border-color: var(--bs-gray-300);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-color); 
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: var(--bs-gray-500);
+    color: black;
+}
+
+#login-section,
+#register-section {
+    background-color: var(--bs-gray-100);
 }

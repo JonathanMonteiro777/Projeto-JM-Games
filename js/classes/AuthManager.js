@@ -1,24 +1,35 @@
-// js/classes/AuthManager.js
+/**
+ * @file AuthManager.js
+ * @description Gerencia a autenticação de usuários, incluindo login, registro e
+ * a atualização da interface do usuário (UI) com base no status de autenticação.
+ * Utiliza validações de formulário e persistência simples com localStorage.
+ * @version 1.0.0
+ */
 
 import { isValidEmail, isNotEmpty, isValidPassword } from '../utils/validationUtils.js';
 import { showToast } from '../utils/domUtils.js';
 
+/**
+ * Gerencia a lógica de autenticação de usuários e a interação com a UI.
+ */
 export class AuthManager {
+    /**
+     * Cria uma instância do AuthManager.
+     * Configura o listener para o botão de logout e atualiza a UI da navbar
+     * com base no status de login ao carregar a página.
+     */
     constructor() {
-        // O construtor não precisa inicializar os formulários diretamente aqui.
-        // Isso será feito pelo `main.js` ou `login.js` dependendo da página.
-        // Apenas chamamos setupLogout e updateUI, que são para a navbar global.
-        this.setupLogout(); // Configura o listener para o botão de logout na navbar (se existir)
-        this.updateUI();    // Atualiza a navbar no carregamento da página (visibilidade de login/logout)
+        this.setupLogout();
+        this.updateUI();
     }
 
     /**
      * Inicializa os event listeners para o formulário de login.
-     * Deve ser chamado APENAS na página `login.html`.
+     * Este método deve ser chamado apenas na página que contém o formulário de login (`login.html`).
      */
     initLoginForm() {
         const loginForm = document.getElementById('loginForm');
-        if (!loginForm) return; // Garante que só executa se o formulário existir
+        if (!loginForm) return;
 
         loginForm.addEventListener('submit', (event) => {
             event.preventDefault();
@@ -29,25 +40,26 @@ export class AuthManager {
             const email = emailInput.value;
             const password = passwordInput.value;
 
-            // --- Validação de campos ---
             let hasError = false;
 
+            // Validação de e-mail
             if (!isValidEmail(email)) {
                 showToast('Por favor, insira um e-mail válido.', 'danger');
                 emailInput.classList.add('is-invalid');
                 hasError = true;
             } else {
                 emailInput.classList.remove('is-invalid');
-                emailInput.classList.add('is-valid'); // Adiciona valid para feedback visual
+                emailInput.classList.add('is-valid');
             }
 
+            // Validação de senha
             if (!isNotEmpty(password)) {
                 showToast('Por favor, insira sua senha.', 'danger');
                 passwordInput.classList.add('is-invalid');
                 hasError = true;
             } else {
                 passwordInput.classList.remove('is-invalid');
-                passwordInput.classList.add('is-valid'); // Adiciona valid para feedback visual
+                passwordInput.classList.add('is-valid');
             }
 
             if (hasError) return;
@@ -55,18 +67,23 @@ export class AuthManager {
             // Simulação de login
             if (email === 'teste@teste.com' && password === '123456') {
                 showToast('Login realizado com sucesso!', 'success');
-                localStorage.setItem('loggedInUser', email); // Armazena estado de login
+                localStorage.setItem('loggedInUser', email);
                 this.updateUI(); // Atualiza a navbar APÓS o login
-                setTimeout(() => window.location.href = 'index.html', 1000); // Redireciona
+                setTimeout(() => window.location.href = 'index.html', 1000);
             } else {
                 showToast('E-mail ou senha incorretos.', 'danger');
+                // Adiciona feedback visual para falha de login nos campos
+                emailInput.classList.remove('is-valid');
+                emailInput.classList.add('is-invalid');
+                passwordInput.classList.remove('is-valid');
+                passwordInput.classList.add('is-invalid');
             }
         });
 
-        // --- Adicionar validação em tempo real ao digitar ---
+        // Adicionar validação em tempo real ao digitar
         const loginEmailInput = document.getElementById('loginEmail');
-        const loginPasswordInput = document.getElementById('loginPassword'); // Adicionado
-        
+        const loginPasswordInput = document.getElementById('loginPassword');
+
         if (loginEmailInput) {
             loginEmailInput.addEventListener('input', () => {
                 if (isValidEmail(loginEmailInput.value)) {
@@ -78,7 +95,7 @@ export class AuthManager {
                 }
             });
         }
-        // Adiciona validação para senha também (campo não vazio)
+
         if (loginPasswordInput) {
             loginPasswordInput.addEventListener('input', () => {
                 if (isNotEmpty(loginPasswordInput.value)) {
@@ -94,11 +111,11 @@ export class AuthManager {
 
     /**
      * Inicializa os event listeners para o formulário de registro.
-     * Deve ser chamado APENAS na página `register.html`.
+     * Este método deve ser chamado apenas na página que contém o formulário de registro.
      */
     initRegisterForm() {
         const registerForm = document.getElementById('registerForm');
-        if (!registerForm) return; // Garante que só executa se o formulário existir
+        if (!registerForm) return;
 
         registerForm.addEventListener('submit', (event) => {
             event.preventDefault();
@@ -146,8 +163,8 @@ export class AuthManager {
             }
 
             // Validação de Confirmação de Senha
-            if (password !== confirmPassword) {
-                showToast('As senhas não coincidem.', 'danger');
+            if (password !== confirmPassword || !isNotEmpty(confirmPassword)) { // Garante que não está vazio também
+                showToast('As senhas não coincidem ou a confirmação está vazia.', 'danger');
                 confirmPasswordInput.classList.add('is-invalid');
                 hasError = true;
             } else {
@@ -164,8 +181,7 @@ export class AuthManager {
             setTimeout(() => window.location.href = 'login.html', 1000);
         });
 
-        // --- Adicionar validação em tempo real ao digitar ---
-        // Aprimorado para usar um loop e os IDs dos inputs
+        // Adicionar validação em tempo real ao digitar
         const registerInputs = [
             document.getElementById('registerName'),
             document.getElementById('registerEmail'),
@@ -174,7 +190,7 @@ export class AuthManager {
         ];
 
         registerInputs.forEach(input => {
-            if (input) { // Garante que o input existe
+            if (input) {
                 input.addEventListener('input', () => {
                     let isValid = true;
                     if (input.id === 'registerEmail') {
@@ -183,8 +199,8 @@ export class AuthManager {
                         isValid = isValidPassword(input.value);
                     } else if (input.id === 'registerConfirmPassword') {
                         const passwordInput = document.getElementById('registerPassword');
-                        // Garante que a confirmação é válida APENAS se a senha principal também for
-                        isValid = input.value === passwordInput.value && isNotEmpty(input.value);
+                        // Confirmação é válida se a senha principal também é e elas coincidem, e não está vazia
+                        isValid = isValidPassword(passwordInput.value) && input.value === passwordInput.value && isNotEmpty(input.value);
                     } else { // Para nome ou outros campos de texto simples
                         isValid = isNotEmpty(input.value);
                     }
@@ -200,7 +216,7 @@ export class AuthManager {
             }
         });
 
-        // --- Adicionar funcionalidade de toggle de senha (olhinho) ---
+        // Adicionar funcionalidade de toggle de senha (olhinho)
         const togglePasswordButtons = document.querySelectorAll('.toggle-password');
         togglePasswordButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -208,14 +224,16 @@ export class AuthManager {
                 const passwordField = document.getElementById(targetId);
                 const icon = button.querySelector('i');
 
-                if (passwordField.type === 'password') {
-                    passwordField.type = 'text';
-                    icon.classList.remove('bi-eye-fill');
-                    icon.classList.add('bi-eye-slash-fill');
-                } else {
-                    passwordField.type = 'password';
-                    icon.classList.remove('bi-eye-slash-fill');
-                    icon.classList.add('bi-eye-fill');
+                if (passwordField && icon) { // Garante que os elementos existem
+                    if (passwordField.type === 'password') {
+                        passwordField.type = 'text';
+                        icon.classList.remove('bi-eye-fill');
+                        icon.classList.add('bi-eye-slash-fill');
+                    } else {
+                        passwordField.type = 'password';
+                        icon.classList.remove('bi-eye-slash-fill');
+                        icon.classList.add('bi-eye-fill');
+                    }
                 }
             });
         });
@@ -223,31 +241,32 @@ export class AuthManager {
 
     /**
      * Atualiza a interface da navbar (links de login/logout, nome do usuário).
-     * Este método agora é público e pode ser chamado de qualquer lugar.
+     * Este método é público e pode ser chamado de qualquer lugar para refrescar a UI de autenticação.
      */
     updateUI() {
         const loggedInUser = localStorage.getItem('loggedInUser');
         const loginLink = document.getElementById('loginLink');
-        const logoutButton = document.getElementById('logoutButton'); // Este deve ser um botão que existe no HTML
-        const userNameDisplay = document.getElementById('loggedInUserName'); // Se você tiver um elemento para isso
+        const logoutButton = document.getElementById('logoutButton');
+        const userNameDisplay = document.getElementById('loggedInUserName');
 
         if (loggedInUser) {
             // Usuário logado
-            if (loginLink) loginLink.style.display = 'none'; // Esconde o link "Entrar"
+            if (loginLink) loginLink.style.display = 'none';
 
             if (logoutButton) {
-                logoutButton.style.display = 'block'; // Mostra o botão "Sair"
+                logoutButton.style.display = 'block';
+                // Exibe apenas a parte do e-mail antes do '@'
                 logoutButton.textContent = `Sair (${loggedInUser.split('@')[0]})`;
             }
 
             if (userNameDisplay) userNameDisplay.textContent = `Olá, ${loggedInUser.split('@')[0]}!`;
-            
+
         } else {
             // Usuário deslogado
-            if (loginLink) loginLink.style.display = 'block'; // Mostra o link "Entrar"
+            if (loginLink) loginLink.style.display = 'block';
 
             if (logoutButton) {
-                logoutButton.style.display = 'none'; // Esconde o botão "Sair"
+                logoutButton.style.display = 'none';
             }
             if (userNameDisplay) userNameDisplay.textContent = '';
         }
@@ -255,20 +274,19 @@ export class AuthManager {
 
     /**
      * Configura o event listener para o botão de logout.
-     * Este método agora é mais simples, pois a lógica de visibilidade está em updateUI().
+     * Este método garante que o botão de logout funcione corretamente quando presente na página.
+     * @private
      */
     setupLogout() {
         const logoutButton = document.getElementById('logoutButton');
         if (logoutButton) {
-            // Usa uma função de seta para manter o 'this' da instância AuthManager
-            // ou .bind(this) se for uma função regular.
             logoutButton.addEventListener('click', (event) => {
-                event.preventDefault(); // Previne o comportamento padrão do link/botão
-                localStorage.removeItem('loggedInUser'); // Remove o estado de login
+                event.preventDefault();
+                localStorage.removeItem('loggedInUser');
                 showToast('Você foi desconectado.', 'info');
                 this.updateUI(); // Atualiza a UI após o logout
-                // Opcional: redirecionar para a página inicial ou de login
-                // setTimeout(() => window.location.href = 'index.html', 500);
+                // Redirecionar para a página inicial ou de login
+                 setTimeout(() => window.location.href = 'index.html', 500);
             });
         }
     }
