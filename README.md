@@ -2,8 +2,6 @@
 
 ![Preview em desktop](/img/preview-desktop.png)
 
-![Preview em dispositivos móveis](/img/preview-mobile.png)
-
 ---
 
 ## 📄 Sobre o Projeto
