@@ -1,8 +1,8 @@
 # 🎮 JM Games: Seu Portal para o Universo Gamer! 🚀
 
-![Preview em desktop](/img/preview-desktop.jpeg)
+![Preview em desktop](/img/preview-desktop.PNG)
 
-![Preview em dispositivos móveis](/img/preview-mobile.png)
+![Preview em dispositivos móveis](/img/preview-mobile.PNG)
 
 ---
 
